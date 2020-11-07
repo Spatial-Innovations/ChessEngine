@@ -49,7 +49,7 @@ class Tree:
 
         self.processing = False
         print(self.GetInfoStr())
-        print("bestmove")
+        print(f"bestmove {self.currMove}")
 
     def PrintInfo(self):
         #* Prints info regularly.
@@ -60,7 +60,7 @@ class Tree:
     def GetInfoStr(self):
         #* Returns info string
         elapseTime = time.time() - self.timeStart
-        return self.infoStr.format(depth=self.depth+1, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(elapseTime+1)), time=int(elapseTime*1000), moves=self.currMove)
+        return self.infoStr.format(depth=self.depth+1, cp=int(self.score*1000), nodes=self.nodes, nps=int(self.nodes/(elapseTime+1)), time=int(elapseTime*1000), moves=self.currMove)
 
 
 class Node:
@@ -77,9 +77,10 @@ class Node:
 
         newDepth = self.depth + 1
         bestMove = None
+        legalMoves = list(self.pos.generate_legal_moves())
         if maxPlayer:
             maxEval = float("-inf")
-            for move in self.pos.generate_legal_moves():
+            for move in legalMoves:
                 self.tree.nodes += 1
                 self.tree.depth = self.depth
                 if not self.tree.processing:
@@ -97,15 +98,21 @@ class Node:
                 if beta <= alpha:
                     break
             
-            if self.depth == 1:
+            if self.depth == 0:
+                totalEval = 0
+                for m in legalMoves:
+                    board = deepcopy(self.pos)
+                    board.push(m)
+                    totalEval += QuickEval(board)
+
                 self.tree.currMove = bestMove.uci()
-                self.tree.score = maxEval
+                self.tree.score = totalEval / len(legalMoves)
 
             return (maxEval, bestMove)
 
         else:
             minEval = float("inf")
-            for move in self.pos.generate_legal_moves():
+            for move in legalMoves:
                 self.tree.nodes += 1
                 self.tree.depth = self.depth
                 if not self.tree.processing:
@@ -123,7 +130,7 @@ class Node:
                 if beta <= alpha:
                     break
             
-            if self.depth == 1:
+            if self.depth == 0:
                 self.tree.currMove = bestMove.uci()
                 self.tree.score = minEval
 
