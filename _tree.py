@@ -44,9 +44,8 @@ class Tree:
         self.timeStart = time.time()
         threading.Thread(target=self.PrintInfo, args=()).start()
 
-        for depth in range(kwargs["depth"]):
-            self.depth = depth
-            root.GenBranches(depth)
+        if "depth" in kwargs:
+            root.Minimax(kwargs["depth"], self.turn, float("-inf"), float("inf"))
 
         self.processing = False
         print(self.GetInfoStr())
@@ -81,6 +80,11 @@ class Node:
         if maxPlayer:
             maxEval = float("-inf")
             for move in self.pos.generate_legal_moves():
+                self.tree.nodes += 1
+                self.tree.depth = self.depth
+                if not self.tree.processing:
+                    break
+
                 board = deepcopy(self.pos)
                 board.push(move)
                 node = Node(board, newDepth, self.tree)
@@ -98,6 +102,11 @@ class Node:
         else:
             minEval = float("inf")
             for move in self.pos.generate_legal_moves():
+                self.tree.nodes += 1
+                self.tree.depth = self.depth
+                if not self.tree.processing:
+                    break
+
                 board = deepcopy(self.pos)
                 board.push(move)
                 node = Node(board, newDepth, self.tree)
