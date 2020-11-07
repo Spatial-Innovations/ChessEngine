@@ -88,7 +88,7 @@ class Node:
                 board = deepcopy(self.pos)
                 board.push(move)
                 node = Node(board, newDepth, self.tree)
-                
+
                 evaluation = node.Minimax(targetDepth, False, alpha, beta)[0]
                 maxEval = max(maxEval, evaluation)
                 alpha = max(alpha, evaluation)

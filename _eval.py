@@ -24,7 +24,7 @@ def QuickEval(position):
     currEval += 5* (pieces.count("R") - pieces.count("r"))
     currEval += 9* (pieces.count("Q") - pieces.count("q"))
 
-    return (currEval if position.turn else -1*currEval)
+    return currEval
 
 
 
