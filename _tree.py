@@ -45,13 +45,17 @@ class Tree:
             root.GenBranches(depth)
         
         self.processing = False
+        print(self.GetInfoStr())
         print("bestmove")
 
     def PrintInfo(self):
         while self.processing:
-            elapseTime = time.time() - self.timeStart
-            print(self.infoStr.format(depth=self.depth, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(elapseTime+1)), time=int(elapseTime), moves=self.currMove))
+            print(self.GetInfoStr())
             time.sleep(self.printPauseTime)
+
+    def GetInfoStr(self):
+        elapseTime = time.time() - self.timeStart
+        print(self.infoStr.format(depth=self.depth, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(elapseTime+1)), time=int(elapseTime), moves=self.currMove))
 
 
 class Node:
