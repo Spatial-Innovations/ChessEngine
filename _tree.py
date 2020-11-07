@@ -40,11 +40,11 @@ class Tree:
         root = Node(pos, 0, self)
         self.timeStart = time.time()
         threading.Thread(target=self.PrintInfo, args=()).start()
-        
+
         for depth in range(kwargs["depth"]):
             self.depth = depth
             root.GenBranches(depth)
-        
+
         self.processing = False
         print(self.GetInfoStr())
         print("bestmove")
@@ -66,7 +66,7 @@ class Node:
         self.pos = pos
         self.depth = depth
         self.tree = tree
-        
+
         self.branches = []
         self.fen = pos.fen()
 
@@ -77,7 +77,7 @@ class Node:
                 if self.tree.processing == False:
                     return
                 b.GenBranches(targetDepth)
-        
+
         else:
             #* Generate child nodes
             for move in self.pos.generate_legal_moves():
