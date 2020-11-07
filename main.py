@@ -53,17 +53,7 @@ def Main():
                         board.push_uci(m)
 
         elif msg.startswith("go"):
-            msg = msg.replace("go", "").strip()
-            tree = Tree()
-            kwargs = {"position": board}
-            if msg.startswith("depth"):
-                depth = int(msg.replace("depth", "").strip())
-                kwargs["depth"] = depth
-
-            kwargs["depth"] = 5
-            threading.Thread(target=tree.Go, kwargs=kwargs).start()
-        elif msg == "stop":
-            tree.processing = False
+            tree.Go(board=board)
 
 
 Main()
