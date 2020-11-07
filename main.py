@@ -33,7 +33,7 @@ def Main():
             print("uciok")
         elif msg == "d":
             print(board)
-        
+
         elif msg == "ucinewgame":
             board = Board()
         elif msg.startswith("position"):
