@@ -16,6 +16,8 @@
 # ##### END GPL LICENSE BLOCK #####
 
 import threading
+from copy import deepcopy
+from chess import Board
 
 
 class Tree:
@@ -36,3 +38,24 @@ class Tree:
             if input().strip() == "stop":
                 self.processing = False
                 return
+
+
+class Node:
+    def __init__(self, root, board: Board, depth):
+        self.root = root
+        self.board = board
+        self.depth = depth
+        self.branches = []
+
+    def Branch(self, targetDepth):
+        if targetDepth == self.depth + 1:
+            newDepth = self.depth + 1
+            for move in self.board.generate_legal_moves():
+                newBoard = deepcopy(self.board)
+                newBoard.push(move)
+                newNode = (self.root, newBoard, newDepth)
+                self.branches.append(newNode)
+
+        elif targetDepth > self.depth + 1:
+            for b in self.branches:
+                b.Branch(targetDepth)
