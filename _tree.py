@@ -36,9 +36,7 @@ class Tree:
 
         self.processing = True
         self.nodes = 0
-        self.pruned = 0
         self.board = kwargs["board"]
-        self.evalThres = kwargs["evalThres"]
         self.root = Node(self, self.board, 0)
         self.timeStart = time.time()
         if "depth" in kwargs:
@@ -49,6 +47,7 @@ class Tree:
                 self.root.Branch(depth)
 
         self.processing = False
+        print("bestmove")
         del self.root
 
     def Printer(self):
@@ -65,7 +64,6 @@ class Tree:
             timeElapse = time.time() - self.timeStart
             string = self.infoStr.format(depth=self.depth, cp=0, nodes=self.nodes, nps=int(self.nodes/timeElapse), time=int(timeElapse*1000), moves=None)
             print(string)
-            print(self.pruned)
 
     
     def Stopper(self):
@@ -83,16 +81,8 @@ class Node:
         self.branches = []
 
         tree.nodes += 1
-        self.eval = Eval(board)
-        self.active = True
-        if self.eval < tree.evalThres:
-            self.active = False
-            tree.pruned += 1
 
     def Branch(self, targetDepth):
-        if not self.active:
-            return
-
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
             for move in self.board.generate_legal_moves():
