@@ -41,7 +41,7 @@ class Tree:
         self.timeStart = time.time()
         threading.Thread(target=self.PrintInfo, args=()).start()
         
-        for depth in range(3):
+        for depth in range(kwargs["depth"]):
             root.GenBranches(depth)
         
         self.processing = False
@@ -55,7 +55,7 @@ class Tree:
 
     def GetInfoStr(self):
         elapseTime = time.time() - self.timeStart
-        print(self.infoStr.format(depth=self.depth, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(elapseTime+1)), time=int(elapseTime), moves=self.currMove))
+        return self.infoStr.format(depth=self.depth, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(elapseTime+1)), time=int(elapseTime*1000), moves=self.currMove)
 
 
 class Node:
@@ -76,6 +76,6 @@ class Node:
             for move in self.pos.generate_legal_moves():
                 board = Board(self.fen)
                 board.push(move)
-                node = Node(board, self.depth+1)
+                node = Node(board, self.depth+1, self.tree)
                 self.branches.append(node)
                 self.tree.nodes += 1
