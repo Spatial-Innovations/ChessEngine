@@ -32,7 +32,7 @@ class Tree:
         self.timeStart = 0
         self.depth = 0
         self.score = 0
-        self.currMove = 0
+        self.currMove = None
 
     def Go(self, **kwargs):
         pos = kwargs["position"]
@@ -97,6 +97,10 @@ class Node:
                 if beta <= alpha:
                     break
             
+            if self.depth == 1:
+                self.tree.currMove = bestMove.uci()
+                self.tree.score = maxEval
+
             return (maxEval, bestMove)
 
         else:
@@ -119,4 +123,8 @@ class Node:
                 if beta <= alpha:
                     break
             
+            if self.depth == 1:
+                self.tree.currMove = bestMove.uci()
+                self.tree.score = minEval
+
             return (minEval, bestMove)
