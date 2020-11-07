@@ -27,20 +27,17 @@ class Tree:
 
     def __init__(self):
         self.processing = False
-        self.nodes = 0
-        self.depth = 0
 
     def Go(self, **kwargs):
-        #threading.Thread(target=self.Stopper, args=()).start()
-        threading.Thread(target=self.Printer, args=()).start()
-
         self.processing = True
         self.nodes = 0
+        self.depth = 0
         self.board = kwargs["board"]
+        self.evalThres = Eval(self.board) - 2
         self.root = Node(self, self.board, 0)
         self.timeStart = time.time()
-        self.evalThres = Eval(self.board) - 2
 
+        threading.Thread(target=self.Printer, args=()).start()
         if "depth" in kwargs:
             for depth in range(kwargs["depth"]):
                 if not self.processing:
@@ -99,12 +96,6 @@ class Tree:
             self.bestMove = None
         string = self.infoStr.format(depth=self.depth+1, cp=0, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove)
         print(string)
-    
-    def Stopper(self):
-        while True:
-            if input().strip() == "stop":
-                self.processing = False
-                return
 
     def TimerNodes(self, nodes):
         while self.nodes < nodes:
