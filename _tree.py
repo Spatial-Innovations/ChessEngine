@@ -84,7 +84,7 @@ class Tree:
             self.bestMove = self.root.Minimax(False, float("-inf"), float("inf"))[1]
         except:
             self.bestMove = None
-        string = self.infoStr.format(depth=self.depth, cp=0, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove.uci())
+        string = self.infoStr.format(depth=self.depth+1, cp=0, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove.uci())
         print(string)
     
     def Stopper(self):

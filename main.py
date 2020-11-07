@@ -23,7 +23,6 @@ from _tree import Tree
 
 def Main():
     board = Board()
-    tree = Tree()
 
     while True:
         msg = input().strip()
@@ -53,6 +52,7 @@ def Main():
                         board.push_uci(m)
 
         elif msg.startswith("go"):
+            tree = Tree()
             msg = msg.replace("go", "").strip()
             if msg.startswith("depth"):
                 depth = int(msg.replace("depth", "").strip())
@@ -62,6 +62,7 @@ def Main():
                 tree.Go(board=board, nodes=nodes)
             else:
                 tree.Go(board=board)
+            del tree
 
 
 Main()
