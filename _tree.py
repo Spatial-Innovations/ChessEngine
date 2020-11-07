@@ -19,6 +19,7 @@ import time
 import threading
 from copy import deepcopy
 from chess import Board
+from _eval import QuickEval
 
 
 class Tree:
@@ -34,11 +35,12 @@ class Tree:
         self.currMove = 0
 
     def Go(self, **kwargs):
-        self.processing = True
-        self.nodes = 0
-
         pos = kwargs["position"]
         root = Node(pos, 0, self)
+
+        self.turn = pos.turn
+        self.processing = True
+        self.nodes = 0
         self.timeStart = time.time()
         threading.Thread(target=self.PrintInfo, args=()).start()
 
@@ -70,22 +72,42 @@ class Node:
 
         self.branches = []
 
-    def GenBranches(self, targetDepth):
-        if targetDepth > self.depth:
-            #* Pass command to child nodes
-            for b in self.branches:
-                if self.tree.processing == False:
-                    return
-                b.GenBranches(targetDepth)
+    def Minimax(self, targetDepth, maxPlayer, alpha, beta):
+        if self.depth == targetDepth:
+            return (QuickEval(self.pos), self.pos.peek())
 
-        else:
-            #* Generate child nodes
-            newDepth = self.depth + 1
+        newDepth = self.depth + 1
+        bestMove = None
+        if maxPlayer:
+            maxEval = float("-inf")
             for move in self.pos.generate_legal_moves():
-                if self.tree.processing == False:
-                    return
                 board = deepcopy(self.pos)
                 board.push(move)
                 node = Node(board, newDepth, self.tree)
-                self.branches.append(node)
-                self.tree.nodes += 1
+                
+                evaluation = node.Minimax(targetDepth, False, alpha, beta)[0]
+                maxEval = max(maxEval, evaluation)
+                alpha = max(alpha, evaluation)
+                if maxEval == evaluation:
+                    bestMove = move
+                if beta <= alpha:
+                    break
+            
+            return (maxEval, bestMove)
+
+        else:
+            minEval = float("inf")
+            for move in self.pos.generate_legal_moves():
+                board = deepcopy(self.pos)
+                board.push(move)
+                node = Node(board, newDepth, self.tree)
+
+                evaluation = node.Minimax(targetDepth, True, alpha, beta)[0]
+                minEval = min(minEval, evaluation)
+                if minEval == evaluation:
+                    bestMove = move
+                beta = min(beta, evaluation)
+                if beta <= alpha:
+                    break
+            
+            return (minEval, bestMove)
