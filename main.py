@@ -54,7 +54,7 @@ def Main():
 
         elif msg.startswith("go"):
             tree = Tree()
-            threading.Thread(target=tree.Go, kwargs={"position": board, "depth": 3}).start()
+            threading.Thread(target=tree.Go, kwargs={"position": board, "depth": 4}).start()
         elif msg == "stop":
             tree.processing = False
 
