@@ -31,7 +31,7 @@ class Tree:
         self.depth = 0
 
     def Go(self, **kwargs):
-        threading.Thread(target=self.Stopper, args=()).start()
+        #threading.Thread(target=self.Stopper, args=()).start()
         threading.Thread(target=self.Printer, args=()).start()
 
         self.processing = True
@@ -53,6 +53,18 @@ class Tree:
                     break
                 self.depth = depth
                 self.root.Branch(depth)
+        elif "wtime" in kwargs:
+            if self.board.turn:
+                moveTime = min(kwargs["wtime"]/2000, 20)
+            else:
+                moveTime = min(kwargs["btime"]/2000, 20)
+            threading.Thread(target=self.TimerTime, args=(moveTime,)).start()
+            for depth in range(10000):
+                if not self.processing:
+                    break
+                self.depth = depth
+                self.root.Branch(depth)
+        
         else:
             for depth in range(10000):
                 if not self.processing:
@@ -81,10 +93,10 @@ class Tree:
     def PrintStr(self):
         timeElapse = time.time() - self.timeStart
         try:
-            self.bestMove = self.root.Minimax(False, float("-inf"), float("inf"))[1]
+            self.bestMove = self.root.Minimax(self.board.turn, float("-inf"), float("inf"))[1].uci()
         except:
             self.bestMove = None
-        string = self.infoStr.format(depth=self.depth+1, cp=0, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove.uci())
+        string = self.infoStr.format(depth=self.depth+1, cp=0, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove)
         print(string)
     
     def Stopper(self):
@@ -95,6 +107,12 @@ class Tree:
 
     def TimerNodes(self, nodes):
         while self.nodes < nodes:
+            time.sleep(0.01)
+        self.processing = False
+
+    def TimerTime(self, compTime):
+        timeEnd = time.time() + compTime
+        while time.time() < timeEnd:
             time.sleep(0.01)
         self.processing = False
 

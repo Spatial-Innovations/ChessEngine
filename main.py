@@ -52,16 +52,25 @@ def Main():
                         board.push_uci(m)
 
         elif msg.startswith("go"):
-            tree = Tree()
             msg = msg.replace("go", "").strip()
+            tree = Tree()
+            
             if msg.startswith("depth"):
                 depth = int(msg.replace("depth", "").strip())
                 tree.Go(board=board, depth=depth)
             elif msg.startswith("nodes"):
                 nodes = int(msg.replace("nodes", "").strip())
                 tree.Go(board=board, nodes=nodes)
+            elif "wtime" in msg or "btime" in msg:
+                parts = msg.split(" ")
+                time = {}
+                for i in range(0, len(parts), 2):
+                    time[parts[i]] = int(parts[i+1])
+                tree.Go(board=board, **time)
+
             else:
                 tree.Go(board=board)
+
             del tree
 
 
