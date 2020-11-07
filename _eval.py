@@ -45,3 +45,11 @@ def Eval(position: Board):
     points += control/2
 
     return points
+
+
+def Development(position: Board):
+    points = 0
+
+    # 
+
+    return points
