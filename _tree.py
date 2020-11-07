@@ -19,7 +19,7 @@ import time
 import threading
 from copy import deepcopy
 from chess import Board
-from _eval import QuickEval
+from _eval import Eval
 
 
 class Tree:
@@ -73,7 +73,7 @@ class Node:
 
     def Minimax(self, targetDepth, maxPlayer, alpha, beta):
         if self.depth == targetDepth:
-            return (QuickEval(self.pos), self.pos.peek())
+            return (Eval(self.pos), self.pos.peek())
 
         newDepth = self.depth + 1
         bestMove = None
@@ -103,7 +103,7 @@ class Node:
                 for m in legalMoves:
                     board = deepcopy(self.pos)
                     board.push(m)
-                    totalEval += QuickEval(board)
+                    totalEval += Eval(board)
 
                 self.tree.currMove = bestMove.uci()
                 self.tree.score = totalEval / len(legalMoves)
