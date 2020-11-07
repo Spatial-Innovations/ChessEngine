@@ -18,7 +18,7 @@
 import time
 import threading
 from copy import deepcopy
-from chess import Board
+from chess import Board, Move
 from _eval import Eval
 
 
@@ -61,10 +61,12 @@ class Tree:
                 time.sleep(0.01)
 
             currExp += 1
-            timeElapse = time.time() - self.timeStart
-            string = self.infoStr.format(depth=self.depth, cp=0, nodes=self.nodes, nps=int(self.nodes/timeElapse), time=int(timeElapse*1000), moves=None)
-            print(string)
+            self.PrintStr()
 
+    def PrintStr(self):
+        timeElapse = time.time() - self.timeStart
+        string = self.infoStr.format(depth=self.depth, cp=0, nodes=self.nodes, nps=int(self.nodes/timeElapse), time=int(timeElapse*1000), moves=None)
+        print(string)
     
     def Stopper(self):
         while True:
@@ -81,11 +83,12 @@ class Node:
         self.branches = []
 
         tree.nodes += 1
+        self.legalMoves = list(board.generate_legal_moves())
 
     def Branch(self, targetDepth):
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
-            for move in self.board.generate_legal_moves():
+            for move in self.legalMoves:
                 if not self.tree.processing:
                     return
                 newBoard = deepcopy(self.board)
@@ -98,3 +101,39 @@ class Node:
                 if not self.tree.processing:
                     return
                 b.Branch(targetDepth)
+
+    def Minimax(self, maxPlayer, alpha, beta):
+        if len(self.branches) == 0:
+            if hasattr(self, "eval"):
+                return self.eval
+            else:
+                self.eval = Eval(self.board)
+                return self.eval
+
+        if maxPlayer:
+            maxEval = float("-inf")
+            bestMove = None
+            for b in self.branches:
+                evaluation = b.Minimax(False, alpha, beta)[0]
+                maxEval = max(maxEval, evaluation)
+                alpha = max(alpha, evaluation)
+                if maxEval == evaluation:
+                    bestMove = b.board.peek()
+                if beta <= alpha:
+                    break
+
+            return (maxEval, bestMove)
+
+        else:
+            minEval = float("inf")
+            bestMove = None
+            for b in self.branches:
+                evaluation = b.Minimax(True, alpha, beta)
+                minEval = min(minEval, evaluation)
+                beta = min(beta, evaluation)
+                if minEval == evaluation:
+                    bestMove = b.board.peek()
+                if beta <= alpha:
+                    break
+
+            return (minEval, bestMove)
