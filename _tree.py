@@ -17,6 +17,7 @@
 
 import time
 import threading
+from copy import deepcopy
 from chess import Board
 
 
@@ -68,7 +69,6 @@ class Node:
         self.tree = tree
 
         self.branches = []
-        self.fen = pos.fen()
 
     def GenBranches(self, targetDepth):
         if targetDepth > self.depth:
@@ -80,11 +80,12 @@ class Node:
 
         else:
             #* Generate child nodes
+            newDepth = self.depth + 1
             for move in self.pos.generate_legal_moves():
                 if self.tree.processing == False:
                     return
-                board = Board(self.fen)
+                board = deepcopy(self.pos)
                 board.push(move)
-                node = Node(board, self.depth+1, self.tree)
+                node = Node(board, newDepth, self.tree)
                 self.branches.append(node)
                 self.tree.nodes += 1
