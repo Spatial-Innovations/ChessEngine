@@ -83,6 +83,8 @@ class Node:
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
             for move in self.board.generate_legal_moves():
+                if not self.tree.processing:
+                    return
                 newBoard = deepcopy(self.board)
                 newBoard.push(move)
                 newNode = Node(self.tree, newBoard, newDepth)
@@ -90,4 +92,6 @@ class Node:
 
         elif targetDepth > self.depth + 1:
             for b in self.branches:
+                if not self.tree.processing:
+                    return
                 b.Branch(targetDepth)
