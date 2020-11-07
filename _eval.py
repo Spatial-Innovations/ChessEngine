@@ -45,3 +45,21 @@ def Eval(position: Board):
     points += control/2
 
     return points
+
+
+def CenterControl(position: Board):
+    # Inner center
+    inner = 0
+    squares = ("D4", "D5", "E4", "E5")
+    for sq in squares:
+        inner += len(position.attackers(chess.WHITE, getattr(chess, sq)))
+        inner -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
+
+    # Outer center
+    outer = 0
+    squares = ("C3", "D3", "E3", "F3", "F4", "F5", "F6", "E6", "D6", "C6", "C5", "C4")
+    for sq in squares:
+        outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
+        outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
+
+    return inner + outer/2
