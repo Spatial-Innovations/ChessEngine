@@ -15,16 +15,17 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+
 def QuickEval(position):
     color = position.turn  #* Gets true for white and false for black
     pieces = position.fen().split(" ")[0]  #* Just gets the first part(piece positions) of the fen
 
     #* Adds material evaluation
-    currEval = 0
-    currEval += (pieces.count("P") - pieces.count("p"))
+    currEval = (pieces.count("P") - pieces.count("p"))
     currEval += 3* (pieces.count("N") + pieces.count("B") - pieces.count("n") - pieces.count("b"))
     currEval += 5* (pieces.count("R") - pieces.count("r"))
     currEval += 9* (pieces.count("Q") - pieces.count("q"))
+    return currEval
 
 
 
