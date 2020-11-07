@@ -31,9 +31,23 @@ def Main():
             print("readyok")
         elif msg == "uci":
             print("uciok")
+        elif msg == "d":
+            print(board)
         
         elif msg == "ucinewgame":
-            board.reset()
+            board = Board()
+        elif msg.startswith("position"):
+            msg = msg.replace("position", "").strip()
+            if msg.startswith("fen"):
+                fen = msg.replace("fen", "").strip()
+                board = Board(fen)
+            elif msg.startswith("startpos"):
+                msg = msg.replace("startpos", "").strip()
+                board = Board()
+                if msg.startswith("moves"):
+                    moves = msg.replace("moves", "").strip().split(" ")
+                    for m in moves:
+                        board.push_uci(m)
 
 
 Main()
