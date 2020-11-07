@@ -30,6 +30,7 @@ class Tree:
 
     def Go(self, **kwargs):
         self.processing = True
+        self.bestMove = None
         self.nodes = 0
         self.depth = 0
         self.board = kwargs["board"]
@@ -93,7 +94,8 @@ class Tree:
         try:
             self.bestMove = self.root.Minimax(self.board.turn, float("-inf"), float("inf"))[1].uci()
         except:
-            self.bestMove = None
+            pass
+
         string = self.infoStr.format(depth=self.depth+1, cp=0, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove)
         print(string)
 
