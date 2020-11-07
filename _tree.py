@@ -39,8 +39,20 @@ class Tree:
         self.board = kwargs["board"]
         self.root = Node(self, self.board, 0)
         self.timeStart = time.time()
+
         if "depth" in kwargs:
-            pass
+            for depth in range(kwargs["depth"]):
+                if not self.processing:
+                    break
+                self.depth = depth
+                self.root.Branch(depth)
+        elif "nodes" in kwargs:
+            threading.Thread(target=self.TimerNodes, args=(kwargs["nodes"],)).start()
+            for depth in range(10000):
+                if not self.processing:
+                    break
+                self.depth = depth
+                self.root.Branch(depth)
         else:
             for depth in range(10000):
                 if not self.processing:
@@ -54,7 +66,7 @@ class Tree:
         del self.root
 
     def Printer(self):
-        expBase = 25000   #* Print every time self.nodes reaches the next multiple of this number.
+        expBase = 15000   #* Print every time self.nodes reaches the next multiple of this number.
         currExp = 0
         print()
         while True:
@@ -68,8 +80,11 @@ class Tree:
 
     def PrintStr(self):
         timeElapse = time.time() - self.timeStart
-        self.bestMove = self.root.Minimax(False, float("-inf"), float("inf"))[1]
-        string = self.infoStr.format(depth=self.depth, cp=0, nodes=self.nodes, nps=int(self.nodes/timeElapse), time=int(timeElapse*1000), moves=self.bestMove.uci())
+        try:
+            self.bestMove = self.root.Minimax(False, float("-inf"), float("inf"))[1]
+        except:
+            self.bestMove = None
+        string = self.infoStr.format(depth=self.depth, cp=0, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove.uci())
         print(string)
     
     def Stopper(self):
@@ -77,6 +92,11 @@ class Tree:
             if input().strip() == "stop":
                 self.processing = False
                 return
+
+    def TimerNodes(self, nodes):
+        while self.nodes < nodes:
+            time.sleep(0.01)
+        self.processing = False
 
 
 class Node:
