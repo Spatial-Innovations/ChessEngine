@@ -17,7 +17,7 @@
 
 
 def QuickEval(position):
-    color = position.turn  #* Gets true for white and false for black
+    # color = position.turn  #* Gets true for white and false for black
     pieces = position.fen().split(" ")[0]  #* Just gets the first part(piece positions) of the fen
 
     #* Adds material evaluation
@@ -37,6 +37,4 @@ if result != "*":  #* No one has won
         currEval = float("inf")
     else:
         currEval = -float("inf")
-
-return currEval
 '''
