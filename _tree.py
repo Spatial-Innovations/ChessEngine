@@ -46,6 +46,7 @@ class Tree:
                 self.root.Branch(depth)
 
         self.processing = False
+        del self.root
 
     def Printer(self):
         expBase = 25000   #* Print every time self.nodes reaches the next multiple of this number.
