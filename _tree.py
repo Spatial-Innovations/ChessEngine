@@ -47,7 +47,7 @@ class Tree:
                 self.root.Branch(depth)
 
         self.processing = False
-        print("bestmove")
+        print(f"bestmove {self.bestMove}")
         del self.root
 
     def Printer(self):
