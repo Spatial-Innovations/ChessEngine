@@ -15,13 +15,33 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+from chess import Board
+
 
 class Tree:
-    def __init__(self, position):
+    def __init__(self, position: Board):
         self.pos = position
+        self.nodes = 0
 
 
 class Node:
-    def __init__(self, pos, depth):
+    def __init__(self, pos: Board, depth, tree: Tree):
         self.pos = pos
         self.depth = depth
+        self.tree = tree
+        
+        self.branches = []
+        self.fen = pos.fen()
+
+    def GenBranches(self, targetDepth):
+        if targetDepth > self.depth:
+            for b in self.branches:
+                b.GenBranches(targetDepth)
+        
+        else:
+            for move in self.pos.generate_legal_moves():
+                board = Board(self.fen)
+                board.push(move)
+                node = Node(board, self.depth+1)
+                self.branches.append(node)
+                self.tree.nodes += 1
