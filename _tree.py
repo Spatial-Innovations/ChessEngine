@@ -15,13 +15,43 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+import time
+import threading
 from chess import Board
 
 
 class Tree:
-    def __init__(self, position: Board):
-        self.pos = position
+    infoStr = "info depth {depth} seldepth {depth} multipv 1 score cp {cp} nodes {nodes} nps {nps} tbhits 0 time {time} pv {moves}"
+    printPauseTime = 1
+
+    def __init__(self):
+        self.processing = False
         self.nodes = 0
+        self.timeStart = 0
+        self.depth = 0
+        self.score = 0
+        self.currMove = 0
+
+    def Go(self, **kwargs):
+        self.processing = True
+        self.nodes = 0
+
+        pos = kwargs["position"]
+        root = Node(pos, 0, self)
+        self.timeStart = time.time()
+        threading.Thread(target=self.PrintInfo, args=()).start()
+        
+        for depth in range(3):
+            root.GenBranches(depth)
+        
+        self.processing = False
+        print("bestmove")
+
+    def PrintInfo(self):
+        while self.processing:
+            elapseTime = time.time() - self.timeStart
+            print(self.infoStr.format(depth=self.depth, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(elapseTime+1)), time=int(elapseTime), moves=self.currMove))
+            time.sleep(self.printPauseTime)
 
 
 class Node:
