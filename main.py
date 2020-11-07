@@ -53,7 +53,7 @@ def Main():
                         board.push_uci(m)
 
         elif msg.startswith("go"):
-            tree.Go(board=board)
+            tree.Go(board=board, evalThres=-1)
 
 
 Main()
