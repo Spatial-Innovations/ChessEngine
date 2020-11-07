@@ -15,25 +15,14 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+from chess import Board
 
-def QuickEval(position):
+
+def Eval(position: Board):
     pieces = position.fen().split(" ")[0]
+    points = (pieces.count("P") - pieces.count("p"))
+    points += 3* (pieces.count("N") + pieces.count("B") - pieces.count("n") - pieces.count("b"))
+    points += 5* (pieces.count("R") - pieces.count("r"))
+    points += 9* (pieces.count("Q") - pieces.count("q"))
 
-    currEval = (pieces.count("P") - pieces.count("p"))
-    currEval += 3* (pieces.count("N") + pieces.count("B") - pieces.count("n") - pieces.count("b"))
-    currEval += 5* (pieces.count("R") - pieces.count("r"))
-    currEval += 9* (pieces.count("Q") - pieces.count("q"))
-
-    return currEval
-
-
-
-'''
-#* Checks for mate
-result = position.result()  #* if white wins returns '1-0' if black wins returns '0-1' else returns '*'
-if result != "*":  #* No one has won
-    if result.startswith("1-"):  #* if white won
-        currEval = float("inf")
-    else:
-        currEval = -float("inf")
-'''
+    return points
