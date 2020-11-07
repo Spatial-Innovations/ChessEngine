@@ -18,7 +18,7 @@
 import time
 import threading
 from copy import deepcopy
-from chess import Board, Move
+from chess import Board
 from _eval import Eval
 
 
@@ -27,19 +27,17 @@ class Tree:
 
     def __init__(self):
         self.processing = False
-        self.nodes = 0
-        self.depth = 0
 
     def Go(self, **kwargs):
-        #threading.Thread(target=self.Stopper, args=()).start()
-        threading.Thread(target=self.Printer, args=()).start()
-
         self.processing = True
         self.nodes = 0
+        self.depth = 0
         self.board = kwargs["board"]
+        self.evalThres = Eval(self.board) - 2
         self.root = Node(self, self.board, 0)
         self.timeStart = time.time()
 
+        threading.Thread(target=self.Printer, args=()).start()
         if "depth" in kwargs:
             for depth in range(kwargs["depth"]):
                 if not self.processing:
@@ -55,9 +53,9 @@ class Tree:
                 self.root.Branch(depth)
         elif "wtime" in kwargs:
             if self.board.turn:
-                moveTime = min(kwargs["wtime"]/2000, 20)
+                moveTime = min(kwargs["wtime"]/2000, 10)
             else:
-                moveTime = min(kwargs["btime"]/2000, 20)
+                moveTime = min(kwargs["btime"]/2000, 10)
             threading.Thread(target=self.TimerTime, args=(moveTime,)).start()
             for depth in range(10000):
                 if not self.processing:
@@ -98,12 +96,6 @@ class Tree:
             self.bestMove = None
         string = self.infoStr.format(depth=self.depth+1, cp=0, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove)
         print(string)
-    
-    def Stopper(self):
-        while True:
-            if input().strip() == "stop":
-                self.processing = False
-                return
 
     def TimerNodes(self, nodes):
         while self.nodes < nodes:
@@ -126,8 +118,16 @@ class Node:
 
         tree.nodes += 1
         self.legalMoves = list(board.generate_legal_moves())
+        self.eval = Eval(self.board)
+        if self.eval < self.tree.evalThres:
+            self.active = False
+        else:
+            self.active = True
 
     def Branch(self, targetDepth):
+        if not self.active:
+            return
+
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
             for move in self.legalMoves:
@@ -146,11 +146,7 @@ class Node:
 
     def Minimax(self, maxPlayer, alpha, beta):
         if len(self.branches) == 0:
-            if hasattr(self, "eval"):
-                return (self.eval, self.board.peek())
-            else:
-                self.eval = Eval(self.board)
-                return (self.eval, self.board.peek())
+            return (self.eval, self.board.peek())
 
         if maxPlayer:
             maxEval = float("-inf")
