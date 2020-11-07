@@ -60,6 +60,7 @@ def Main():
                 depth = int(msg.replace("depth", "").strip())
                 kwargs["depth"] = depth
 
+            kwargs["depth"] = 5
             threading.Thread(target=tree.Go, kwargs=kwargs).start()
         elif msg == "stop":
             tree.processing = False
