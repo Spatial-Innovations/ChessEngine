@@ -53,7 +53,15 @@ def Main():
                         board.push_uci(m)
 
         elif msg.startswith("go"):
-            tree.Go(board=board, evalThres=-1)
+            msg = msg.replace("go", "").strip()
+            if msg.startswith("depth"):
+                depth = int(msg.replace("depth", "").strip())
+                tree.Go(board=board, depth=depth)
+            elif msg.startswith("nodes"):
+                nodes = int(msg.replace("nodes", "").strip())
+                tree.Go(board=board, nodes=nodes)
+            else:
+                tree.Go(board=board)
 
 
 Main()
