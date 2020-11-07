@@ -53,6 +53,7 @@ def Main():
                         board.push_uci(m)
 
         elif msg.startswith("go"):
+            #* test code
             tree = Tree()
             threading.Thread(target=tree.Go, kwargs={"position": board, "depth": 4}).start()
         elif msg == "stop":

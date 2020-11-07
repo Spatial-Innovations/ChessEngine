@@ -49,11 +49,13 @@ class Tree:
         print("bestmove")
 
     def PrintInfo(self):
+        #* Prints info regularly.
         while self.processing:
             print(self.GetInfoStr())
             time.sleep(self.printPauseTime)
 
     def GetInfoStr(self):
+        #* Returns info string
         elapseTime = time.time() - self.timeStart
         return self.infoStr.format(depth=self.depth, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(elapseTime+1)), time=int(elapseTime*1000), moves=self.currMove)
 
@@ -69,10 +71,12 @@ class Node:
 
     def GenBranches(self, targetDepth):
         if targetDepth > self.depth:
+            #* Pass command to child nodes
             for b in self.branches:
                 b.GenBranches(targetDepth)
         
         else:
+            #* Generate child nodes
             for move in self.pos.generate_legal_moves():
                 board = Board(self.fen)
                 board.push(move)
