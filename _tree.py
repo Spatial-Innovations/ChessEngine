@@ -43,10 +43,13 @@ class Tree:
             pass
         else:
             for depth in range(10000):
+                if not self.processing:
+                    break
                 self.depth = depth
                 self.root.Branch(depth)
 
         self.processing = False
+        self.PrintStr()
         print(f"bestmove {self.bestMove}")
         del self.root
 
