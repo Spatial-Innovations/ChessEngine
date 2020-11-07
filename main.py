@@ -16,11 +16,14 @@
 # ##### END GPL LICENSE BLOCK #####
 
 import sys
+import threading
 from chess import Board
+from _tree import Tree
 
 
 def Main():
     board = Board()
+    tree = Tree()
 
     while True:
         msg = input().strip()
@@ -48,6 +51,12 @@ def Main():
                     moves = msg.replace("moves", "").strip().split(" ")
                     for m in moves:
                         board.push_uci(m)
+
+        elif msg.startswith("go"):
+            tree = Tree()
+            threading.Thread(target=tree.Go, kwargs={"position": board, "depth": 3}).start()
+        elif msg == "stop":
+            tree.processing = False
 
 
 Main()
