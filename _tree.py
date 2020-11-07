@@ -65,7 +65,8 @@ class Tree:
 
     def PrintStr(self):
         timeElapse = time.time() - self.timeStart
-        string = self.infoStr.format(depth=self.depth, cp=0, nodes=self.nodes, nps=int(self.nodes/timeElapse), time=int(timeElapse*1000), moves=None)
+        self.bestMove = self.root.Minimax(False, float("-inf"), float("inf"))[1]
+        string = self.infoStr.format(depth=self.depth, cp=0, nodes=self.nodes, nps=int(self.nodes/timeElapse), time=int(timeElapse*1000), moves=self.bestMove.uci())
         print(string)
     
     def Stopper(self):
@@ -105,10 +106,10 @@ class Node:
     def Minimax(self, maxPlayer, alpha, beta):
         if len(self.branches) == 0:
             if hasattr(self, "eval"):
-                return self.eval
+                return (self.eval, self.board.peek())
             else:
                 self.eval = Eval(self.board)
-                return self.eval
+                return (self.eval, self.board.peek())
 
         if maxPlayer:
             maxEval = float("-inf")
@@ -128,7 +129,7 @@ class Node:
             minEval = float("inf")
             bestMove = None
             for b in self.branches:
-                evaluation = b.Minimax(True, alpha, beta)
+                evaluation = b.Minimax(True, alpha, beta)[0]
                 minEval = min(minEval, evaluation)
                 beta = min(beta, evaluation)
                 if minEval == evaluation:
