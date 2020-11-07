@@ -18,7 +18,7 @@
 import time
 import threading
 from copy import deepcopy
-from chess import Board, Move
+from chess import Board
 from _eval import Eval
 
 
@@ -39,6 +39,7 @@ class Tree:
         self.board = kwargs["board"]
         self.root = Node(self, self.board, 0)
         self.timeStart = time.time()
+        self.evalThres = Eval(self.board) - 2
 
         if "depth" in kwargs:
             for depth in range(kwargs["depth"]):
@@ -126,8 +127,16 @@ class Node:
 
         tree.nodes += 1
         self.legalMoves = list(board.generate_legal_moves())
+        self.eval = Eval(self.board)
+        if self.eval < self.tree.evalThres:
+            self.active = False
+        else:
+            self.active = True
 
     def Branch(self, targetDepth):
+        if not self.active:
+            return
+
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
             for move in self.legalMoves:
@@ -146,11 +155,7 @@ class Node:
 
     def Minimax(self, maxPlayer, alpha, beta):
         if len(self.branches) == 0:
-            if hasattr(self, "eval"):
-                return (self.eval, self.board.peek())
-            else:
-                self.eval = Eval(self.board)
-                return (self.eval, self.board.peek())
+            return (self.eval, self.board.peek())
 
         if maxPlayer:
             maxEval = float("-inf")
