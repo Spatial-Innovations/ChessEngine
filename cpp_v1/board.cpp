@@ -90,7 +90,29 @@ vector<Move> Board::_GetQueenMoves(vector<vector<int>> board, vector<int> locati
 }
 
 vector<Move> Board::_GetKingMoves(vector<vector<int>> board, vector<int> location, bool color) {
+    int row = location[0], col = location[1], currPiece;
+    string startSquare, currSquare;
     vector<Move> moves;
+    vector<vector<int>> nextMoves;
+    
+    startSquare = _GetSquare(location);
+    nextMoves = {
+        {row - 1, col - 1}, {row - 1, col}, {row - 1, col + 1},
+        {row, col - 1}, {row, col + 1},
+        {row + 1, col - 1}, {row + 1, col}, {row + 1, col + 1}
+    };
+    
+    for (auto i = 0; i < 8; i++) {
+        currPiece = board[nextMoves[i][0]][nextMoves[i][1]];
+        currSquare = _GetSquare({nextMoves[i][0], nextMoves[i][1]});
+        
+        if ((currPiece>=0 && currPiece<=6) && color) {   // King is white
+            moves.push_back(Move(startSquare, currSquare));
+        } else if ((currPiece==0 || (currPiece>=7 && currPiece<=12)) && (color==false)) {   // King is black
+            moves.push_back(Move(startSquare, currSquare));
+        }
+    }
+
     return moves;
 }
 
