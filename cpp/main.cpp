@@ -17,7 +17,7 @@
 
 #include <iostream>
 #include <string>
-#include <board.hpp>
+#include "board.hpp"
 using namespace std;
 
 int main() {
