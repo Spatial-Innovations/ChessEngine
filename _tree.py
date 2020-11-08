@@ -122,7 +122,6 @@ class Node:
         self.branches = []
 
         tree.nodes += 1
-        self.legalMoves = list(board.generate_legal_moves())
         self.eval = Eval(self.board)
         if self.eval < self.tree.evalThres:
             self.active = False
@@ -135,7 +134,7 @@ class Node:
 
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
-            for move in self.legalMoves:
+            for move in self.board.generate_legal_moves():
                 if not self.tree.processing:
                     return
                 newBoard = deepcopy(self.board)
