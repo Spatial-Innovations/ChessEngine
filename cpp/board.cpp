@@ -15,12 +15,13 @@
 //
 //  ##### END GPL LICENSE BLOCK #####
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include "board.hpp"
+using namespace std;
 
 Board::~Board() {
-
 }
 
 Board::Board() {
@@ -34,6 +35,25 @@ Board::Board() {
         7, 7, 7, 7, 7, 7, 7, 7,
         10, 8, 9, 11, 12, 9, 8, 10
     };
+}
+
+void Board::Print(void) {
+    string printStr = "", currChar;
+    for (auto i = 0; i < 64; i++) {
+        if (i % 8 == 0) {
+            printStr += _printLine;
+            printStr += _printSplit;
+        }
+        else if (i % 8 == 7) {
+            printStr += "\n";
+        }
+
+        currChar = _GetSymbol(_board[i]);
+        printStr += currChar;
+        printStr += _printLine;
+    }
+
+    cout << printStr;
 }
 
 string Board::_GetSymbol(int num) {
