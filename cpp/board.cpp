@@ -51,8 +51,6 @@ string Board::_GetSymbol(int num) {
     case 10: return "R";
     case 11: return "Q";
     case 12: return "K";
-    
-    default:
-        break;
+    default: break;
     }
 }
