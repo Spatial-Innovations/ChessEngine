@@ -55,9 +55,9 @@ class Tree:
                 self.root.Branch(depth)
         elif "wtime" in kwargs:
             if self.board.turn:
-                moveTime = min(kwargs["wtime"]/2000, 20)
+                moveTime = min(kwargs["wtime"]/2000, 15)
             else:
-                moveTime = min(kwargs["btime"]/2000, 20)
+                moveTime = min(kwargs["btime"]/2000, 15)
             threading.Thread(target=self.TimerTime, args=(moveTime,)).start()
             for depth in range(10000):
                 if not self.processing:
