@@ -106,6 +106,7 @@ string Board::GetFen(void) {
 
     fen += " ";
     if (_ep) {fen += _GetSquare(_epSquare[0], _epSquare[1]);}
+    else {fen += "-";}
     fen += " 0 1";
     return fen;
 }
