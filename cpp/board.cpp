@@ -56,24 +56,74 @@ void Board::Print(void) {
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
+    vector<Coords> knightMoves;
     string piece;
 
     for(auto row = 0; row < _board.size(); row++) {
         for(auto col = 0; col < _board[row].size(); col++) {
             piece = _GetSymbol(_board[row][col]);
             if (piece == "R") {
-                break
+                // Top
+                for (auto r = row; r > 0; r--) {
+                    if (_board[r][col] > 6) {break;}
+                    moves.push_back(Coords(r, col));
+                    if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+                }
+
+                // Bottom
+                for (auto r = row; r < _board.size(); r++) {
+                    if (_board[r][col] > 6) {break;}
+                    moves.push_back(Coords(r, col));
+                    if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+                }
+
+                // Left
+                for (auto c = col; c > 0; c--) {
+                    if (_board[row][c] > 6) {break;}
+                    moves.push_back(Coords(row, c));
+                    if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+                }
+
+                // Right
+                for (auto c = col; c < _board.size(); c++) {
+                    if (_board[row][c] > 6) {break;}
+                    moves.push_back(Coords(row, c));
+                    if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+                }
             }
             else if (piece == "r") {
                 // Top
-                for (auto r = row; r < _board.size(); r--) {
+                for (auto r = row; r > 0; r--) {
                     if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
-                    moves.push_back("move");
+                    moves.push_back(Coords(r, col));
                     if (_board[r][col] > 6) {break;}
+                }
+
+                // Bottom
+                for (auto r = row; r < _board.size(); r++) {
+                    if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+                    moves.push_back(Coords(r, col));
+                    if (_board[r][col] > 6) {break;}
+                }
+
+                // Left
+                for (auto c = col; c > 0; c--) {
+                    if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+                    moves.push_back(Coords(row, c));
+                    if (_board[row][c] > 6) {break;}
+                }
+
+                // Right
+                for (auto c = col; c < _board.size(); c++) {
+                    if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+                    moves.push_back(Coords(row, c));
+                    if (_board[row][c] > 6) {break;}
                 }
             }
             else if (piece == "N" || piece == "n") {
-                break;
+                knightMoves = {
+                    Coords(row-2, col-1), Coords(row-2, col+1)
+                };
             }
         }
     }
