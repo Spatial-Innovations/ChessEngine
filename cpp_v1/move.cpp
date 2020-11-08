@@ -23,7 +23,7 @@ using namespace std;
 Move::~Move() {}
 
 
-Move::Move(vector<int> first, vector<int> second, string promotion="") {
+Move::Move(vector<int> first, vector<int> second, string promotion) {
     _first = first;
     _second = second;
     _promotionPiece = promotion;
