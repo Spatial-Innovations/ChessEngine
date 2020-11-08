@@ -25,6 +25,7 @@ using namespace std;
 Board::~Board() {
 }
 
+
 Board::Board() {
     _board = {
         {4, 2, 3, 5, 6, 3, 2, 4},
@@ -37,6 +38,7 @@ Board::Board() {
         {10, 8, 9, 11, 12, 9, 8, 10}
     };
 }
+
 
 void Board::Print(void) {
     string printStr = "", currChar;
@@ -54,6 +56,7 @@ void Board::Print(void) {
     printStr += _printLine;
     cout << printStr;
 }
+
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
@@ -215,6 +218,7 @@ vector<Move> Board::GetLegalMoves(void) {
     return moves;
 }
 
+
 string Board::_GetSymbol(int num) {
     switch (num) {
         case 0: return " ";
@@ -232,4 +236,34 @@ string Board::_GetSymbol(int num) {
         case 12: return "K";
         default: return "";
     }
+}
+
+
+string Board::_GetSquare(vector<int> coords) {
+    string row, col;
+
+    switch (coords[0]) {
+        case 0: row = "8"; break;
+        case 1: row = "7"; break;
+        case 2: row = "6"; break;
+        case 3: row = "5"; break;
+        case 4: row = "4"; break;
+        case 5: row = "3"; break;
+        case 6: row = "2"; break;
+        case 7: row = "1"; break;
+        default: break;
+    }
+
+    switch (coords[1]) {
+        case 0: col = "a"; break;
+        case 1: col = "b"; break;
+        case 2: col = "c"; break;
+        case 3: col = "d"; break;
+        case 4: col = "e"; break;
+        case 5: col = "f"; break;
+        case 6: col = "g"; break;
+        case 7: col = "h"; break;
+    }
+
+    return (col + row);
 }
