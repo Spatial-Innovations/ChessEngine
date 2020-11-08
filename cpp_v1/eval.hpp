@@ -14,3 +14,7 @@
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 //  ##### END GPL LICENSE BLOCK #####
+
+#include <vector>
+#include <string>
+using namespace std;

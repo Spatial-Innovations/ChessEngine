@@ -15,6 +15,7 @@
 //
 //  ##### END GPL LICENSE BLOCK #####
 
+#include <vector>
 #include <string>
 using namespace std;
 

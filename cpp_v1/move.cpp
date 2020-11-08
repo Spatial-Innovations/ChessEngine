@@ -16,7 +16,9 @@
 //  ##### END GPL LICENSE BLOCK #####
 
 #include <vector>
+#include <string>
 #include "move.hpp"
+using namespace std;
 
 Move::~Move() {}
 
