@@ -35,7 +35,6 @@ class Tree:
         self.depth = 0
         self.score = 0
         self.board = kwargs["board"]
-        self.evalThres = Eval(self.board) - 2
         self.root = Node(self, self.board, 0)
         self.timeStart = time.time()
 
@@ -123,15 +122,8 @@ class Node:
 
         tree.nodes += 1
         self.eval = Eval(self.board)
-        if self.eval < self.tree.evalThres:
-            self.active = False
-        else:
-            self.active = True
 
     def Branch(self, targetDepth):
-        if not self.active:
-            return
-
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
             for move in self.board.generate_legal_moves():
