@@ -26,12 +26,12 @@ def Eval(position: Board):
     mat = Material(position)
     matWeight = 2 * min(max(0.04*moves + 0.4, 0.8), 1.4)      #* Increases move >= 30, bound = (1.4, 2.8), weight = 2
     center = CenterControl(position)
-    centerWeight = 0.5 * min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from move 20 to 35, bound = (0.3, 1.1), weight = 0.5
+    centerWeight = 0.7 * min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from move 20 to 35, bound = (0.3, 1.1), weight = 0.5
     dev = Development(position)
 
     evaluation += mat * matWeight
     evaluation += center * centerWeight
-    evaluation += 0.7 * dev
+    evaluation += 0.5 * dev
 
     return int(evaluation * 30)
 
@@ -63,7 +63,7 @@ def Development(position: Board):
 
 def _GetAttackingSquares(position, ind, color):
     color = getattr(chess, color)
-    row = ind // 8
+    row = ind // 8 + 1
     col = ind % 8
     col = chr(col + 65)
     pos = str(col) + str(row)
