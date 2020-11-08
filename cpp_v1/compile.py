@@ -30,5 +30,5 @@ for f in files:
     cmd += " "
 
 cmd += "-o "
-cmd += os.path.join(PARENT, "engine.exe")
+cmd += os.path.join(PARENT, "spatial.exe")
 os.system(cmd)
