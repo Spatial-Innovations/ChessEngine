@@ -50,7 +50,7 @@ def Development(position: Board):
     newFen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
 
     for ind, piece in enumerate(newFen):
-        if piece.isalpha():
+        if piece.isalpha() and piece.lower() != "p":
             if piece.isupper():
                 attackingSquares = _GetAttackingSquares(position, ind, "WHITE")
                 points += attackingSquares
