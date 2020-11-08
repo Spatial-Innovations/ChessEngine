@@ -147,7 +147,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 }
 
                 // Right Top
-                if (row-1 >= 0 && col+2 <= _board.size(0) && !(_board[row-1][col+2] >= 7)){
+                if (row-1 >= 0 && col+2 <= _board.size() && !(_board[row-1][col+2] >= 7)){
                     moves.push_back(Move(currSquare, _GetSquare({row-1, col+2})));
                 }
 
@@ -190,7 +190,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 }
 
                 // Right Top
-                if (row-1 >= 0 && col+2 <= _board.size(0) && !(_board[row-1][col+2] >= 7)){
+                if (row-1 >= 0 && col+2 <= _board.size() && !(_board[row-1][col+2] >= 7)){
                     moves.push_back(Move(currSquare, _GetSquare({row-1, col+2})));
                 }
 
