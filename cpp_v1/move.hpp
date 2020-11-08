@@ -21,13 +21,19 @@ using namespace std;
 class Move {
     public:
         ~Move();
-        Move(vector<int> first, vector<int> second);
+        Move(vector<int> first, vector<int> second, string promotion="");
 
+        bool IsPromotion(void);
         string GetFirst(void);
         string GetSecond(void);
+        string GetPromotion(void);
+        string GetUci(void);
 
     private:
         vector<int> _first;
         vector<int> _second;
+        bool _promotion;
+        string _promotionPiece;
+
         string _GetSquare(int row, int col);
 };

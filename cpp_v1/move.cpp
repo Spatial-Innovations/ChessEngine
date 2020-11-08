@@ -18,26 +18,23 @@
 #include <vector>
 #include "move.hpp"
 
-Move::~Move() {
-}
+Move::~Move() {}
 
 
-Move::Move(vector<int> first, vector<int> second) {
+Move::Move(vector<int> first, vector<int> second, string promotion="") {
     _first = first;
     _second = second;
+    _promotionPiece = promotion;
+    if (promotion == "") {_promotion = false;}
+    else {_promotion = true;}
 }
 
 
-string Move::GetFirst(void) {
-    string move = _GetSquare(_first[0], _first[1]);
-    return move;
-}
-
-
-string Move::GetSecond(void) {
-    string move = _GetSquare(_second[0], _second[1]);
-    return move;
-}
+bool Move::IsPromotion(void) {return _promotion;}
+string Move::GetFirst(void) {return _GetSquare(_first[0], _first[1]);}
+string Move::GetSecond(void) {return _GetSquare(_second[0], _second[1]);}
+string Move::GetPromotion(void) {return _promotionPiece;}
+string Move::GetUci(void) {return GetFirst() + GetSecond() + GetPromotion();}
 
 
 string Move::_GetSquare(int row, int col) {
