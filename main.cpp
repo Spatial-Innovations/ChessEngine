@@ -25,7 +25,13 @@ int main() {
         cin >> msg;
 
         if (msg == "quit") {
-            return;
+            return 0;
+        }
+        else if (msg == "isready") {
+            cout << "readyok" << endl;
+        }
+        else if (msg == "uci") {
+            cout << "uciok" << endl;
         }
     }
 }
