@@ -97,8 +97,8 @@ string Board::GetFen(void) {
         }
     }
 
-    if (_turn) {fen += "w ";}
-    else {fen += "b ";}
+    if (_turn) {fen += " w ";}
+    else {fen += " b ";}
 
     for (auto i = 0; i < 4; i++) {
         if (_legalCastles[i]) {fen += _castleSymbols[i];}
