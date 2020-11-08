@@ -55,9 +55,9 @@ class Tree:
                 self.root.Branch(depth)
         elif "wtime" in kwargs:
             if self.board.turn:
-                moveTime = min(kwargs["wtime"]/2000, 10)
+                moveTime = min(kwargs["wtime"]/2000, 20)
             else:
-                moveTime = min(kwargs["btime"]/2000, 10)
+                moveTime = min(kwargs["btime"]/2000, 20)
             threading.Thread(target=self.TimerTime, args=(moveTime,)).start()
             for depth in range(10000):
                 if not self.processing:
@@ -78,7 +78,7 @@ class Tree:
         del self.root
 
     def Printer(self):
-        expBase = 15000   #* Print every time self.nodes reaches the next multiple of this number.
+        expBase = 3500   #* Print every time self.nodes reaches the next multiple of this number.
         currExp = 0
         print()
         while True:
