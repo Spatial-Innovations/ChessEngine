@@ -27,6 +27,7 @@ class Board {
         ~Board();
         Board();
         void Print(void);
+        vector<string> GenerateLegalMoves(void);
 
     private:
         vector<int> _board;

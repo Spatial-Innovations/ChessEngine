@@ -56,6 +56,11 @@ void Board::Print(void) {
     cout << printStr;
 }
 
+vector<string> Board::GenerateLegalMoves(void) {
+    vector<string> moves;
+    return moves;
+    }
+
 string Board::_GetSymbol(int num) {
     switch (num) {
     case 0: return " ";
