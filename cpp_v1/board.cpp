@@ -38,9 +38,10 @@ Board::Board() {
         {10, 8, 9, 11, 12, 9, 8, 10}
     };
 
-    _castling = {true, true, true, true};
+    _legalCastles = {true, true, true, true};
     _turn = true;
     _epSquare = {};
+    _ep = false;
 }
 
 
@@ -96,6 +97,16 @@ string Board::GetFen(void) {
         }
     }
 
+    if (_turn) {fen += "w ";}
+    else {fen += "b ";}
+
+    for (auto i = 0; i < 4; i++) {
+        if (_legalCastles[i]) {fen += _castleSymbols[i];}
+    }
+
+    fen += " ";
+    if (_ep) {fen += _GetSquare(_epSquare[0], _epSquare[1]);}
+    fen += " 0 1";
     return fen;
 }
 
@@ -117,4 +128,33 @@ string Board::_GetSymbol(int num) {
         case 12: return "K";
         default: return "";
     }
+}
+
+
+string Board::_GetSquare(int row, int col) {
+    string strRow, strCol;
+
+    switch (row) {
+        case 0: strRow = "8"; break;
+        case 1: strRow = "7"; break;
+        case 2: strRow = "6"; break;
+        case 3: strRow = "5"; break;
+        case 4: strRow = "4"; break;
+        case 5: strRow = "3"; break;
+        case 6: strRow = "2"; break;
+        case 7: strRow = "1"; break;
+        default: break;
+    }
+    switch (col) {
+        case 0: strCol = "a"; break;
+        case 1: strCol = "b"; break;
+        case 2: strCol = "c"; break;
+        case 3: strCol = "d"; break;
+        case 4: strCol = "e"; break;
+        case 5: strCol = "f"; break;
+        case 6: strCol = "g"; break;
+        case 7: strCol = "h"; break;
+    }
+
+    return (strCol + strRow);
 }

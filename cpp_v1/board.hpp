@@ -33,13 +33,16 @@ class Board {
     private:
         string const _printLine = " +---+---+---+---+---+---+---+---+\n";
         string const _printSplit = " | ";
+        vector<string> const _castleSymbols = {"K", "Q", "k", "q"};
 
         vector<vector<int>> _board;
-        vector<bool> _castling;
+        vector<bool> _legalCastles;
         vector<int> _epSquare;
         bool _turn;
+        bool _ep;
 
         string _GetSymbol(int);
+        string _GetSquare(int, int);
 
         vector<Move> _GetPawnMoves(vector<vector<int>>, vector<int>, bool);
         vector<Move> _GetKnightMoves(vector<vector<int>>, vector<int>, bool);
