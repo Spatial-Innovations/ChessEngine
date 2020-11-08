@@ -42,10 +42,10 @@ class Board {
         string _GetSymbol(int num);
         string _GetSquare(vector<int> coords);
 
-        vector<Move> _GetPawnMoves(vector<int> location, bool color);
-        vector<Move> _GetKnightMoves(vector<int> location, bool color);
-        vector<Move> _GetBishopMoves(vector<int> location, bool color);
-        vector<Move> _GetRookMoves(vector<int> location, bool color);
-        vector<Move> _GetQueenMoves(vector<int> location, bool color);
-        vector<Move> _GetKingMoves(vector<int> location, bool color);
+        vector<Move> _GetPawnMoves(vector<vector<int>> board, vector<int> location, bool color);
+        vector<Move> _GetKnightMoves(vector<vector<int>> board, vector<int> location, bool color);
+        vector<Move> _GetBishopMoves(vector<vector<int>> board, vector<int> location, bool color);
+        vector<Move> _GetRookMoves(vector<vector<int>> board, vector<int> location, bool color);
+        vector<Move> _GetQueenMoves(vector<vector<int>> board, vector<int> location, bool color);
+        vector<Move> _GetKingMoves(vector<vector<int>> board, vector<int> location, bool color);
 };

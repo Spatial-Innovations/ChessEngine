@@ -64,32 +64,32 @@ vector<Move> Board::GetLegalMoves(void) {
 }
 
 
-vector<Move> Board::_GetPawnMoves(vector<int> location, bool color) {
+vector<Move> Board::_GetPawnMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
     return moves;
 }
 
-vector<Move> Board::_GetKnightMoves(vector<int> location, bool color) {
+vector<Move> Board::_GetKnightMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
     return moves;
 }
 
-vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
+vector<Move> Board::_GetBishopMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
     return moves;
 }
 
-vector<Move> Board::_GetRookMoves(vector<int> location, bool color) {
+vector<Move> Board::_GetRookMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
     return moves;
 }
 
-vector<Move> Board::_GetQueenMoves(vector<int> location, bool color) {
+vector<Move> Board::_GetQueenMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
     return moves;
 }
 
-vector<Move> Board::_GetKingMoves(vector<int> location, bool color) {
+vector<Move> Board::_GetKingMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
     return moves;
 }
