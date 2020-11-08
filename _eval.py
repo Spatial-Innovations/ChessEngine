@@ -20,9 +20,16 @@ from chess import Board
 
 
 def Eval(position: Board):
+    moves = len(position.move_stack)
     evaluation = 0
-    evaluation += Material(position)
-    evaluation += CenterControl(position) / 4
+
+    material = Material(position)
+    materialWeight = min(max(0.02*moves + 0.4, 0.8), 1.4)    #* Increases move >= 30, bound = (0.7, 1.4)
+    center = CenterControl(position)
+    centerWeight = min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from 20 to 35, bound = (0.3, 1.1)
+
+    evaluation += material * materialWeight
+    evaluation += center * centerWeight
 
     return evaluation
 
