@@ -63,8 +63,8 @@ def Development(position: Board):
 
 def _GetAttackingSquares(position, ind, color):
     color = getattr(chess, color)
-    row = ind//8
-    col = ind%8
+    row = ind // 8
+    col = ind % 8
     col = chr(col + 65)
     pos = str(col) + str(row)
 
