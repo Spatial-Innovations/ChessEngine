@@ -45,12 +45,27 @@ def Material(position: Board):
 
     return points
 
-def Development(position: Board):
+def EarlyDevelopment(position: Board):
     points = 0
     newFen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
 
     for ind, piece in enumerate(newFen):
-        if piece.isalpha() and piece.lower() != "p":
+        if piece.isalpha() and piece.lower() in ("p", "q", "n", "b"):
+            attackingSquares = _GetAttackingSquares(position, ind)
+            if piece.isupper():
+                points += attackingSquares
+            if piece.islower():
+                points -= attackingSquares
+
+    return points
+
+
+def EarlyDevelopment(position: Board):
+    points = 0
+    newFen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
+
+    for ind, piece in enumerate(newFen):
+        if piece.isalpha() and piece.lower() in ("p", "q", "k", "r"):
             attackingSquares = _GetAttackingSquares(position, ind)
             if piece.isupper():
                 points += attackingSquares
