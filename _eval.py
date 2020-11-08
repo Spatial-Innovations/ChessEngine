@@ -24,14 +24,14 @@ def Eval(position: Board):
     evaluation = 0
 
     material = Material(position)
-    materialWeight = min(max(0.02*moves + 0.4, 0.8), 1.4)   #* Increases move >= 30, bound = (0.7, 1.4)
+    materialWeight = min(max(0.04*moves + 0.4, 1.4), 3)    #* Increases move >= 30, bound = (1.4, 2.8)
     center = CenterControl(position)
-    centerWeight = min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from 20 to 35, bound = (0.3, 1.1)
+    centerWeight = min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from move 20 to 35, bound = (0.3, 1.1)
 
     evaluation += material * materialWeight
     evaluation += center * centerWeight
 
-    return evaluation
+    return int(evaluation * 10)
 
 
 def Material(position: Board):
@@ -58,8 +58,8 @@ def Development(position: Board):
     return points
 
 
-def _GetAttackingSquares(position, ind):
-    return
+def _GetAttackingSquares(position, ind, color):
+    color = getattr(chess, color)
 
 
 def CenterControl(position: Board):

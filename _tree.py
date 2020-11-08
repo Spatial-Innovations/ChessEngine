@@ -33,6 +33,7 @@ class Tree:
         self.bestMove = None
         self.nodes = 0
         self.depth = 0
+        self.score = 0
         self.board = kwargs["board"]
         self.evalThres = Eval(self.board) - 2
         self.root = Node(self, self.board, 0)
@@ -92,11 +93,13 @@ class Tree:
     def PrintStr(self):
         timeElapse = time.time() - self.timeStart
         try:
-            self.bestMove = self.root.Minimax(self.board.turn, float("-inf"), float("inf"))[1].uci()
+            evaluation = self.root.Minimax(self.board.turn)
+            self.bestMove = evaluation[1].uci()
+            self.score = evaluation[0]
         except:
             pass
 
-        string = self.infoStr.format(depth=self.depth+1, cp=0, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove)
+        string = self.infoStr.format(depth=self.depth+1, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove)
         print(string)
 
     def TimerNodes(self, nodes):
@@ -146,7 +149,7 @@ class Node:
                     return
                 b.Branch(targetDepth)
 
-    def Minimax(self, maxPlayer, alpha, beta):
+    def Minimax(self, maxPlayer):
         if len(self.branches) == 0:
             return (self.eval, self.board.peek())
 
@@ -154,13 +157,10 @@ class Node:
             maxEval = float("-inf")
             bestMove = None
             for b in self.branches:
-                evaluation = b.Minimax(False, alpha, beta)[0]
+                evaluation = b.Minimax(False)[0]
                 maxEval = max(maxEval, evaluation)
-                alpha = max(alpha, evaluation)
                 if maxEval == evaluation:
                     bestMove = b.board.peek()
-                if beta <= alpha:
-                    break
 
             return (maxEval, bestMove)
 
@@ -168,12 +168,9 @@ class Node:
             minEval = float("inf")
             bestMove = None
             for b in self.branches:
-                evaluation = b.Minimax(True, alpha, beta)[0]
+                evaluation = b.Minimax(True)[0]
                 minEval = min(minEval, evaluation)
-                beta = min(beta, evaluation)
                 if minEval == evaluation:
                     bestMove = b.board.peek()
-                if beta <= alpha:
-                    break
 
             return (minEval, bestMove)
