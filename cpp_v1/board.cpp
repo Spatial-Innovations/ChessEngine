@@ -84,30 +84,30 @@ string Board::_GetSymbol(int num) {
 }
 
 
-string Board::_GetSquare(vector<int> coords) {
-    string row, col;
+string Board::_GetSquare(int row, int col) {
+    string strRow, strCol;
 
-    switch (coords[0]) {
-        case 0: row = "8"; break;
-        case 1: row = "7"; break;
-        case 2: row = "6"; break;
-        case 3: row = "5"; break;
-        case 4: row = "4"; break;
-        case 5: row = "3"; break;
-        case 6: row = "2"; break;
-        case 7: row = "1"; break;
+    switch (row) {
+        case 0: strRow = "8"; break;
+        case 1: strRow = "7"; break;
+        case 2: strRow = "6"; break;
+        case 3: strRow = "5"; break;
+        case 4: strRow = "4"; break;
+        case 5: strRow = "3"; break;
+        case 6: strRow = "2"; break;
+        case 7: strRow = "1"; break;
         default: break;
     }
-    switch (coords[1]) {
-        case 0: col = "a"; break;
-        case 1: col = "b"; break;
-        case 2: col = "c"; break;
-        case 3: col = "d"; break;
-        case 4: col = "e"; break;
-        case 5: col = "f"; break;
-        case 6: col = "g"; break;
-        case 7: col = "h"; break;
+    switch (col) {
+        case 0: strCol = "a"; break;
+        case 1: strCol = "b"; break;
+        case 2: strCol = "c"; break;
+        case 3: strCol = "d"; break;
+        case 4: strCol = "e"; break;
+        case 5: strCol = "f"; break;
+        case 6: strCol = "g"; break;
+        case 7: strCol = "h"; break;
     }
 
-    return (col + row);
+    return (strCol + strRow);
 }
