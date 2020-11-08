@@ -26,7 +26,7 @@ files = (
 
 cmd = "g++ "
 for f in files:
-    cmd += os.path.join(PARENT, f)
+    cmd += "\"" + os.path.join(PARENT, f) + "\""
     cmd += " "
 
 cmd += "-o "
