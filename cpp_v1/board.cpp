@@ -64,6 +64,37 @@ vector<Move> Board::GetLegalMoves(void) {
 }
 
 
+vector<Move> Board::_GetPawnMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    return moves;
+}
+
+vector<Move> Board::_GetKnightMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    return moves;
+}
+
+vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    return moves;
+}
+
+vector<Move> Board::_GetRookMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    return moves;
+}
+
+vector<Move> Board::_GetQueenMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    return moves;
+}
+
+vector<Move> Board::_GetKingMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    return moves;
+}
+
+
 string Board::_GetSymbol(int num) {
     switch (num) {
         case 0: return " ";
