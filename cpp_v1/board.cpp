@@ -130,7 +130,89 @@ vector<Move> Board::GetLegalMoves(void) {
             }
 
             // White knight
-            else if (piece == "N" || piece == "n") {
+            else if (piece == "N") {
+                // Top left
+                if (row-2 >= 0 && col-1 >= 0 && !(_board[row-2][col-1] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row-2, col-1})));
+                }
+
+                // Top Right
+                if (row-2 >= 0 && col+1 <= _board.size() && !(_board[row-2][col+1] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row-2, col+1})));
+                }
+
+                // Left Top
+                if (row-1 >= 0 && col-2 >= 0 && !(_board[row-1][col-2] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row-1, col-2})));
+                }
+
+                // Right Top
+                if (row-1 >= 0 && col+2 <= _board.size(0) && !(_board[row-1][col+2] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row-1, col+2})));
+                }
+
+                // Bottom left
+                if (row+2 >= 0 && col-1 >= 0 && !(_board[row+2][col-1] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row+2, col-1})));
+                }
+
+                // Bottom Right
+                if (row+2 >= 0 && col+1 <= _board.size() && !(_board[row+2][col+1] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row+2, col+1})));
+                }
+
+                // Left Bottom
+                if (row+1 >= 0 && col-2 >= 0 && !(_board[row+1][col-2] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row+1, col-2})));
+                }
+
+                // Right Bottom
+                if (row+1 >= 0 && col+2 <= _board.size() && !(_board[row+1][col+2] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row+1, col+2})));
+                }
+            }
+
+            // Black knight
+            else if (piece == "n") {
+                // Top left
+                if (row-2 >= 0 && col-1 >= 0 && !(_board[row-2][col-1] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row-2, col-1})));
+                }
+
+                // Top Right
+                if (row-2 >= 0 && col+1 <= _board.size() && !(_board[row-2][col+1] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row-2, col+1})));
+                }
+
+                // Left Top
+                if (row-1 >= 0 && col-2 >= 0 && !(_board[row-1][col-2] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row-1, col-2})));
+                }
+
+                // Right Top
+                if (row-1 >= 0 && col+2 <= _board.size(0) && !(_board[row-1][col+2] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row-1, col+2})));
+                }
+
+                // Bottom left
+                if (row+2 >= 0 && col-1 >= 0 && !(_board[row+2][col-1] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row+2, col-1})));
+                }
+
+                // Bottom Right
+                if (row+2 >= 0 && col+1 <= _board.size() && !(_board[row+2][col+1] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row+2, col+1})));
+                }
+
+                // Left Bottom
+                if (row+1 >= 0 && col-2 >= 0 && !(_board[row+1][col-2] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row+1, col-2})));
+                }
+
+                // Right Bottom
+                if (row+1 >= 0 && col+2 <= _board.size() && !(_board[row+1][col+2] >= 7)){
+                    moves.push_back(Move(currSquare, _GetSquare({row+1, col+2})));
+                }
             }
 
             // White bishop and queen
