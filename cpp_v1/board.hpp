@@ -35,12 +35,12 @@ class Board {
         string const _printLine = " +---+---+---+---+---+---+---+---+\n";
         string const _printSplit = " | ";
 
-        string _GetSymbol(int num);
+        string _GetSymbol(int);
 
-        vector<Move> _GetPawnMoves(vector<vector<int>> board, vector<int> location, bool color);
-        vector<Move> _GetKnightMoves(vector<vector<int>> board, vector<int> location, bool color);
-        vector<Move> _GetBishopMoves(vector<vector<int>> board, vector<int> location, bool color);
-        vector<Move> _GetRookMoves(vector<vector<int>> board, vector<int> location, bool color);
-        vector<Move> _GetQueenMoves(vector<vector<int>> board, vector<int> location, bool color);
-        vector<Move> _GetKingMoves(vector<vector<int>> board, vector<int> location, bool color);
+        vector<Move> _GetPawnMoves(vector<vector<int>>, vector<int>, bool);
+        vector<Move> _GetKnightMoves(vector<vector<int>>, vector<int>, bool);
+        vector<Move> _GetBishopMoves(vector<vector<int>>, vector<int>, bool);
+        vector<Move> _GetRookMoves(vector<vector<int>>, vector<int>, bool);
+        vector<Move> _GetQueenMoves(vector<vector<int>>, vector<int>, bool);
+        vector<Move> _GetKingMoves(vector<vector<int>>, vector<int>, bool);
 };

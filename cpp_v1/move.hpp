@@ -22,7 +22,7 @@ using namespace std;
 class Move {
     public:
         ~Move();
-        Move(vector<int> first, vector<int> second, string promotion="");
+        Move(vector<int>, vector<int>, string="");
 
         bool IsPromotion(void);
         string GetFirst(void);
@@ -36,5 +36,5 @@ class Move {
         bool _promotion;
         string _promotionPiece;
 
-        string _GetSquare(int row, int col);
+        string _GetSquare(int, int);
 };
