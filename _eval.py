@@ -54,7 +54,7 @@ def EarlyDev(position: Board):
     newFen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
 
     for ind, piece in enumerate(newFen):
-        if piece.isalpha() and piece.lower() in ("p", "q", "n", "b"):
+        if piece.isalpha() and piece.lower() in ("q", "n", "b"):
             attackingSquares = _GetAttackingSquares(position, ind)
             if piece.isupper():
                 points += attackingSquares
@@ -69,7 +69,7 @@ def LateDev(position: Board):
     newFen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
 
     for ind, piece in enumerate(newFen):
-        if piece.isalpha() and piece.lower() in ("p", "q", "k", "r"):
+        if piece.isalpha() and piece.lower() in ("q", "k", "r"):
             attackingSquares = _GetAttackingSquares(position, ind)
             if piece.isupper():
                 points += attackingSquares
