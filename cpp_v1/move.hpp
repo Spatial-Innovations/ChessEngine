@@ -21,13 +21,13 @@ using namespace std;
 class Move {
     public:
         ~Move();
-        Move(string first, string second);
+        Move(vector<int> first, vector<int> second);
 
         string GetFirst(void);
         string GetSecond(void);
 
     private:
-        string _first;
-        string _second;
-        string GetSquare(int row, int col);
+        vector<int> _first;
+        vector<int> _second;
+        string _GetSquare(int row, int col);
 };

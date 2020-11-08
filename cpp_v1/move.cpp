@@ -15,13 +15,14 @@
 //
 //  ##### END GPL LICENSE BLOCK #####
 
+#include <vector>
 #include "move.hpp"
 
 Move::~Move() {
 }
 
 
-Move::Move(string first, string second) {
+Move::Move(vector<int> first, vector<int> second) {
     _first = first;
     _second = second;
 }
