@@ -56,6 +56,7 @@ void Board::Print(void) {
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
+    vector<Coords> knightMoves;
     string piece;
 
     for(auto row = 0; row < _board.size(); row++) {
@@ -65,7 +66,9 @@ vector<Move> Board::GetLegalMoves(void) {
 
             }
             else if (piece == "N" || piece == "n") {
-                
+                knightMoves = {
+                    Coords(row-2, col-1), Coords(row-2, col+1)
+                };
             }
         }
     }
