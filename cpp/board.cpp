@@ -60,39 +60,40 @@ void Board::Print(void) {
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
-    string piece;
+    string piece, currSquare;
 
     for(auto row = 0; row < _board.size(); row++) {
         for(auto col = 0; col < _board[row].size(); col++) {
             piece = _GetSymbol(_board[row][col]);
+            currSquare = _GetSquare({row, col});
 
             // White rook and queen
             if (piece == "R" || piece == "Q") {
                 // Top
                 for (auto r = row; r > 0; r--) {
                     if (_board[r][col] > 6) {break;}
-                    moves.push_back(Coords(r, col));
+                    moves.push_back(Move(currSquare, _GetSquare({r, col})));
                     if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
                 }
 
                 // Bottom
                 for (auto r = row; r < _board.size(); r++) {
                     if (_board[r][col] > 6) {break;}
-                    moves.push_back(Coords(r, col));
+                    moves.push_back(Move(currSquare, _GetSquare({r, col})));
                     if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
                 }
 
                 // Left
                 for (auto c = col; c > 0; c--) {
                     if (_board[row][c] > 6) {break;}
-                    moves.push_back(Coords(row, c));
+                    moves.push_back(Move(currSquare, _GetSquare({row, c})));
                     if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
                 }
 
                 // Right
                 for (auto c = col; c < _board.size(); c++) {
                     if (_board[row][c] > 6) {break;}
-                    moves.push_back(Coords(row, c));
+                    moves.push_back(Move(currSquare, _GetSquare({row, c})));
                     if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
                 }
             }
@@ -102,37 +103,34 @@ vector<Move> Board::GetLegalMoves(void) {
                 // Top
                 for (auto r = row; r > 0; r--) {
                     if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
-                    moves.push_back(Coords(r, col));
+                    moves.push_back(Move(currSquare, _GetSquare({r, col})));
                     if (_board[r][col] > 6) {break;}
                 }
 
                 // Bottom
                 for (auto r = row; r < _board.size(); r++) {
                     if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
-                    moves.push_back(Coords(r, col));
+                    moves.push_back(Move(currSquare, _GetSquare({r, col})));
                     if (_board[r][col] > 6) {break;}
                 }
 
                 // Left
                 for (auto c = col; c > 0; c--) {
                     if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
-                    moves.push_back(Coords(row, c));
+                    moves.push_back(Move(currSquare, _GetSquare({row, c})));
                     if (_board[row][c] > 6) {break;}
                 }
 
                 // Right
                 for (auto c = col; c < _board.size(); c++) {
                     if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
-                    moves.push_back(Coords(row, c));
+                    moves.push_back(Move(currSquare, _GetSquare({row, c})));
                     if (_board[row][c] > 6) {break;}
                 }
             }
 
             // White knight
             else if (piece == "N" || piece == "n") {
-                knightMoves = {
-                    Coords(row-2, col-1), Coords(row-2, col+1)
-                };
             }
 
             // White bishop and queen
@@ -141,7 +139,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 for (auto r = row; r > 0; r--) {
                     if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
                         if (_board[r][col - abs(r - row)] > 6) {break;}
-                        moves.push_back(Coords(r, col - abs(r - row)));
+                        moves.push_back(Move(currSquare, _GetSquare({r, col - abs(r - row)})));
                         if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
                     }
                 }
@@ -150,7 +148,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 for (auto r = row; r > 0; r--) {
                     if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
                         if (_board[r][col + abs(r - row)] > 6) {break;}
-                        moves.push_back(Coords(r, col + abs(r - row)));
+                        moves.push_back(Move(currSquare, _GetSquare({r, col + abs(r - row)})));
                         if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
                     }
                 }
@@ -159,7 +157,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 for (auto r = row; r < _board.size(); r++) {
                     if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
                         if (_board[r][col - abs(r - row)] > 6) {break;}
-                        moves.push_back(Coords(r, col - abs(r - row)));
+                        moves.push_back(Move(currSquare, _GetSquare({r, col - abs(r - row)})));
                         if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
                     }
                 }
@@ -168,7 +166,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 for (auto r = row; r < _board.size(); r++) {
                     if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
                         if (_board[r][col + abs(r - row)] > 6) {break;}
-                        moves.push_back(Coords(r, col + abs(r - row)));
+                        moves.push_back(Move(currSquare, _GetSquare({r, col + abs(r - row)})));
                         if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
                     }
                 }
@@ -180,7 +178,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 for (auto r = row; r > 0; r--) {
                     if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
                         if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
-                        moves.push_back(Coords(r, col - abs(r - row)));
+                        moves.push_back(Move(currSquare, _GetSquare({r, col - abs(r - row)})));
                         if (_board[r][col - abs(r - row)] > 6) {break;}
                     }
                 }
@@ -189,7 +187,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 for (auto r = row; r > 0; r--) {
                     if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
                         if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
-                        moves.push_back(Coords(r, col + abs(r - row)));
+                        moves.push_back(Move(currSquare, _GetSquare({r, col + abs(r - row)})));
                         if (_board[r][col + abs(r - row)] > 6) {break;}
                     }
                 }
@@ -198,7 +196,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 for (auto r = row; r < _board.size(); r++) {
                     if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
                         if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
-                        moves.push_back(Coords(r, col - abs(r - row)));
+                        moves.push_back(Move(currSquare, _GetSquare({r, col - abs(r - row)})));
                         if (_board[r][col - abs(r - row)] > 6) {break;}
                     }
                 }
@@ -207,7 +205,7 @@ vector<Move> Board::GetLegalMoves(void) {
                 for (auto r = row; r < _board.size(); r++) {
                     if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
                         if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
-                        moves.push_back(Coords(r, col + abs(r - row)));
+                        moves.push_back(Move(currSquare, _GetSquare({r, col + abs(r - row)})));
                         if (_board[r][col + abs(r - row)] > 6) {break;}
                     }
                 }
