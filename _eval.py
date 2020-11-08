@@ -51,18 +51,16 @@ def Development(position: Board):
 
     for ind, piece in enumerate(newFen):
         if piece.isalpha() and piece.lower() != "p":
+            attackingSquares = _GetAttackingSquares(position, ind)
             if piece.isupper():
-                attackingSquares = _GetAttackingSquares(position, ind, "WHITE")
                 points += attackingSquares
             if piece.islower():
-                attackingSquares = _GetAttackingSquares(position, ind, "BLACK")
                 points -= attackingSquares
 
     return points
 
 
-def _GetAttackingSquares(position, ind, color):
-    color = getattr(chess, color)
+def _GetAttackingSquares(position, ind):
     row = ind // 8 + 1
     col = ind % 8
     col = chr(col + 65)
