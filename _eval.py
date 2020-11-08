@@ -24,7 +24,7 @@ def Eval(position: Board):
     evaluation = 0
 
     material = Material(position)
-    materialWeight = min(max(0.02*moves + 0.4, 0.8), 1.4)    #* Increases move >= 30, bound = (0.7, 1.4)
+    materialWeight = min(max(0.02*moves + 0.4, 0.8), 1.4)   #* Increases move >= 30, bound = (0.7, 1.4)
     center = CenterControl(position)
     centerWeight = min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from 20 to 35, bound = (0.3, 1.1)
 
@@ -46,10 +46,20 @@ def Material(position: Board):
 def Development(position: Board):
     points = 0
 
-    for piece in position.fen().split(" ")[0]:
-        if piece.isupper():
+    for ind, piece in enumerate(position.fen().split(" ")[0]):
+        if piece.isalpha():
+            if piece.isupper():
+                attackingSquares = _GetAttackingSquares(position, ind, "WHITE")
+                points += attackingSquares
+            if piece.islower():
+                attackingSquares = _GetAttackingSquares(position, ind, "BLACK")
+                points -= attackingSquares
 
     return points
+
+
+def _GetAttackingSquares(position, ind):
+    return
 
 
 def CenterControl(position: Board):
