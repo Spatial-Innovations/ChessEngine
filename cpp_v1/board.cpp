@@ -72,6 +72,10 @@ string Board::GetFen(void) {
     for (auto row = 0; row < _board.size(); row++) {
         for (auto col = 0; col < _board[row].size(); col++) {
             if (row == slashCount) {
+                if (spaceCount != 0) {
+                    fen += to_string(spaceCount);
+                    spaceCount = 0;
+                }
                 fen += "/";
                 slashCount++;
             }
@@ -81,6 +85,7 @@ string Board::GetFen(void) {
             else {
                 if (spaceCount != 0) {
                     fen += to_string(spaceCount);
+                    spaceCount = 0;
                 }
                 fen += _GetSymbol(_board[row][col]);
             }

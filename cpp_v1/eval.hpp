@@ -26,5 +26,6 @@ int Eval(vector<vector<int>> board) {
 
 
 int Material(vector<vector<int>> board) {
-    
+    string fen = board.GetFen();
+    string pieces = fen.substr(0, fen.find(" "));
 }

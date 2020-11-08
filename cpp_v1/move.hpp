@@ -22,7 +22,7 @@ using namespace std;
 class Move {
     public:
         ~Move();
-        Move(vector<int>, vector<int>, string="");
+        Move(vector<int>, vector<int>, string);
 
         bool IsPromotion(void);
         string GetFirst(void);
