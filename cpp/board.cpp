@@ -61,11 +61,19 @@ vector<Move> Board::GetLegalMoves(void) {
     for(auto row = 0; row < _board.size(); row++) {
         for(auto col = 0; col < _board[row].size(); col++) {
             piece = _GetSymbol(_board[row][col]);
-            if (piece == "R" || piece == "r") {
-
+            if (piece == "R") {
+                break
+            }
+            else if (piece == "r") {
+                // Top
+                for (auto r = row; r < _board.size(); r--) {
+                    if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+                    moves.push_back("move");
+                    if (_board[r][col] > 6) {break;}
+                }
             }
             else if (piece == "N" || piece == "n") {
-                
+                break;
             }
         }
     }
