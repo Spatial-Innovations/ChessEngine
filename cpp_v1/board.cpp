@@ -79,9 +79,7 @@ string Board::GetFen(void) {
                 fen += "/";
                 slashCount++;
             }
-            if (_board[row][col] == 0) {
-                spaceCount++;
-            }
+            if (_board[row][col] == 0) {spaceCount++;}
             else {
                 if (spaceCount != 0) {
                     fen += to_string(spaceCount);
