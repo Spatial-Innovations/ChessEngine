@@ -90,24 +90,272 @@ vector<Move> Board::_GetPawnMoves(vector<vector<int>> board, vector<int> locatio
 
 vector<Move> Board::_GetKnightMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
+    int row = location[0];
+    int col = location[1];
+
+    // White knight
+    if (color) {
+        // Top left
+        if (row-2 >= 0 && col-1 >= 0 && !(_board[row-2][col-1] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row-2, col-1})));
+        }
+
+        // Top Right
+        if (row-2 >= 0 && col+1 <= _board.size() && !(_board[row-2][col+1] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row-2, col+1})));
+        }
+
+        // Left Top
+        if (row-1 >= 0 && col-2 >= 0 && !(_board[row-1][col-2] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row-1, col-2})));
+        }
+
+        // Right Top
+        if (row-1 >= 0 && col+2 <= _board.size(0) && !(_board[row-1][col+2] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row-1, col+2})));
+        }
+
+        // Bottom left
+        if (row+2 >= 0 && col-1 >= 0 && !(_board[row+2][col-1] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row+2, col-1})));
+        }
+
+        // Bottom Right
+        if (row+2 >= 0 && col+1 <= _board.size() && !(_board[row+2][col+1] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row+2, col+1})));
+        }
+
+        // Left Bottom
+        if (row+1 >= 0 && col-2 >= 0 && !(_board[row+1][col-2] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row+1, col-2})));
+        }
+
+        // Right Bottom
+        if (row+1 >= 0 && col+2 <= _board.size() && !(_board[row+1][col+2] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row+1, col+2})));
+        }
+    }
+
+    // Black knight
+    else {
+        // Top left
+        if (row-2 >= 0 && col-1 >= 0 && !(_board[row-2][col-1] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row-2, col-1})));
+        }
+
+        // Top Right
+        if (row-2 >= 0 && col+1 <= _board.size() && !(_board[row-2][col+1] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row-2, col+1})));
+        }
+
+        // Left Top
+        if (row-1 >= 0 && col-2 >= 0 && !(_board[row-1][col-2] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row-1, col-2})));
+        }
+
+        // Right Top
+        if (row-1 >= 0 && col+2 <= _board.size(0) && !(_board[row-1][col+2] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row-1, col+2})));
+        }
+
+        // Bottom left
+        if (row+2 >= 0 && col-1 >= 0 && !(_board[row+2][col-1] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row+2, col-1})));
+        }
+
+        // Bottom Right
+        if (row+2 >= 0 && col+1 <= _board.size() && !(_board[row+2][col+1] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row+2, col+1})));
+        }
+
+        // Left Bottom
+        if (row+1 >= 0 && col-2 >= 0 && !(_board[row+1][col-2] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row+1, col-2})));
+        }
+
+        // Right Bottom
+        if (row+1 >= 0 && col+2 <= _board.size() && !(_board[row+1][col+2] >= 7)) {
+            moves.push_back(Move(location, _GetSquare({row+1, col+2})));
+        }
+    }
+
     return moves;
 }
 
 
 vector<Move> Board::_GetBishopMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
+    int row = location[0];
+    int col = location[1];
+
+    // White bishop
+    if (color) {
+        // Top Left
+        for (auto r = row; r > 0; r--) {
+            if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                if (_board[r][col - abs(r - row)] > 6) {break;}
+                moves.push_back(Move(location, _GetSquare({r, col - abs(r - row)})));
+                if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+            }
+        }
+
+        // Top Right
+        for (auto r = row; r > 0; r--) {
+            if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                if (_board[r][col + abs(r - row)] > 6) {break;}
+                moves.push_back(Move(location, _GetSquare({r, col + abs(r - row)})));
+                if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+            }
+        }
+
+        // Bottom Left
+        for (auto r = row; r < _board.size(); r++) {
+            if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                if (_board[r][col - abs(r - row)] > 6) {break;}
+                moves.push_back(Move(location, _GetSquare({r, col - abs(r - row)})));
+                if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+            }
+        }
+
+        // Bottom Right
+        for (auto r = row; r < _board.size(); r++) {
+            if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                if (_board[r][col + abs(r - row)] > 6) {break;}
+                moves.push_back(Move(location, _GetSquare({r, col + abs(r - row)})));
+                if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+            }
+        }
+    }
+
+    // Black bishop and queen
+    else {
+        // Top Left
+        for (auto r = row; r > 0; r--) {
+            if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+                moves.push_back(Move(location, _GetSquare({r, col - abs(r - row)})));
+                if (_board[r][col - abs(r - row)] > 6) {break;}
+            }
+        }
+
+        // Top Right
+        for (auto r = row; r > 0; r--) {
+            if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+                moves.push_back(Move(location, _GetSquare({r, col + abs(r - row)})));
+                if (_board[r][col + abs(r - row)] > 6) {break;}
+            }
+        }
+
+        // Bottom Left
+        for (auto r = row; r < _board.size(); r++) {
+            if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+                moves.push_back(Move(location, _GetSquare({r, col - abs(r - row)})));
+                if (_board[r][col - abs(r - row)] > 6) {break;}
+            }
+        }
+
+        // Bottom Right
+        for (auto r = row; r < _board.size(); r++) {
+            if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+                moves.push_back(Move(location, _GetSquare({r, col + abs(r - row)})));
+                if (_board[r][col + abs(r - row)] > 6) {break;}
+            }
+        }
+    }
+
     return moves;
 }
 
 
 vector<Move> Board::_GetRookMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
+    int row = location[0];
+    int col = location[1];
+
+    // White rook
+    if (color) {
+        // Top
+        for (auto r = row; r > 0; r--) {
+            if (_board[r][col] > 6) {break;}
+            moves.push_back(Move(location, _GetSquare({r, col})));
+            if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+        }
+
+        // Bottom
+        for (auto r = row; r < _board.size(); r++) {
+            if (_board[r][col] > 6) {break;}
+            moves.push_back(Move(location, _GetSquare({r, col})));
+            if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+        }
+
+        // Left
+        for (auto c = col; c > 0; c--) {
+            if (_board[row][c] > 6) {break;}
+            moves.push_back(Move(location, _GetSquare({row, c})));
+            if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+        }
+
+        // Right
+        for (auto c = col; c < _board.size(); c++) {
+            if (_board[row][c] > 6) {break;}
+            moves.push_back(Move(location, _GetSquare({row, c})));
+            if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+        }
+    }
+
+    // Black rook
+    else {
+        // Top
+        for (auto r = row; r > 0; r--) {
+            if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+            moves.push_back(Move(location, _GetSquare({r, col})));
+            if (_board[r][col] > 6) {break;}
+        }
+
+        // Bottom
+        for (auto r = row; r < _board.size(); r++) {
+            if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+            moves.push_back(Move(location, _GetSquare({r, col})));
+            if (_board[r][col] > 6) {break;}
+        }
+
+        // Left
+        for (auto c = col; c > 0; c--) {
+            if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+            moves.push_back(Move(location, _GetSquare({row, c})));
+            if (_board[row][c] > 6) {break;}
+        }
+
+        // Right
+        for (auto c = col; c < _board.size(); c++) {
+            if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+            moves.push_back(Move(location, _GetSquare({row, c})));
+            if (_board[row][c] > 6) {break;}
+        }
+    }
+
     return moves;
 }
 
 
 vector<Move> Board::_GetQueenMoves(vector<vector<int>> board, vector<int> location, bool color) {
     vector<Move> moves;
+
+    vector<Move> rook = _GetRookMoves(board, location, color);
+    vector<Move> bishop = _GetBishopMoves(board, location, color);
+
+    // Queen is combination of rook and bishop
+    for (auto i = 0; i < rook.size(); i++) {
+        moves.push_back(rook[i]);
+    }
+
+    for (auto i = 0; i < bishop.size(); i++) {
+        moves.push_back(bishop[i]);
+    }
+
     return moves;
 }
 
@@ -118,18 +366,18 @@ vector<Move> Board::_GetKingMoves(vector<vector<int>> board, vector<int> locatio
     string startSquare, currSquare;
     vector<Move> moves;
     vector<vector<int>> nextMoves;
-    
+
     startSquare = _GetSquare(location);
     nextMoves = {
         {row - 1, col - 1}, {row - 1, col}, {row - 1, col + 1},
         {row, col - 1}, {row, col + 1},
         {row + 1, col - 1}, {row + 1, col}, {row + 1, col + 1}
     };
-    
+
     for (auto i = 0; i < 8; i++) {
         currPiece = board[nextMoves[i][0]][nextMoves[i][1]];
         currSquare = _GetSquare({nextMoves[i][0], nextMoves[i][1]});
-        
+
         if ((currPiece>=0 && currPiece<=6) && color) {   // King is white
             moves.push_back(Move(startSquare, currSquare));
         } else if ((currPiece==0 || (currPiece>=7 && currPiece<=12)) && (color==false)) {   // King is black
