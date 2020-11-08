@@ -16,6 +16,7 @@
 //  ##### END GPL LICENSE BLOCK #####
 
 #include <vector>
+#include <string>
 using namespace std;
 
 class Board {
@@ -28,4 +29,5 @@ class Board {
 
     private:
         vector<int> _board;
+        string _GetSymbol(int num);
 };
