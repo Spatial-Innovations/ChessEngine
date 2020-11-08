@@ -20,7 +20,7 @@ using namespace std;
 
 class Board {
     /*
-    empty=0, p=1, n=2, b=3, r=4, q=5, k=6, P=1, N=2, B=3, R=4, Q=5, K=6
+    empty=0, p=1, n=2, b=3, r=4, q=5, k=6, P=7, N=8, B=9, R=10, Q=11, K=12
     */
     public:
         ~Board();
