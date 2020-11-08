@@ -29,12 +29,14 @@ Move::Move(vector<int> first, vector<int> second) {
 
 
 string Move::GetFirst(void) {
-    return _first;
+    string move = _GetSquare(_first[0], _first[1]);
+    return move;
 }
 
 
 string Move::GetSecond(void) {
-    return _second;
+    string move = _GetSquare(_second[0], _second[1]);
+    return move;
 }
 
 
