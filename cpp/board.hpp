@@ -15,11 +15,17 @@
 //
 //  ##### END GPL LICENSE BLOCK #####
 
+#include <vector>
+using namespace std;
+
 class Board {
-public:
-    ~Board();
-    Board();
+    /*
+    empty=0, p=1, n=2, b=3, r=4, q=5, k=6, P=1, N=2, B=3, R=4, Q=5, K=6
+    */
+    public:
+        ~Board();
+        Board();
 
-private:
-
+    private:
+        vector<int> _board;
 };
