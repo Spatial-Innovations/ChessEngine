@@ -63,6 +63,7 @@ vector<Move> Board::GetLegalMoves(void) {
     return moves;
 }
 
+
 string Board::GetFen(void) {
     string fen;
     int slashCount = 1;
@@ -78,11 +79,13 @@ string Board::GetFen(void) {
                 spaceCount++;
             }
             else {
-                fen += spaceCount.to_string();
+                fen += to_string(spaceCount);
                 fen += _GetSymbol(_board[row][col]);
             }
         }
     }
+
+    return fen;
 }
 
 
