@@ -15,6 +15,8 @@
 //
 //  ##### END GPL LICENSE BLOCK #####
 
+#include <vector>
+#include <string>
 #include "board.hpp"
 
 Board::~Board() {
@@ -32,4 +34,25 @@ Board::Board() {
         7, 7, 7, 7, 7, 7, 7, 7,
         10, 8, 9, 11, 12, 9, 8, 10
     };
+}
+
+string Board::_GetSymbol(int num) {
+    switch (num) {
+    case 0: return " ";
+    case 1: return "p";
+    case 2: return "n";
+    case 3: return "b";
+    case 4: return "r";
+    case 5: return "q";
+    case 6: return "k";
+    case 7: return "P";
+    case 8: return "N";
+    case 9: return "B";
+    case 10: return "R";
+    case 11: return "Q";
+    case 12: return "K";
+    
+    default:
+        break;
+    }
 }
