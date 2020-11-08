@@ -251,7 +251,6 @@ string Board::_GetSquare(vector<int> coords) {
         case 7: row = "1"; break;
         default: break;
     }
-
     switch (coords[1]) {
         case 0: col = "a"; break;
         case 1: col = "b"; break;
