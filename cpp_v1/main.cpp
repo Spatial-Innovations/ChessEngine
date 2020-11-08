@@ -32,6 +32,5 @@ int main() {
         else if (msg == "isready") {cout << "readyok" << endl;}
         else if (msg == "uci") {cout << "uciok" << endl;}
         else if (msg == "d") {board.Print();}
-        else if (msg == "test") {cout << board.GetFen() << endl;}
     }
 }
