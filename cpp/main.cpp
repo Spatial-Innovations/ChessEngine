@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include <string>
+#include <board.hpp>
 using namespace std;
 
 int main() {
@@ -24,14 +25,8 @@ int main() {
     while (true) {
         cin >> msg;
 
-        if (msg == "quit") {
-            return 0;
-        }
-        else if (msg == "isready") {
-            cout << "readyok" << endl;
-        }
-        else if (msg == "uci") {
-            cout << "uciok" << endl;
-        }
+        if (msg == "quit") {return 0;}
+        else if (msg == "isready") {cout << "readyok" << endl;}
+        else if (msg == "uci") {cout << "uciok" << endl;}
     }
 }
