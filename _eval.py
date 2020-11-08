@@ -23,13 +23,15 @@ def Eval(position: Board):
     moves = len(position.move_stack)
     evaluation = 0
 
-    material = Material(position)
-    materialWeight = 2 * min(max(0.04*moves + 0.4, 0.8), 1.4)    #* Increases move >= 30, bound = (1.4, 2.8), weight = 2
+    mat = Material(position)
+    matWeight = 2 * min(max(0.04*moves + 0.4, 0.8), 1.4)      #* Increases move >= 30, bound = (1.4, 2.8), weight = 2
     center = CenterControl(position)
     centerWeight = 0.5 * min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from move 20 to 35, bound = (0.3, 1.1), weight = 0.5
+    dev = Development(position)
 
-    evaluation += material * materialWeight
+    evaluation += mat * matWeight
     evaluation += center * centerWeight
+    evaluation += 0.7 * dev
 
     return int(evaluation * 30)
 
@@ -45,16 +47,15 @@ def Material(position: Board):
 
 def Development(position: Board):
     points = 0
+    newFen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
 
-    position = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
-
-    for ind, piece in enumerate(position):
+    for ind, piece in enumerate(newFen):
         if piece.isalpha():
             if piece.isupper():
-                attackingSquares = _GetAttackingSquares(position, ind, "WHITE")
+                attackingSquares = _GetAttackingSquares(newFen, ind, "WHITE")
                 points += attackingSquares
             if piece.islower():
-                attackingSquares = _GetAttackingSquares(position, ind, "BLACK")
+                attackingSquares = _GetAttackingSquares(newFen, ind, "BLACK")
                 points -= attackingSquares
 
     return points
