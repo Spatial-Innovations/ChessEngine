@@ -64,7 +64,25 @@ vector<Move> Board::GetLegalMoves(void) {
 }
 
 string Board::GetFen(void) {
-    
+    string fen;
+    int slashCount = 1;
+    int spaceCount = 0;
+
+    for (auto row = 0; row < _board.size(); row++) {
+        for (auto col = 0; col < _board[row].size(); col++) {
+            if (row == slashCount) {
+                fen += "/";
+                slashCount++;
+            }
+            if (_board[row][col] == 0) {
+                spaceCount++;
+            }
+            else {
+                fen += spaceCount.to_string();
+                fen += _GetSymbol(_board[row][col]);
+            }
+        }
+    }
 }
 
 
