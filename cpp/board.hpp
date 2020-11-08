@@ -34,7 +34,7 @@ class Board {
 
     private:
         // member variables
-        vector<int> _board;
+        vector<vector<int>> _board;
         string const _printLine = " +---+---+---+---+---+---+---+---+\n";
         string const _printSplit = " | ";
 

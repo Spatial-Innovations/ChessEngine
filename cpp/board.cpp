@@ -26,38 +26,36 @@ Board::~Board() {
 
 Board::Board() {
     _board = {
-        4, 2, 3, 5, 6, 3, 2, 4,
-        1, 1, 1, 1, 1, 1, 1, 1,
-        0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0,
-        7, 7, 7, 7, 7, 7, 7, 7,
-        10, 8, 9, 11, 12, 9, 8, 10
+        {4, 2, 3, 5, 6, 3, 2, 4},
+        {1, 1, 1, 1, 1, 1, 1, 1},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0},
+        {7, 7, 7, 7, 7, 7, 7, 7},
+        {10, 8, 9, 11, 12, 9, 8, 10}
     };
 }
 
 void Board::Print(void) {
     string printStr = "", currChar;
-    for (auto i = 0; i < 64; i++) {
-        if (i % 8 == 0) {
-            printStr += _printLine;
+    for (auto row = 0; row < 8; row++) {
+        printStr += _printLine;
+        printStr += _printSplit;
+        for (auto col = 0; col < 8; col++) {
+            currChar = _GetSymbol(_board[row][col]);
+            printStr += currChar;
             printStr += _printSplit;
         }
-        
-        currChar = _GetSymbol(_board[i]);
-        printStr += currChar;
-        printStr += _printSplit;
-
-        if (i % 8 == 7) {printStr += "\n";}
+        printStr += "\n";
     }
 
     printStr += _printLine;
     cout << printStr;
 }
 
-vector<string> Board::GenerateLegalMoves(void) {
-    vector<string> moves;
+vector<Move> Board::GetLegalMoves(void) {
+    vector<Move> moves;
     return moves;
     }
 
