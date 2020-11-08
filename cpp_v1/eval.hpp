@@ -18,3 +18,7 @@
 #include <vector>
 #include <string>
 using namespace std;
+
+int Eval(vector<vector<int>> board) {
+    return 1;
+}
