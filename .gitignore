@@ -1,6 +1,7 @@
 *.pyc
 *.spec
+*.exe
+
 build/*
 dist/*
-a.exe
 .vscode/*
