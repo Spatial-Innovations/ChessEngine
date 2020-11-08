@@ -20,36 +20,44 @@ from chess import Board
 
 
 def Eval(position: Board):
-    # Material Count
+    evaluation = 0
+    evaluation += Material(position)
+    evaluation += CenterControl(position) / 4
+
+    return evaluation
+
+
+def Material(position: Board):
     pieces = position.fen().split(" ")[0]
     points = (pieces.count("P") - pieces.count("p"))
     points += 3* (pieces.count("N") + pieces.count("B") - pieces.count("n") - pieces.count("b"))
     points += 5* (pieces.count("R") - pieces.count("r"))
     points += 9* (pieces.count("Q") - pieces.count("q"))
 
-    # Center Control
-    # Var names like this:
-    # Ind 1: color (b or w)
-    # Ind 2: top or bottom (t or b) - for center square
-    # Ind 3: left or right (l or r) - for center square
-    btl = len(position.attackers(chess.BLACK, chess.D5))
-    btr = len(position.attackers(chess.BLACK, chess.E5))
-    bbl = len(position.attackers(chess.BLACK, chess.D4))
-    bbr = len(position.attackers(chess.BLACK, chess.E4))
-    wtl = len(position.attackers(chess.WHITE, chess.D5))
-    wtr = len(position.attackers(chess.WHITE, chess.E5))
-    wbl = len(position.attackers(chess.WHITE, chess.D4))
-    wbr = len(position.attackers(chess.WHITE, chess.E4))
-
-    control = (wtl + wtr + wbl + wbr) - (btl + btr + bbl + bbr)
-    points += control/2
-
     return points
-
 
 def Development(position: Board):
     points = 0
 
-    # 
+    for piece in position.fen().split(" ")[0]:
+        if piece.isupper():
 
     return points
+
+
+def CenterControl(position: Board):
+    # Inner center
+    inner = 0
+    squares = ("D4", "D5", "E4", "E5")
+    for sq in squares:
+        inner += len(position.attackers(chess.WHITE, getattr(chess, sq)))
+        inner -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
+
+    # Outer center
+    outer = 0
+    squares = ("C3", "D3", "E3", "F3", "F4", "F5", "F6", "E6", "D6", "C6", "C5", "C4")
+    for sq in squares:
+        outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
+        outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
+
+    return inner + outer/2
