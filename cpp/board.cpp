@@ -61,6 +61,12 @@ vector<Move> Board::GetLegalMoves(void) {
     for(auto row = 0; row < _board.size(); row++) {
         for(auto col = 0; col < _board[row].size(); col++) {
             piece = _GetSymbol(_board[row][col]);
+            if (piece == "R" || piece == "r") {
+
+            }
+            else if (piece == "N" || piece == "n") {
+                
+            }
         }
     }
 
@@ -69,19 +75,19 @@ vector<Move> Board::GetLegalMoves(void) {
 
 string Board::_GetSymbol(int num) {
     switch (num) {
-    case 0: return " ";
-    case 1: return "p";
-    case 2: return "n";
-    case 3: return "b";
-    case 4: return "r";
-    case 5: return "q";
-    case 6: return "k";
-    case 7: return "P";
-    case 8: return "N";
-    case 9: return "B";
-    case 10: return "R";
-    case 11: return "Q";
-    case 12: return "K";
-    default: return "";
+        case 0: return " ";
+        case 1: return "p";
+        case 2: return "n";
+        case 3: return "b";
+        case 4: return "r";
+        case 5: return "q";
+        case 6: return "k";
+        case 7: return "P";
+        case 8: return "N";
+        case 9: return "B";
+        case 10: return "R";
+        case 11: return "Q";
+        case 12: return "K";
+        default: return "";
     }
 }
