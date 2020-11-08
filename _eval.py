@@ -37,9 +37,9 @@ def Eval(position: Board):
 def Material(position: Board):
     pieces = position.fen().split(" ")[0]
     points = (pieces.count("P") - pieces.count("p"))
-    points += 3* (pieces.count("N") + pieces.count("B") - pieces.count("n") - pieces.count("b"))
-    points += 5* (pieces.count("R") - pieces.count("r"))
-    points += 9* (pieces.count("Q") - pieces.count("q"))
+    points += 3 * (pieces.count("N") + pieces.count("B") - pieces.count("n") - pieces.count("b"))
+    points += 5 * (pieces.count("R") - pieces.count("r"))
+    points += 9 * (pieces.count("Q") - pieces.count("q"))
 
     return points
 
@@ -86,4 +86,4 @@ def CenterControl(position: Board):
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return inner + outer/2
+    return inner + outer/4
