@@ -19,19 +19,25 @@
 #include <string>
 using namespace std;
 
+
+
 class Board {
-    /*
-    empty=0, p=1, n=2, b=3, r=4, q=5, k=6, P=7, N=8, B=9, R=10, Q=11, K=12
-    */
+    //* empty=0, p=1, n=2, b=3, r=4, q=5, k=6, P=7, N=8, B=9, R=10, Q=11, K=12
     public:
+        // constructors and destructor
         ~Board();
         Board();
+
+        // interface
         void Print(void);
         vector<string> GenerateLegalMoves(void);
 
     private:
+        // member variables
         vector<int> _board;
         string const _printLine = " +---+---+---+---+---+---+---+---+\n";
         string const _printSplit = " | ";
+
+        // member functions
         string _GetSymbol(int num);
 };
