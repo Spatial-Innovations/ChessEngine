@@ -30,7 +30,7 @@ class Board {
 
     private:
         vector<int> _board;
-        string const _printLine = " +---+---+---+---+---+---+---+---+";
+        string const _printLine = " +---+---+---+---+---+---+---+---+\n";
         string const _printSplit = " | ";
         string _GetSymbol(int num);
 };
