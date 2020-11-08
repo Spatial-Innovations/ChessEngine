@@ -29,4 +29,5 @@ class Move {
     private:
         string _first;
         string _second;
+        string GetSquare(int row, int col);
 };
