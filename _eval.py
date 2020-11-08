@@ -27,12 +27,15 @@ def Eval(position: Board):
     matWeight = 2 * min(max(0.04*moves + 0.4, 0.8), 1.4)           #* Increases move >= 30, bound = (1.4, 2.8), weight = 2
     center = CenterControl(position)
     centerWeight = 0.7 * min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from move 20 to 35, bound = (0.3, 1.1), weight = 0.5
-    dev = Development(position)
-    devWeight = max(-1.4*moves/15 + 2, 0.6)                        #* Decreases from move 0 to 15, bound = (0.6, 2), weight = 1
+    earlyDev = EarlyDev(position)
+    earlyDevWeight = max(-1.4*moves/15 + 2, 0.6)                   #* Decreases from move 0 to 15, bound = (0.6, 2), weight = 1
+    lateDev = LateDev(position)
+    lateDevWeight = min(max(1.4*moves/15 + 2, -0.8), 2)            #* Increases from move 15 to end, bound = (0.6, 2), weight = 1
 
     evaluation += mat * matWeight
     evaluation += center * centerWeight
-    evaluation += dev * devWeight
+    evaluation += earlyDev * earlyDevWeight
+    evaluation += lateDev * lateDevWeight
 
     return int(evaluation * 30)
 
@@ -46,7 +49,7 @@ def Material(position: Board):
 
     return points
 
-def EarlyDevelopment(position: Board):
+def EarlyDev(position: Board):
     points = 0
     newFen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
 
@@ -61,7 +64,7 @@ def EarlyDevelopment(position: Board):
     return points
 
 
-def EarlyDevelopment(position: Board):
+def LateDev(position: Board):
     points = 0
     newFen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
 
