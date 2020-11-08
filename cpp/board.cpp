@@ -56,6 +56,14 @@ void Board::Print(void) {
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
+
+    for(vector<vector<int>>::size_type row = 0; row != _board.size(); row++) {
+        for(vector<int>::size_type col = 0; col != _board[row].size(); col++){
+            string piece = _GetSymbol(_board[row][col]);
+            }
+        }
+    }
+
     return moves;
     }
 
