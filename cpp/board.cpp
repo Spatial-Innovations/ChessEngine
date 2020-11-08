@@ -44,15 +44,15 @@ void Board::Print(void) {
             printStr += _printLine;
             printStr += _printSplit;
         }
-        else if (i % 8 == 7) {
-            printStr += "\n";
-        }
-
+        
         currChar = _GetSymbol(_board[i]);
         printStr += currChar;
-        printStr += _printLine;
+        printStr += _printSplit;
+
+        if (i % 8 == 7) {printStr += "\n";}
     }
 
+    printStr += _printLine;
     cout << printStr;
 }
 
@@ -71,6 +71,6 @@ string Board::_GetSymbol(int num) {
     case 10: return "R";
     case 11: return "Q";
     case 12: return "K";
-    default: break;
+    default: return "";
     }
 }
