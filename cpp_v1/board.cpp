@@ -79,7 +79,9 @@ string Board::GetFen(void) {
                 spaceCount++;
             }
             else {
-                fen += to_string(spaceCount);
+                if (spaceCount != 0) {
+                    fen += to_string(spaceCount);
+                }
                 fen += _GetSymbol(_board[row][col]);
             }
         }
