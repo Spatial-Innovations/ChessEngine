@@ -18,6 +18,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstdlib>
 #include "board.hpp"
 using namespace std;
 
@@ -62,7 +63,7 @@ vector<Move> Board::GetLegalMoves(void) {
     for(auto row = 0; row < _board.size(); row++) {
         for(auto col = 0; col < _board[row].size(); col++) {
             piece = _GetSymbol(_board[row][col]);
-            if (piece == "R") {
+            if (piece == "R" || piece == "Q") {
                 // Top
                 for (auto r = row; r > 0; r--) {
                     if (_board[r][col] > 6) {break;}
@@ -91,7 +92,7 @@ vector<Move> Board::GetLegalMoves(void) {
                     if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
                 }
             }
-            else if (piece == "r") {
+            else if (piece == "r" || piece == "q") {
                 // Top
                 for (auto r = row; r > 0; r--) {
                     if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
@@ -124,6 +125,80 @@ vector<Move> Board::GetLegalMoves(void) {
                 knightMoves = {
                     Coords(row-2, col-1), Coords(row-2, col+1)
                 };
+            }
+            else if (piece == "B" || piece == "Q") {
+                // Top Left
+                for (auto r = row; r > 0; r--) {
+                    if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                        if (_board[r][col - abs(r - row)] > 6) {break;}
+                        moves.push_back(Coords(r, col - abs(r - row)));
+                        if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+                    }
+                }
+
+                // Top Right
+                for (auto r = row; r > 0; r--) {
+                    if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                        if (_board[r][col + abs(r - row)] > 6) {break;}
+                        moves.push_back(Coords(r, col + abs(r - row)));
+                        if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+                    }
+                }
+
+                // Bottom Left
+                for (auto r = row; r < _board.size(); r++) {
+                    if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                        if (_board[r][col - abs(r - row)] > 6) {break;}
+                        moves.push_back(Coords(r, col - abs(r - row)));
+                        if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+                    }
+                }
+
+                // Bottom Right
+                for (auto r = row; r < _board.size(); r++) {
+                    if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                        if (_board[r][col + abs(r - row)] > 6) {break;}
+                        moves.push_back(Coords(r, col + abs(r - row)));
+                        if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+                    }
+                }
+            }
+            else if (piece == "b" || piece == "q") {
+                // Top Left
+                for (auto r = row; r > 0; r--) {
+                    if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                        if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+                        moves.push_back(Coords(r, col - abs(r - row)));
+                        if (_board[r][col - abs(r - row)] > 6) {break;}
+                    }
+                }
+
+                // Top Right
+                for (auto r = row; r > 0; r--) {
+                    if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                        if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+                        moves.push_back(Coords(r, col + abs(r - row)));
+                        if (_board[r][col + abs(r - row)] > 6) {break;}
+                    }
+                }
+
+                // Bottom Left
+                for (auto r = row; r < _board.size(); r++) {
+                    if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                        if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+                        moves.push_back(Coords(r, col - abs(r - row)));
+                        if (_board[r][col - abs(r - row)] > 6) {break;}
+                    }
+                }
+
+                // Bottom Right
+                for (auto r = row; r < _board.size(); r++) {
+                    if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                        if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+                        moves.push_back(Coords(r, col + abs(r - row)));
+                        if (_board[r][col + abs(r - row)] > 6) {break;}
+                    }
+                }
             }
         }
     }
