@@ -40,5 +40,5 @@ class Board {
 
         // member functions
         string _GetSymbol(int num);
-        string _GetCoord(vector<int> coords);
+        string _GetSquare(vector<int> coords);
 };
