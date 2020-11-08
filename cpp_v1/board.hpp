@@ -41,4 +41,11 @@ class Board {
         // member functions
         string _GetSymbol(int num);
         string _GetSquare(vector<int> coords);
+
+        vector<Move> GetPawnMoves(vector<int> location, bool color);
+        vector<Move> GetKnightMoves(vector<int> location, bool color);
+        vector<Move> GetBishopMoves(vector<int> location, bool color);
+        vector<Move> GetRookMoves(vector<int> location, bool color);
+        vector<Move> GetQueenMoves(vector<int> location, bool color);
+        vector<Move> GetKingMoves(vector<int> location, bool color);
 };
