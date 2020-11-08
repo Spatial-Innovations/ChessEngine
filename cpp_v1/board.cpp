@@ -70,14 +70,17 @@ vector<Move> Board::_GetPawnMoves(vector<vector<int>> board, vector<int> locatio
     vector<Move> moves;
 
     if (color) {
+        // Moves
         if (row == 1) {
-            moves.push_back(Move(startSquare, _GetSquare({col, 2})));
-            moves.push_back(Move(startSquare, _GetSquare({col, 3})));
-        } else if (row == 6) {
+            if (board[2][col] == 0) {moves.push_back(Move(startSquare, _GetSquare({col, 2})));}
+            if (board[3][col] == 0) {moves.push_back(Move(startSquare, _GetSquare({col, 3})));}
+        } else if (row == 6 && board[7][col] == 0) {
             moves.push_back(Move(startSquare, _GetSquare({col, 7})+"N"));
             moves.push_back(Move(startSquare, _GetSquare({col, 7})+"B"));
             moves.push_back(Move(startSquare, _GetSquare({col, 7})+"R"));
             moves.push_back(Move(startSquare, _GetSquare({col, 7})+"Q"));
+        } else if (board[row+1][col] == 0) {
+            moves.push_back(Move(startSquare, _GetSquare({col, row+1})));
         }
     }
 
