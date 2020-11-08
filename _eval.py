@@ -24,14 +24,15 @@ def Eval(position: Board):
     evaluation = 0
 
     mat = Material(position)
-    matWeight = 2 * min(max(0.04*moves + 0.4, 0.8), 1.4)      #* Increases move >= 30, bound = (1.4, 2.8), weight = 2
+    matWeight = 2 * min(max(0.04*moves + 0.4, 0.8), 1.4)           #* Increases move >= 30, bound = (1.4, 2.8), weight = 2
     center = CenterControl(position)
     centerWeight = 0.7 * min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from move 20 to 35, bound = (0.3, 1.1), weight = 0.5
     dev = Development(position)
+    devWeight = max(-1.4*moves/15 + 2, 0.6)                        #* Decreases from move 0 to 15, bound = (0.6, 2), weight = 1
 
     evaluation += mat * matWeight
     evaluation += center * centerWeight
-    evaluation += 0.5 * dev
+    evaluation += dev * devWeight
 
     return int(evaluation * 30)
 
