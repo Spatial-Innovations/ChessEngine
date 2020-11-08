@@ -57,12 +57,13 @@ void Board::Print(void) {
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
-    vector<Coords> knightMoves;
     string piece;
 
     for(auto row = 0; row < _board.size(); row++) {
         for(auto col = 0; col < _board[row].size(); col++) {
             piece = _GetSymbol(_board[row][col]);
+
+            // White rook and queen
             if (piece == "R" || piece == "Q") {
                 // Top
                 for (auto r = row; r > 0; r--) {
@@ -92,6 +93,8 @@ vector<Move> Board::GetLegalMoves(void) {
                     if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
                 }
             }
+
+            // Black rook and queen
             else if (piece == "r" || piece == "q") {
                 // Top
                 for (auto r = row; r > 0; r--) {
@@ -121,11 +124,15 @@ vector<Move> Board::GetLegalMoves(void) {
                     if (_board[row][c] > 6) {break;}
                 }
             }
+
+            // White knight
             else if (piece == "N" || piece == "n") {
                 knightMoves = {
                     Coords(row-2, col-1), Coords(row-2, col+1)
                 };
             }
+
+            // White bishop and queen
             else if (piece == "B" || piece == "Q") {
                 // Top Left
                 for (auto r = row; r > 0; r--) {
@@ -163,6 +170,8 @@ vector<Move> Board::GetLegalMoves(void) {
                     }
                 }
             }
+
+            // Black bishop and queen
             else if (piece == "b" || piece == "q") {
                 // Top Left
                 for (auto r = row; r > 0; r--) {
