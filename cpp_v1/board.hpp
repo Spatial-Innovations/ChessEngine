@@ -17,29 +17,24 @@
 
 #include <vector>
 #include <string>
+#include "move.hpp"
 using namespace std;
-
-typedef pair<string, string> Move;
 
 class Board {
     //* empty=0, p=1, n=2, b=3, r=4, q=5, k=6, P=7, N=8, B=9, R=10, Q=11, K=12
     public:
-        // constructors and destructor
         ~Board();
         Board();
 
-        // interface
         void Print(void);
         vector<Move> GetLegalMoves(void);
         vector<Move> GetFen(void);
 
     private:
-        // member variables
         vector<vector<int>> _board;
         string const _printLine = " +---+---+---+---+---+---+---+---+\n";
         string const _printSplit = " | ";
 
-        // member functions
         string _GetSymbol(int num);
         string _GetSquare(int row, int num);
 

@@ -15,22 +15,23 @@
 //
 //  ##### END GPL LICENSE BLOCK #####
 
-#include <iostream>
-#include <string>
-#include "board.hpp"
-using namespace std;
+#include "move.hpp"
 
-int main() {
-    string msg;
-    vector<Move> test;
-    Board board;
+Move::~Move() {
+}
 
-    while (true) {
-        cin >> msg;
 
-        if (msg == "quit") {return 0;}
-        else if (msg == "isready") {cout << "readyok" << endl;}
-        else if (msg == "uci") {cout << "uciok" << endl;}
-        else if (msg == "d") {board.Print();}
-    }
+Move::Move(string first, string second) {
+    _first = first;
+    _second = second;
+}
+
+
+string Move::GetFirst(void) {
+    return _first;
+}
+
+
+string Move::GetSecond(void) {
+    return _second;
 }
