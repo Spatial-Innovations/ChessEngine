@@ -26,12 +26,12 @@ def Eval(position: Board):
     material = Material(position)
     materialWeight = 2 * min(max(0.04*moves + 0.4, 0.8), 1.4)    #* Increases move >= 30, bound = (1.4, 2.8), weight = 2
     center = CenterControl(position)
-    centerWeight = 0.75 * min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from move 20 to 35, bound = (0.3, 1.1), weight = 0.75
+    centerWeight = 0.5 * min(max(-4*moves/75 + 13/6, 0.3), 1.4)    #* Decreases from move 20 to 35, bound = (0.3, 1.1), weight = 0.5
 
     evaluation += material * materialWeight
     evaluation += center * centerWeight
 
-    return int(evaluation * 10)
+    return int(evaluation * 30)
 
 
 def Material(position: Board):
@@ -52,11 +52,11 @@ def CenterControl(position: Board):
         inner += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         inner -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    # Outer center
+    # Outer center, weighted 0.25
     outer = 0
     squares = ("C3", "D3", "E3", "F3", "F4", "F5", "F6", "E6", "D6", "C6", "C5", "C4")
     for sq in squares:
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return inner + outer/2
+    return inner + outer/4
