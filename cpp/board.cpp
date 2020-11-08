@@ -56,16 +56,16 @@ void Board::Print(void) {
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
+    string piece;
 
-    for(vector<vector<int>>::size_type row = 0; row != _board.size(); row++) {
-        for(vector<int>::size_type col = 0; col != _board[row].size(); col++){
-            string piece = _GetSymbol(_board[row][col]);
-            }
+    for(auto row = 0; row < _board.size(); row++) {
+        for(auto col = 0; col < _board[row].size(); col++) {
+            piece = _GetSymbol(_board[row][col]);
         }
     }
 
     return moves;
-    }
+}
 
 string Board::_GetSymbol(int num) {
     switch (num) {
