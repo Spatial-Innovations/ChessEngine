@@ -37,6 +37,10 @@ Board::Board() {
         {7, 7, 7, 7, 7, 7, 7, 7},
         {10, 8, 9, 11, 12, 9, 8, 10}
     };
+
+    _castling = {true, true, true, true};
+    _turn = true;
+    _epSquare = {};
 }
 
 
@@ -54,7 +58,9 @@ void Board::Print(void) {
     }
 
     printStr += _printLine;
-    cout << printStr;
+    printStr += "\nFen: ";
+    printStr += GetFen();
+    cout << printStr << endl;
 }
 
 

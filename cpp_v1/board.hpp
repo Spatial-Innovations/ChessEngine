@@ -31,9 +31,13 @@ class Board {
         string GetFen(void);
 
     private:
-        vector<vector<int>> _board;
         string const _printLine = " +---+---+---+---+---+---+---+---+\n";
         string const _printSplit = " | ";
+
+        vector<vector<int>> _board;
+        vector<bool> _castling;
+        vector<int> _epSquare;
+        bool _turn;
 
         string _GetSymbol(int);
 
