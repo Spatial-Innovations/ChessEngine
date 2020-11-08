@@ -26,8 +26,11 @@ class Board {
     public:
         ~Board();
         Board();
+        void Print(void);
 
     private:
         vector<int> _board;
+        string const _printLine = " +---+---+---+---+---+---+---+---+";
+        string const _printSplit = " | ";
         string _GetSymbol(int num);
 };
