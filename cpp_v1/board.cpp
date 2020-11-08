@@ -65,7 +65,22 @@ vector<Move> Board::GetLegalMoves(void) {
 
 
 vector<Move> Board::_GetPawnMoves(vector<vector<int>> board, vector<int> location, bool color) {
+    int row = location[0], col = location[1];
+    string startSquare = _GetSquare(location), currSquare;
     vector<Move> moves;
+
+    if (color) {
+        if (row == 1) {
+            moves.push_back(Move(startSquare, _GetSquare({col, 2})));
+            moves.push_back(Move(startSquare, _GetSquare({col, 3})));
+        } else if (row == 6) {
+            moves.push_back(Move(startSquare, _GetSquare({col, 7})+"N"));
+            moves.push_back(Move(startSquare, _GetSquare({col, 7})+"B"));
+            moves.push_back(Move(startSquare, _GetSquare({col, 7})+"R"));
+            moves.push_back(Move(startSquare, _GetSquare({col, 7})+"Q"));
+        }
+    }
+
     return moves;
 }
 
