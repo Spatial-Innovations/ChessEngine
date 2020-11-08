@@ -28,7 +28,7 @@ class Board {
 
         void Print(void);
         vector<Move> GetLegalMoves(void);
-        vector<Move> GetFen(void);
+        string GetFen(void);
 
     private:
         vector<vector<int>> _board;
