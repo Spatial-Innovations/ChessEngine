@@ -95,6 +95,7 @@ vector<Move> Board::_GetQueenMoves(vector<vector<int>> board, vector<int> locati
 
 
 vector<Move> Board::_GetKingMoves(vector<vector<int>> board, vector<int> location, bool color) {
+    //todo checks and castling
     int row = location[0], col = location[1], currPiece;
     string startSquare, currSquare;
     vector<Move> moves;
