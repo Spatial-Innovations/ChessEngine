@@ -31,6 +31,7 @@ class Board {
         // interface
         void Print(void);
         vector<Move> GetLegalMoves(void);
+        vector<Move> GetFen(void);
 
     private:
         // member variables

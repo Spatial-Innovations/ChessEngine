@@ -63,6 +63,10 @@ vector<Move> Board::GetLegalMoves(void) {
     return moves;
 }
 
+string Board::GetFen(void) {
+    
+}
+
 
 string Board::_GetSymbol(int num) {
     switch (num) {
