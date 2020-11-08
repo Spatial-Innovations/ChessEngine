@@ -63,7 +63,7 @@ vector<Move> Board::GetLegalMoves(void) {
     for(auto row = 0; row < _board.size(); row++) {
         for(auto col = 0; col < _board[row].size(); col++) {
             piece = _GetSymbol(_board[row][col]);
-            if (piece == "R" || piece == "Q") {
+            if      (piece == "R" || piece == "Q") {
                 // Top
                 for (auto r = row; r > 0; r--) {
                     if (_board[r][col] > 6) {break;}
