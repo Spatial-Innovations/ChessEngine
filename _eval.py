@@ -52,10 +52,10 @@ def Development(position: Board):
     for ind, piece in enumerate(newFen):
         if piece.isalpha():
             if piece.isupper():
-                attackingSquares = _GetAttackingSquares(newFen, ind, "WHITE")
+                attackingSquares = _GetAttackingSquares(position, ind, "WHITE")
                 points += attackingSquares
             if piece.islower():
-                attackingSquares = _GetAttackingSquares(newFen, ind, "BLACK")
+                attackingSquares = _GetAttackingSquares(position, ind, "BLACK")
                 points -= attackingSquares
 
     return points
