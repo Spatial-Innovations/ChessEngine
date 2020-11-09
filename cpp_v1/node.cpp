@@ -23,10 +23,23 @@ using namespace std;
 
 
 Node::~Node() {}
-
+Node::Node() {}
 
 Node::Node(vector<Move> moves, int depth) {
     _board.SetMoves(moves);
     _depth = depth;
     _branches = {};
+}
+
+
+void Node::GenBranches(int targetDepth) {
+    if (targetDepth == _depth + 1) {
+        vector<Move> legalMoves;
+        Board newBoard;
+        Node newNode;
+        legalMoves = _board.GetLegalMoves();
+
+        for (auto i = 0; i < legalMoves.size(); i++) {
+        }
+    }
 }

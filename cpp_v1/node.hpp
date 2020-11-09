@@ -25,10 +25,13 @@ using namespace std;
 class Node {
     public:
         ~Node();
+        Node();
         Node(vector<Move> moves, int);
 
+        void GenBranches(int);
+
     private:
-        Board _board;
         int _depth;
+        Board _board;
         vector<Node> _branches;
 };
