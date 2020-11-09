@@ -18,14 +18,17 @@
 #include <vector>
 #include <string>
 #include "board.hpp"
+#include "move.hpp"
 using namespace std;
 
 
 class Node {
     public:
         ~Node();
-        Node(Board, int);
+        Node(vector<Move> moves, int);
 
     private:
-        vector<Node> branches;
+        Board _board;
+        int _depth;
+        vector<Node> _branches;
 };

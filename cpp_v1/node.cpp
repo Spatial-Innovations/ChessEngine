@@ -22,6 +22,11 @@
 using namespace std;
 
 
-Node::Node(Board board, int depth) {
+Node::~Node() {}
 
+
+Node::Node(vector<Move> moves, int depth) {
+    _board.SetMoves(moves);
+    _depth = depth;
+    _branches = {};
 }
