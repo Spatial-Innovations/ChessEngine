@@ -15,8 +15,10 @@
 //
 //  ##### END GPL LICENSE BLOCK #####
 
+#include <iostream>
 #include <vector>
 #include <string>
+#include <chrono>
 #include "node.hpp"
 #include "move.hpp"
 #include "tree.hpp"
@@ -31,11 +33,21 @@ void Tree::Set(vector<Move> moves) {
     _root.ResetBranches();
     _root.SetNodeVar(_currNodes);
     _root.SetMoves(moves);
-    
+
     _currDepth = 0;
     _currNodes = 0;
     _processing = false;
     _ready = true;
+}
+
+
+void Tree::PrintInfo(void) {
+    string printStr = "info ";
+    printStr += "depth " + to_string(_currDepth) + " seldepth " + to_string(_currDepth);
+    printStr += " multipv 1 score cp 0 ";
+    printStr += "nodes " + to_string(_currNodes) + " nps " + to_string(_currNodes);
+    printStr += " tbhits 0 time 0 pv e2e4";
+    cout << printStr;
 }
 
 
