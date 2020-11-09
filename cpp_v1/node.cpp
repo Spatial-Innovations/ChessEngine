@@ -25,9 +25,10 @@ using namespace std;
 Node::~Node() {}
 Node::Node() {}
 
-Node::Node(vector<Move> moves, int depth) {
+Node::Node(vector<Move> moves, int depth, int& nodes) {
     _board.SetMoves(moves);
     _depth = depth;
+    _nodes = nodes;
     _branches = {};
 }
 
@@ -38,10 +39,12 @@ void Node::GenBranches(int targetDepth) {
         vector<Move> currMoves = _board.GetMoves();
 
         for (auto i = 0; i < legalMoves.size(); i++) {
-            _branches.push_back(Node(currMoves, _depth+1));
+            _branches.push_back(Node(currMoves, _depth+1, _nodes));
             _branches[i].PushMove(legalMoves[i]);
+            _nodes++;
         }
-    } else if (targetDepth > _depth+1) {
+    }
+    else if (targetDepth > _depth+1) {
         for (auto i = 0; i < _branches.size(); i++) {
             _branches[i].GenBranches(targetDepth);
         }
@@ -50,7 +53,6 @@ void Node::GenBranches(int targetDepth) {
 
 
 void Node::ResetBranches(void) {_branches = {};}
-
-
+void Node::SetNodeVar(int& nodes) {_nodes = nodes;}
 void Node::SetMoves(vector<Move> moves) {_board.SetMoves(moves);}
 void Node::PushMove(Move move) {_board.Push(move);}

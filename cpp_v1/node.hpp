@@ -26,15 +26,17 @@ class Node {
     public:
         ~Node();
         Node();
-        Node(vector<Move>, int);
+        Node(vector<Move>, int, int&);
 
         void GenBranches(int);
         void ResetBranches(void);
+        void SetNodeVar(int&);
         void SetMoves(vector<Move>);
         void PushMove(Move);
 
     private:
         int _depth;
+        int _nodes;
         Board _board;
         vector<Node> _branches;
 };
