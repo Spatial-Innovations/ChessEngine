@@ -28,7 +28,26 @@ Tree::Tree() {}
 
 
 void Tree::Set(vector<Move> moves) {
+    _root.ResetBranches();
+    _root.SetNodeVar(_currNodes);
     _root.SetMoves(moves);
-    _depth = 0;
-    _nodes = 0;
+    
+    _currDepth = 0;
+    _currNodes = 0;
+    _processing = false;
+    _ready = true;
+}
+
+
+void Tree::GoDepth(int finalDepth) {
+    if (_ready == false) {return;}
+    _ready = false;
+    _processing = true;
+
+    for (auto depth = 0; depth < finalDepth; depth++) {
+        _currDepth = depth;
+        _root.GenBranches(depth);
+    }
+
+    _processing = false;
 }

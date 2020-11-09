@@ -28,9 +28,10 @@ class Tree {
         Tree();
 
         void Set(vector<Move>);
+        void GoDepth(int);
     
     private:
         Node _root;
-        int _depth;
-        int _nodes;
+        bool _processing, _ready;
+        int _currDepth, _currNodes;
 };
