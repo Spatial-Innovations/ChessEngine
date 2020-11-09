@@ -17,4 +17,15 @@
 
 #include <vector>
 #include <string>
+#include "board.hpp"
 using namespace std;
+
+
+class Node {
+    public:
+        ~Node();
+        Node(Board, int);
+
+    private:
+        vector<Node> branches;
+};

@@ -17,5 +17,11 @@
 
 #include <vector>
 #include <string>
+#include "board.hpp"
 #include "node.hpp"
 using namespace std;
+
+
+Node::Node(Board board, int depth) {
+
+}
