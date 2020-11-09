@@ -34,12 +34,20 @@ Node::Node(vector<Move> moves, int depth) {
 
 void Node::GenBranches(int targetDepth) {
     if (targetDepth == _depth + 1) {
-        vector<Move> legalMoves;
-        Board newBoard;
-        Node newNode;
-        legalMoves = _board.GetLegalMoves();
+        vector<Move> legalMoves = _board.GetLegalMoves();
+        vector<Move> currMoves = _board.GetMoves();
 
         for (auto i = 0; i < legalMoves.size(); i++) {
+            _branches.push_back(Node(currMoves, _depth+1));
+            _branches[i].PushMove(legalMoves[i]);
+        }
+    } else if (targetDepth > _depth+1) {
+        for (auto i = 0; i < _branches.size(); i++) {
+            _branches[i].GenBranches(targetDepth);
         }
     }
 }
+
+
+void Node::SetMoves(vector<Move> moves) {_board.SetMoves(moves);}
+void Node::PushMove(Move move) {_board.Push(move);}

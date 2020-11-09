@@ -26,9 +26,11 @@ class Node {
     public:
         ~Node();
         Node();
-        Node(vector<Move> moves, int);
+        Node(vector<Move>, int);
 
         void GenBranches(int);
+        void SetMoves(vector<Move>);
+        void PushMove(Move);
 
     private:
         int _depth;
