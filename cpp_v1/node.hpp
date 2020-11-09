@@ -19,6 +19,7 @@
 #include <string>
 #include "board.hpp"
 #include "move.hpp"
+#include "eval.hpp"
 using namespace std;
 
 

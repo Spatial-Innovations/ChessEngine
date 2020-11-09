@@ -18,6 +18,7 @@
 #include <vector>
 #include <string>
 #include "board.hpp"
+#include "eval.hpp"
 #include "node.hpp"
 using namespace std;
 
