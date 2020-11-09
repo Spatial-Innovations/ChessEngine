@@ -70,6 +70,8 @@ void Board::SetMoves(vector<Move> moves) {_moves = moves;}
 void Board::Push(Move move) {_moves.push_back(move);}
 
 
+vector<Move> Board::GetMoves(void) {return _moves;}
+
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
     return moves;
