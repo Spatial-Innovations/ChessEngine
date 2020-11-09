@@ -39,6 +39,7 @@ Board::Board() {
         {10, 8, 9, 11, 12, 9, 8, 10}
     };
 
+    _moves = {};
     _legalCastles = {true, true, true, true};
     _turn = true;
     _epSquare = {};
@@ -63,6 +64,11 @@ void Board::Print(void) {
     printStr += "\nFen: ";
     printStr += GetFen();
     cout << printStr << endl;
+}
+
+
+void Board::SetMoves(vector<Move> moves) {
+    _moves = moves;
 }
 
 

@@ -28,6 +28,7 @@ class Board {
         Board();
 
         void Print(void);
+        void SetMoves(vector<Move>);
         vector<Move> GetLegalMoves(void);
         string GetFen(void);
 
@@ -37,6 +38,7 @@ class Board {
         vector<string> const _castleSymbols = {"K", "Q", "k", "q"};
 
         vector<vector<int>> _board;
+        vector<Move> _moves;
         vector<bool> _legalCastles;
         vector<int> _epSquare;
         bool _turn;
