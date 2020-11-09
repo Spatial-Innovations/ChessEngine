@@ -49,10 +49,10 @@ class Board {
         string _GetSymbol(int);
         string _GetSquare(int, int);
 
-        vector<Move> _GetPawnMoves(vector<vector<int>>, vector<int>, bool);
-        vector<Move> _GetKnightMoves(vector<vector<int>>, vector<int>, bool);
-        vector<Move> _GetBishopMoves(vector<vector<int>>, vector<int>, bool);
-        vector<Move> _GetRookMoves(vector<vector<int>>, vector<int>, bool);
-        vector<Move> _GetQueenMoves(vector<vector<int>>, vector<int>, bool);
-        vector<Move> _GetKingMoves(vector<vector<int>>, vector<int>, bool);
+        vector<Move> _GetPawnMoves(vector<int>, bool);
+        vector<Move> _GetKnightMoves(vector<int>, bool);
+        vector<Move> _GetBishopMoves(vector<int>, bool);
+        vector<Move> _GetRookMoves(vector<int>, bool);
+        vector<Move> _GetQueenMoves(vector<int>, bool);
+        vector<Move> _GetKingMoves(vector<int>, bool);
 };
