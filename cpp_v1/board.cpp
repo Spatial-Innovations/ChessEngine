@@ -23,8 +23,7 @@
 using namespace std;
 
 
-Board::~Board() {
-}
+Board::~Board() {}
 
 
 Board::Board() {
