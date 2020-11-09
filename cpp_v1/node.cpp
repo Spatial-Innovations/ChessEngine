@@ -49,5 +49,8 @@ void Node::GenBranches(int targetDepth) {
 }
 
 
+void Node::ResetBranches(void) {_branches = {};}
+
+
 void Node::SetMoves(vector<Move> moves) {_board.SetMoves(moves);}
 void Node::PushMove(Move move) {_board.Push(move);}

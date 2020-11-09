@@ -29,6 +29,7 @@ class Node {
         Node(vector<Move>, int);
 
         void GenBranches(int);
+        void ResetBranches(void);
         void SetMoves(vector<Move>);
         void PushMove(Move);
 
