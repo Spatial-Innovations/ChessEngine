@@ -67,9 +67,8 @@ void Board::Print(void) {
 }
 
 
-void Board::SetMoves(vector<Move> moves) {
-    _moves = moves;
-}
+void Board::SetMoves(vector<Move> moves) {_moves = moves;}
+void Board::Push(Move move) {_moves.push_back(move);}
 
 
 vector<Move> Board::GetLegalMoves(void) {

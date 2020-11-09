@@ -29,6 +29,7 @@ class Board {
 
         void Print(void);
         void SetMoves(vector<Move>);
+        void Push(Move);
         vector<Move> GetLegalMoves(void);
         string GetFen(void);
 
