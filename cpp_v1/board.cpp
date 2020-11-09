@@ -22,6 +22,7 @@
 #include "board.hpp"
 using namespace std;
 
+
 Board::~Board() {
 }
 

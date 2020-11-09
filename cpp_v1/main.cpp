@@ -20,6 +20,7 @@
 #include "board.hpp"
 using namespace std;
 
+
 int main() {
     string msg;
     vector<Move> test;
