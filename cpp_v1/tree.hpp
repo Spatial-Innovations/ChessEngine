@@ -13,4 +13,24 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
-//  ##### END GPL LICENSE BLOCK #####
+//  ##### END GPL LICENSE BLOCK ######include <vector>
+
+#include <vector>
+#include <string>
+#include "node.hpp"
+#include "move.hpp"
+using namespace std;
+
+
+class Tree {
+    public:
+        ~Tree();
+        Tree();
+
+        void Set(vector<Move>);
+    
+    private:
+        Node _root;
+        int _depth;
+        int _nodes;
+};

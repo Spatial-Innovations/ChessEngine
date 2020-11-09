@@ -14,3 +14,21 @@
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 //  ##### END GPL LICENSE BLOCK #####
+
+#include <vector>
+#include <string>
+#include "node.hpp"
+#include "move.hpp"
+#include "tree.hpp"
+using namespace std;
+
+
+Tree::~Tree() {}
+Tree::Tree() {}
+
+
+void Tree::Set(vector<Move> moves) {
+    _root.SetMoves(moves);
+    _depth = 0;
+    _nodes = 0;
+}
