@@ -17,5 +17,33 @@
 
 #include <vector>
 #include <string>
-#include "eval.hpp"
 using namespace std;
+
+
+int Eval(vector<vector<int>> board) {
+    return 1;
+}
+
+
+int Material(vector<vector<int>> board) {
+    int points = 0;
+    int piece;
+
+    for (auto row = 0; row < board.size(); row++) {
+        for (auto col = 0; col < board[row].size(); col++) {
+            piece = board[row][col];
+            if (piece == 1) {points -= 1;}
+            else if (piece == 2) {points -= 3;}
+            else if (piece == 3) {points -= 3;}
+            else if (piece == 4) {points -= 5;}
+            else if (piece == 5) {points -= 9;}
+            else if (piece == 7) {points += 1;}
+            else if (piece == 8) {points += 3;}
+            else if (piece == 9) {points += 3;}
+            else if (piece == 10) {points += 5;}
+            else if (piece == 11) {points += 9;}
+        }
+    }
+
+    return points;
+}
