@@ -92,10 +92,9 @@ class Tree:
     def PrintStr(self, final=False):
         timeElapse = time.time() - self.timeStart
         try:
-            evaluation = self.root.Minimax(self.board.turn)
-            if final:
-                self.bestMove = evaluation[1].uci()
-                self.score = evaluation[0]
+            evaluation = self.root.Minimax(self.board.turn, float("-inf"), float("inf"))
+            self.bestMove = evaluation[1].uci()
+            self.score = evaluation[0]
         except:
             pass
 
@@ -141,28 +140,30 @@ class Node:
                     return
                 b.Branch(targetDepth)
 
-    def Minimax(self, maxPlayer):
+    def Minimax(self, maxPlayer, alpha, beta):
         if len(self.branches) == 0:
             return (self.eval, self.board.peek())
 
         if maxPlayer:
-            maxEval = float("-inf")
             bestMove = None
             for b in self.branches:
-                evaluation = b.Minimax(False)[0]
-                maxEval = max(maxEval, evaluation)
-                if maxEval == evaluation:
+                evaluation = b.Minimax(False, alpha, beta)[0]
+                if evaluation > alpha:
+                    alpha = evaluation
                     bestMove = b.board.peek()
+                    if alpha >= beta:
+                        break
 
-            return (maxEval, bestMove)
+            return (alpha, bestMove)
 
         else:
-            minEval = float("inf")
             bestMove = None
             for b in self.branches:
-                evaluation = b.Minimax(True)[0]
-                minEval = min(minEval, evaluation)
-                if minEval == evaluation:
+                evaluation = b.Minimax(False, alpha, beta)[0]
+                if evaluation < beta:
+                    beta = evaluation
                     bestMove = b.board.peek()
+                    if alpha >= beta:
+                        break
 
-            return (minEval, bestMove)
+            return (beta, bestMove)
