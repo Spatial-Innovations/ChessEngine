@@ -66,14 +66,41 @@ void Board::Print(void) {
 }
 
 
-void Board::SetMoves(vector<Move> moves) {_moves = moves;}
-void Board::Push(Move move) {_moves.push_back(move);}
+void Board::SetMoves(vector<Move> moves) {
+    // todo edit board
+    _moves = moves;
+}
+
+
+void Board::Push(Move move) {
+    // todo edit board
+    // todo update ep and castling
+    _moves.push_back(move);
+}
 
 
 vector<Move> Board::GetMoves(void) {return _moves;}
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
+
+    vector<Move> pawn;
+    vector<Move> knight;
+    vector<Move> bishop;
+    vector<Move> rook;
+    vector<Move> queen;
+    vector<Move> king;
+
+    int piece;
+
+    for (auto row = 0; row < _board.size(); row++) {
+        for (auto col = 0; col < _board[row].size(); col++) {
+            piece = _board[row][col];
+            switch (piece) {
+            }
+        }
+    }
+
     return moves;
 }
 
@@ -381,6 +408,7 @@ vector<Move> Board::_GetQueenMoves(vector<int> location, bool color) {
 
 
 vector<Move> Board::_GetKingMoves(vector<int> pieceLoc, bool color) {
+    // todo castling
     int row, col, currSquare;
     vector<vector<int>> locations;
     vector<int> currLoc;
