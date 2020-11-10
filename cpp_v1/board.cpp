@@ -103,6 +103,12 @@ void Board::GenBranches(int targetDepth) {
 }
 
 
+void Board::ResetBranches(void) {
+    // todo delete instead of set to none to save memory.
+    _branches.clear();  //todo bug this line
+}
+
+
 vector<Move> Board::GetMoves(void) {
     return _moves;
 }
@@ -475,4 +481,6 @@ vector<Move> Board::_GetKingMoves(vector<int> pieceLoc, bool color) {
             }
         }
     }
+
+    return moves;
 }

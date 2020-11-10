@@ -34,6 +34,7 @@ class Board {
         void SetDepth(int);
         void Push(Move);
         void GenBranches(int);
+        void ResetBranches(void);
         vector<Move> GetMoves(void);
         vector<Move> GetLegalMoves(void);
         string GetFen(void);
