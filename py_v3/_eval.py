@@ -20,6 +20,15 @@ from chess import Board
 
 
 def Eval(position: Board):
+    if position.is_game_over():
+        result = position.result()
+        if result == "1-0":
+            return float("inf")
+        elif result == "0-1":
+            return float("-inf")
+        elif result == "1/2-1/2":
+            return 0
+            
     # todo dynamic weights
     mat = 2 * Material(position)
     center = 0.7 * CenterControl(position)

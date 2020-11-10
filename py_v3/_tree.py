@@ -98,6 +98,11 @@ class Tree:
         except:
             pass
 
+        if self.score == float("inf"):
+            self.score = "M+"
+        elif self.score == float("-inf"):
+            self.score = "M-"
+            
         string = self.infoStr.format(depth=self.depth+1, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove)
         print(string)
 
