@@ -23,10 +23,8 @@ def Eval(position: Board):
     # todo dynamic weights
     mat = 2 * Material(position)
     center = 0.7 * CenterControl(position)
-    earlyDev = 0.5 * EarlyDev(position)
-    lateDev = 0.5 * LateDev(position)
 
-    evaluation = mat + center + earlyDev + lateDev
+    evaluation = mat + center
 
     return int(evaluation * 30)
 
@@ -38,8 +36,28 @@ def Material(position: Board):
     points += 5 * (pieces.count("R") - pieces.count("r"))
     points += 9 * (pieces.count("Q") - pieces.count("q"))
 
-    return points
+    return points / 50
 
+
+def CenterControl(position: Board):
+    # Inner center
+    inner = 0
+    squares = ("D4", "D5", "E4", "E5")
+    for sq in squares:
+        inner += len(position.attackers(chess.WHITE, getattr(chess, sq)))
+        inner -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
+
+    # Outer center, weighted 0.25
+    outer = 0
+    squares = ("C3", "D3", "E3", "F3", "F4", "F5", "F6", "E6", "D6", "C6", "C5", "C4")
+    for sq in squares:
+        outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
+        outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
+
+    return inner + outer/4
+
+
+"""
 def EarlyDev(position: Board):
     points = 0
     newFen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
@@ -52,7 +70,7 @@ def EarlyDev(position: Board):
             if piece.islower():
                 points -= attackingSquares
 
-    return points
+    return points / 50
 
 
 def LateDev(position: Board):
@@ -78,21 +96,4 @@ def _GetAttackingSquares(position, ind):
 
     attackers = len(position.attacks(getattr(chess, pos)))
     return attackers
-
-
-def CenterControl(position: Board):
-    # Inner center
-    inner = 0
-    squares = ("D4", "D5", "E4", "E5")
-    for sq in squares:
-        inner += len(position.attackers(chess.WHITE, getattr(chess, sq)))
-        inner -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
-
-    # Outer center, weighted 0.25
-    outer = 0
-    squares = ("C3", "D3", "E3", "F3", "F4", "F5", "F6", "E6", "D6", "C6", "C5", "C4")
-    for sq in squares:
-        outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
-        outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
-
-    return inner + outer/4
+"""
