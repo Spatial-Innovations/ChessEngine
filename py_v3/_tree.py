@@ -72,7 +72,7 @@ class Tree:
                 self.root.Branch(depth)
 
         self.processing = False
-        self.PrintStr(final=True)
+        self.PrintStr()
         print(f"bestmove {self.bestMove}")
         del self.root
 
@@ -89,10 +89,10 @@ class Tree:
             currExp += 1
             self.PrintStr()
 
-    def PrintStr(self, final=False):
+    def PrintStr(self):
         timeElapse = time.time() - self.timeStart
         try:
-            evaluation = self.root.Minimax(self.board.turn, float("-inf"), float("inf"))
+            evaluation = self.root.Minimax(self.board.turn)
             self.bestMove = evaluation[1].uci()
             self.score = evaluation[0]
         except:
@@ -140,30 +140,28 @@ class Node:
                     return
                 b.Branch(targetDepth)
 
-    def Minimax(self, maxPlayer, alpha, beta):
+    def Minimax(self, maxPlayer):
         if len(self.branches) == 0:
             return (self.eval, self.board.peek())
 
         if maxPlayer:
+            maxEval = float("-inf")
             bestMove = None
             for b in self.branches:
-                evaluation = b.Minimax(False, alpha, beta)[0]
-                if evaluation > alpha:
-                    alpha = evaluation
+                evaluation = b.Minimax(False)[0]
+                maxEval = max(maxEval, evaluation)
+                if maxEval == evaluation:
                     bestMove = b.board.peek()
-                    if alpha >= beta:
-                        break
 
-            return (alpha, bestMove)
+            return (maxEval, bestMove)
 
         else:
+            minEval = float("inf")
             bestMove = None
             for b in self.branches:
-                evaluation = b.Minimax(False, alpha, beta)[0]
-                if evaluation < beta:
-                    beta = evaluation
+                evaluation = b.Minimax(True)[0]
+                minEval = min(minEval, evaluation)
+                if minEval == evaluation:
                     bestMove = b.board.peek()
-                    if alpha >= beta:
-                        break
 
-            return (beta, bestMove)
+            return (minEval, bestMove)
