@@ -121,20 +121,21 @@ vector<Move> Board::GetLegalMoves(void) {
 
     for (auto row = 0; row < _board.size(); row++) {
         for (auto col = 0; col < _board[row].size(); col++) {
+            currMoves.clear();
             piece = _board[row][col];
             switch (piece) {
-                case 1: currMoves = _GetPawnMoves({row, col}, false); break;
+                //case 1: currMoves = _GetPawnMoves({row, col}, false); break;  // todo pawn moves
                 case 2: currMoves = _GetKnightMoves({row, col}, false); break;
-                case 3: currMoves = _GetBishopMoves({row, col}, false); break;
-                case 4: currMoves = _GetRookMoves({row, col}, false); break;
-                case 5: currMoves = _GetQueenMoves({row, col}, false); break;
-                case 6: currMoves = _GetKingMoves({row, col}, false); break;
-                case 7: currMoves = _GetPawnMoves({row, col}, true); break;
+                //case 3: currMoves = _GetBishopMoves({row, col}, false); break;
+                //case 4: currMoves = _GetRookMoves({row, col}, false); break;
+                //case 5: currMoves = _GetQueenMoves({row, col}, false); break;
+                //case 6: currMoves = _GetKingMoves({row, col}, false); break;
+                //case 7: currMoves = _GetPawnMoves({row, col}, true); break;
                 case 8: currMoves = _GetKnightMoves({row, col}, true); break;
-                case 9: currMoves = _GetBishopMoves({row, col}, true); break;
-                case 10: currMoves = _GetRookMoves({row, col}, true); break;
-                case 11: currMoves = _GetQueenMoves({row, col}, true); break;
-                case 12: currMoves = _GetKingMoves({row, col}, true); break;
+                //case 9: currMoves = _GetBishopMoves({row, col}, true); break;
+                //case 10: currMoves = _GetRookMoves({row, col}, true); break;
+                //case 11: currMoves = _GetQueenMoves({row, col}, true); break;
+                //case 12: currMoves = _GetKingMoves({row, col}, true); break;
             }
 
             for (auto i = 0; i < currMoves.size(); i++) {
@@ -238,6 +239,7 @@ string Board::_GetSquare(int row, int col) {
 
 
 vector<Move> Board::_GetPawnMoves(vector<int> location, bool color) {
+    // todo
     vector<Move> moves;
     return moves;
 }
@@ -262,12 +264,12 @@ vector<Move> Board::_GetKnightMoves(vector<int> location, bool color) {
         piece = _board[row][col];
         if (row >= 0 && col >= 0 && row <= 7 && col <= 7) {
             if (color) {
-                if (!(piece >= 7)) {
+                if (piece == 0 || (piece >= 1 && piece <= 6)) {
                     moves.push_back(Move(location, {row-2, col-1}));
                 }
             }
             else {
-                if (!(piece >= 1 && piece <= 6)) {
+                if (piece == 0 || (piece >= 7 && piece <= 12)) {
                     moves.push_back(Move(location, {row-2, col-1}));
                 }
             }

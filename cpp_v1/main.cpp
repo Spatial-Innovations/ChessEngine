@@ -35,9 +35,10 @@ int main() {
         else if (msg == "d") {board.Print();}
         else if (msg == "l") {
             vector<Move> moves = board.GetLegalMoves();
-            for (auto i = 0; i < moves.size(); i++) {
-                cout << moves[i].GetUci() << endl;
-            }
+            cout << moves.size() << endl;
+            //for (auto i = 0; i < moves.size(); i++) {
+            //    cout << moves[i].GetUci() << endl;
+            //}
         }
     }
 }
