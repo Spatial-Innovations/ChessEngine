@@ -81,6 +81,7 @@ void Board::Push(Move move) {
 
 vector<Move> Board::GetMoves(void) {return _moves;}
 
+
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
 
@@ -230,6 +231,12 @@ string Board::_GetSquare(int row, int col) {
 }
 
 
+vector<Move> Board::_GetPawnMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    return moves;
+}
+
+
 vector<Move> Board::_GetKnightMoves(vector<int> location, bool color) {
     vector<Move> moves;
     int row = location[0];
@@ -247,7 +254,7 @@ vector<Move> Board::_GetKnightMoves(vector<int> location, bool color) {
         row = positions[i][0];
         col = positions[i][1];
         piece = _board[row][col];
-        if (row >= 0 && col >= 0) {
+        if (row >= 0 && col >= 0 && row <= 7 && col <= 7) {
             if (color) {
                 if (!(piece >= 7)) {
                     moves.push_back(Move(location, {row-2, col-1}));
@@ -459,11 +466,13 @@ vector<Move> Board::_GetKingMoves(vector<int> pieceLoc, bool color) {
 
     for (auto i = 0; i < locations.size(); i++) {
         currLoc = {locations[i][1], locations[i][0]};
-        currSquare = _board[currLoc[0]][currLoc[1]];
-        if (color && (currSquare==0 || (currSquare >= 1 && currSquare <= 6))) {
-            moves.push_back(Move(pieceLoc, currLoc));
-        } else if (color==false && (currSquare==0 || currSquare >= 7 && currSquare <= 12)) {
-            moves.push_back(Move(pieceLoc, currLoc));
+        if (locations[i][1] >= 0 && locations[i][0] >= 0 && locations[i][1] <= 7 && locations[i][0] <= 7) {
+            currSquare = _board[currLoc[0]][currLoc[1]];
+            if (color && (currSquare==0 || (currSquare >= 1 && currSquare <= 6))) {
+                moves.push_back(Move(pieceLoc, currLoc));
+            } else if (color==false && (currSquare==0 || currSquare >= 7 && currSquare <= 12)) {
+                moves.push_back(Move(pieceLoc, currLoc));
+            }
         }
     }
 }
