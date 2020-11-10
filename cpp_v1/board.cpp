@@ -28,13 +28,13 @@ Board::~Board() {}
 
 Board::Board() {
     _board = {
-        {4, 2, 3, 5, 6, 3, 2, 4},
-        {1, 1, 1, 1, 1, 1, 1, 1},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0},
-        {7, 7, 7, 7, 7, 7, 7, 7},
+        {4 , 2, 3, 5 , 6 , 3, 2, 4 },
+        {1 , 1, 1, 1 , 1 , 1, 1, 1 },
+        {0 , 0, 0, 0 , 0 , 0, 0, 0 },
+        {0 , 0, 0, 0 , 0 , 0, 0, 0 },
+        {0 , 0, 0, 0 , 0 , 0, 0, 0 },
+        {0 , 0, 0, 0 , 0 , 0, 0, 0 },
+        {7 , 7, 7, 7 , 7 , 7, 7, 7 },
         {10, 8, 9, 11, 12, 9, 8, 10}
     };
 
@@ -165,4 +165,215 @@ string Board::_GetSquare(int row, int col) {
     }
 
     return (strCol + strRow);
+}
+
+vector<Move> Board::_GetKnightMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    int row = location[0];
+    int col = location[1];
+    int piece;
+
+    vector<vector<int>> positions = {
+        {row-2, col-1}, {row-2, col+1},
+        {row-1, col-2}, {row-1, col+2},
+        {row+2, col-1}, {row+2, col+1},
+        {row+1, col-2}, {row+1, col+2}
+    };
+
+    for (auto i = 0; i < positions.size(); i++) {
+        row = [i][0];
+        col = [i][1];
+        piece = _board[row][col];
+        if (row >= 0 && col >= 0) {
+            if (color) {
+                if (!(piece >= 7)) {
+                    moves.push_back(Move(location, _GetSquare(row-2, col-1)));
+                }
+            }
+            else {
+                if (!(piece >= 1 && piece <= 6)) {
+                    moves.push_back(Move(location, _GetSquare(row-2, col-1)));
+                }
+            }
+        }
+    }
+
+    return moves;
+}
+
+
+vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    int row = location[0];
+    int col = location[1];
+
+    // White bishop
+    if (color) {
+        // Top Left
+        for (auto r = row; r > 0; r--) {
+            if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                if (_board[r][col - abs(r - row)] > 6) {break;}
+                moves.push_back(Move(location, _GetSquare(r, col - abs(r - row))));
+                if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+            }
+        }
+
+        // Top Right
+        for (auto r = row; r > 0; r--) {
+            if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                if (_board[r][col + abs(r - row)] > 6) {break;}
+                moves.push_back(Move(location, _GetSquare(r, col + abs(r - row))));
+                if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+            }
+        }
+
+        // Bottom Left
+        for (auto r = row; r < _board.size(); r++) {
+            if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                if (_board[r][col - abs(r - row)] > 6) {break;}
+                moves.push_back(Move(location, _GetSquare(r, col - abs(r - row))));
+                if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+            }
+        }
+
+        // Bottom Right
+        for (auto r = row; r < _board.size(); r++) {
+            if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                if (_board[r][col + abs(r - row)] > 6) {break;}
+                moves.push_back(Move(location, _GetSquare(r, col + abs(r - row))));
+                if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+            }
+        }
+    }
+
+    // Black bishop
+    else {
+        // Top Left
+        for (auto r = row; r > 0; r--) {
+            if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+                moves.push_back(Move(location, _GetSquare(r, col - abs(r - row))));
+                if (_board[r][col - abs(r - row)] > 6) {break;}
+            }
+        }
+
+        // Top Right
+        for (auto r = row; r > 0; r--) {
+            if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+                moves.push_back(Move(location, _GetSquare(r, col + abs(r - row))));
+                if (_board[r][col + abs(r - row)] > 6) {break;}
+            }
+        }
+
+        // Bottom Left
+        for (auto r = row; r < _board.size(); r++) {
+            if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
+                if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
+                moves.push_back(Move(location, _GetSquare(r, col - abs(r - row))));
+                if (_board[r][col - abs(r - row)] > 6) {break;}
+            }
+        }
+
+        // Bottom Right
+        for (auto r = row; r < _board.size(); r++) {
+            if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
+                if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
+                moves.push_back(Move(location, _GetSquare(r, col + abs(r - row))));
+                if (_board[r][col + abs(r - row)] > 6) {break;}
+            }
+        }
+    }
+
+    return moves;
+}
+
+
+vector<Move> Board::_GetRookMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+    int row = location[0];
+    int col = location[1];
+
+    // White rook
+    if (color) {
+        // Top
+        for (auto r = row; r > 0; r--) {
+            if (_board[r][col] > 6) {break;}
+            moves.push_back(Move(location, _GetSquare(r, col)));
+            if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+        }
+
+        // Bottom
+        for (auto r = row; r < _board.size(); r++) {
+            if (_board[r][col] > 6) {break;}
+            moves.push_back(Move(location, _GetSquare(r, col)));
+            if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+        }
+
+        // Left
+        for (auto c = col; c > 0; c--) {
+            if (_board[row][c] > 6) {break;}
+            moves.push_back(Move(location, _GetSquare(row, c)));
+            if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+        }
+
+        // Right
+        for (auto c = col; c < _board.size(); c++) {
+            if (_board[row][c] > 6) {break;}
+            moves.push_back(Move(location, _GetSquare(row, c)));
+            if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+        }
+    }
+
+    // Black rook
+    else {
+        // Top
+        for (auto r = row; r > 0; r--) {
+            if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+            moves.push_back(Move(location, _GetSquare(r, col)));
+            if (_board[r][col] > 6) {break;}
+        }
+
+        // Bottom
+        for (auto r = row; r < _board.size(); r++) {
+            if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
+            moves.push_back(Move(location, _GetSquare(r, col)));
+            if (_board[r][col] > 6) {break;}
+        }
+
+        // Left
+        for (auto c = col; c > 0; c--) {
+            if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+            moves.push_back(Move(location, _GetSquare(row, c)));
+            if (_board[row][c] > 6) {break;}
+        }
+
+        // Right
+        for (auto c = col; c < _board.size(); c++) {
+            if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
+            moves.push_back(Move(location, _GetSquare(row, c)));
+            if (_board[row][c] > 6) {break;}
+        }
+    }
+
+    return moves;
+}
+
+
+vector<Move> Board::_GetQueenMoves(vector<int> location, bool color) {
+    vector<Move> moves;
+
+    vector<Move> rook = _GetRookMoves(location, color);
+    vector<Move> bishop = _GetBishopMoves(location, color);
+
+    // Queen is combination of rook and bishop
+    for (auto i = 0; i < rook.size(); i++) {
+        moves.push_back(rook[i]);
+    }
+
+    for (auto i = 0; i < bishop.size(); i++) {
+        moves.push_back(bishop[i]);
+    }
+
+    return moves;
 }
