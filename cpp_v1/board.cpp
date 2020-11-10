@@ -103,56 +103,32 @@ void Board::GenBranches(int targetDepth) {
 }
 
 
-vector<Move> Board::GetMoves(void) {return _moves;}
+vector<Move> Board::GetMoves(void) {
+    return _moves;
+}
 
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
-
     vector<Move> currMoves;
-
     int piece;
 
     for (auto row = 0; row < _board.size(); row++) {
         for (auto col = 0; col < _board[row].size(); col++) {
             piece = _board[row][col];
             switch (piece) {
-                case 1:
-                    currMoves = _GetPawnMoves({row, col}, false);
-                    break;
-                case 2:
-                    currMoves = _GetKnightMoves({row, col}, false);
-                    break;
-                case 3:
-                    currMoves = _GetBishopMoves({row, col}, false);
-                    break;
-                case 4:
-                    currMoves = _GetRookMoves({row, col}, false);
-                    break;
-                case 5:
-                    currMoves = _GetQueenMoves({row, col}, false);
-                    break;
-                case 6:
-                    currMoves = _GetKingMoves({row, col}, false);
-                    break;
-                case 7:
-                    currMoves = _GetPawnMoves({row, col}, true);
-                    break;
-                case 8:
-                    currMoves = _GetKnightMoves({row, col}, true);
-                    break;
-                case 9:
-                    currMoves = _GetBishopMoves({row, col}, true);
-                    break;
-                case 10:
-                    currMoves = _GetRookMoves({row, col}, true);
-                    break;
-                case 11:
-                    currMoves = _GetQueenMoves({row, col}, true);
-                    break;
-                case 12:
-                    currMoves = _GetKingMoves({row, col}, true);
-                    break;
+                case 1: currMoves = _GetPawnMoves({row, col}, false); break;
+                case 2: currMoves = _GetKnightMoves({row, col}, false); break;
+                case 3: currMoves = _GetBishopMoves({row, col}, false); break;
+                case 4: currMoves = _GetRookMoves({row, col}, false); break;
+                case 5: currMoves = _GetQueenMoves({row, col}, false); break;
+                case 6: currMoves = _GetKingMoves({row, col}, false); break;
+                case 7: currMoves = _GetPawnMoves({row, col}, true); break;
+                case 8: currMoves = _GetKnightMoves({row, col}, true); break;
+                case 9: currMoves = _GetBishopMoves({row, col}, true); break;
+                case 10: currMoves = _GetRookMoves({row, col}, true); break;
+                case 11: currMoves = _GetQueenMoves({row, col}, true); break;
+                case 12: currMoves = _GetKingMoves({row, col}, true); break;
             }
 
             for (auto i = 0; i < currMoves.size(); i++) {
