@@ -377,3 +377,28 @@ vector<Move> Board::_GetQueenMoves(vector<int> location, bool color) {
 
     return moves;
 }
+
+vector<Move> Board::_GetKingMoves(vector<int> pieceLoc, bool color) {
+    int row, col, currSquare;
+    vector<vector<int>> locations;
+    vector<int> currLoc;
+    vector<Move> moves;
+
+    row = pieceLoc[0];
+    col = pieceLoc[1];
+    locations = {
+        {col - 1, row - 1}, {col - 1, row}, {col - 1, row + 1},
+        {col, row - 1}, {col, row + 1},
+        {col + 1, row - 1}, {col + 1, row}, {col + 1, row + 1}
+    };
+
+    for (auto i = 0; i < locations.size(); i++) {
+        currLoc = {locations[i][1], locations[i][0]};
+        currSquare = _board[currLoc[0]][currLoc[1]];
+        if (color && (currSquare==0 || (currSquare >= 1 && currSquare <= 6))) {
+            moves.push_back(Move(pieceLoc, currLoc));
+        } else if (color==false && (currSquare==0 || currSquare >= 7 && currSquare <= 12)) {
+            moves.push_back(Move(pieceLoc, currLoc));
+        }
+    }
+}
