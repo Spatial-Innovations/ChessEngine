@@ -19,7 +19,7 @@
 
 #include <vector>
 #include <string>
-#include "node.hpp"
+#include "board.hpp"
 #include "move.hpp"
 using namespace std;
 
@@ -34,7 +34,7 @@ class Tree {
         void PrintInfo(void);
 
     private:
-        Node _root;
+        Board _root;
         bool _processing, _ready;
         int _currDepth, _currNodes;
 };
