@@ -209,18 +209,18 @@ vector<Move> Board::_GetKnightMoves(vector<int> location, bool color) {
     };
 
     for (auto i = 0; i < positions.size(); i++) {
-        row = [i][0];
-        col = [i][1];
+        row = positions[i][0];
+        col = positions[i][1];
         piece = _board[row][col];
         if (row >= 0 && col >= 0) {
             if (color) {
                 if (!(piece >= 7)) {
-                    moves.push_back(Move(location, _GetSquare(row-2, col-1)));
+                    moves.push_back(Move(location, {row-2, col-1}));
                 }
             }
             else {
                 if (!(piece >= 1 && piece <= 6)) {
-                    moves.push_back(Move(location, _GetSquare(row-2, col-1)));
+                    moves.push_back(Move(location, {row-2, col-1}));
                 }
             }
         }
@@ -241,7 +241,7 @@ vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
         for (auto r = row; r > 0; r--) {
             if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
                 if (_board[r][col - abs(r - row)] > 6) {break;}
-                moves.push_back(Move(location, _GetSquare(r, col - abs(r - row))));
+                moves.push_back(Move(location, {r, col - abs(r - row)}));
                 if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
             }
         }
@@ -250,7 +250,7 @@ vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
         for (auto r = row; r > 0; r--) {
             if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
                 if (_board[r][col + abs(r - row)] > 6) {break;}
-                moves.push_back(Move(location, _GetSquare(r, col + abs(r - row))));
+                moves.push_back(Move(location, {r, col + abs(r - row)}));
                 if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
             }
         }
@@ -259,7 +259,7 @@ vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
         for (auto r = row; r < _board.size(); r++) {
             if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
                 if (_board[r][col - abs(r - row)] > 6) {break;}
-                moves.push_back(Move(location, _GetSquare(r, col - abs(r - row))));
+                moves.push_back(Move(location, {r, col - abs(r - row)}));
                 if (_board[r][col] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
             }
         }
@@ -268,7 +268,7 @@ vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
         for (auto r = row; r < _board.size(); r++) {
             if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
                 if (_board[r][col + abs(r - row)] > 6) {break;}
-                moves.push_back(Move(location, _GetSquare(r, col + abs(r - row))));
+                moves.push_back(Move(location, {r, col + abs(r - row)}));
                 if (_board[r][col] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
             }
         }
@@ -280,7 +280,7 @@ vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
         for (auto r = row; r > 0; r--) {
             if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
                 if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
-                moves.push_back(Move(location, _GetSquare(r, col - abs(r - row))));
+                moves.push_back(Move(location, {r, col - abs(r - row)}));
                 if (_board[r][col - abs(r - row)] > 6) {break;}
             }
         }
@@ -289,7 +289,7 @@ vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
         for (auto r = row; r > 0; r--) {
             if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
                 if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
-                moves.push_back(Move(location, _GetSquare(r, col + abs(r - row))));
+                moves.push_back(Move(location, {r, col + abs(r - row)}));
                 if (_board[r][col + abs(r - row)] > 6) {break;}
             }
         }
@@ -298,7 +298,7 @@ vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
         for (auto r = row; r < _board.size(); r++) {
             if (0 <= col - abs(r - row) && col - abs(r - row) <= _board.size()){
                 if (_board[r][col - abs(r - row)] > 0 && _board[r][col - abs(r - row)] <= 6) {break;}
-                moves.push_back(Move(location, _GetSquare(r, col - abs(r - row))));
+                moves.push_back(Move(location, {r, col - abs(r - row)}));
                 if (_board[r][col - abs(r - row)] > 6) {break;}
             }
         }
@@ -307,7 +307,7 @@ vector<Move> Board::_GetBishopMoves(vector<int> location, bool color) {
         for (auto r = row; r < _board.size(); r++) {
             if (0 <= col + abs(r - row) && col + abs(r - row) <= _board.size()){
                 if (_board[r][col + abs(r - row)] > 0 && _board[r][col + abs(r - row)] <= 6) {break;}
-                moves.push_back(Move(location, _GetSquare(r, col + abs(r - row))));
+                moves.push_back(Move(location, {r, col + abs(r - row)}));
                 if (_board[r][col + abs(r - row)] > 6) {break;}
             }
         }
@@ -327,28 +327,28 @@ vector<Move> Board::_GetRookMoves(vector<int> location, bool color) {
         // Top
         for (auto r = row; r > 0; r--) {
             if (_board[r][col] > 6) {break;}
-            moves.push_back(Move(location, _GetSquare(r, col)));
+            moves.push_back(Move(location, {r, col}));
             if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
         }
 
         // Bottom
         for (auto r = row; r < _board.size(); r++) {
             if (_board[r][col] > 6) {break;}
-            moves.push_back(Move(location, _GetSquare(r, col)));
+            moves.push_back(Move(location, {r, col}));
             if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
         }
 
         // Left
         for (auto c = col; c > 0; c--) {
             if (_board[row][c] > 6) {break;}
-            moves.push_back(Move(location, _GetSquare(row, c)));
+            moves.push_back(Move(location, {row, c}));
             if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
         }
 
         // Right
         for (auto c = col; c < _board.size(); c++) {
             if (_board[row][c] > 6) {break;}
-            moves.push_back(Move(location, _GetSquare(row, c)));
+            moves.push_back(Move(location, {row, c}));
             if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
         }
     }
@@ -358,28 +358,28 @@ vector<Move> Board::_GetRookMoves(vector<int> location, bool color) {
         // Top
         for (auto r = row; r > 0; r--) {
             if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
-            moves.push_back(Move(location, _GetSquare(r, col)));
+            moves.push_back(Move(location, {r, col}));
             if (_board[r][col] > 6) {break;}
         }
 
         // Bottom
         for (auto r = row; r < _board.size(); r++) {
             if (_board[r][col] > 0 && _board[r][col] <= 6) {break;}
-            moves.push_back(Move(location, _GetSquare(r, col)));
+            moves.push_back(Move(location, {r, col}));
             if (_board[r][col] > 6) {break;}
         }
 
         // Left
         for (auto c = col; c > 0; c--) {
             if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
-            moves.push_back(Move(location, _GetSquare(row, c)));
+            moves.push_back(Move(location, {row, c}));
             if (_board[row][c] > 6) {break;}
         }
 
         // Right
         for (auto c = col; c < _board.size(); c++) {
             if (_board[row][c] > 0 && _board[row][c] <= 6) {break;}
-            moves.push_back(Move(location, _GetSquare(row, c)));
+            moves.push_back(Move(location, {row, c}));
             if (_board[row][c] > 6) {break;}
         }
     }
