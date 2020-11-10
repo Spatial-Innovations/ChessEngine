@@ -54,7 +54,12 @@ def CenterControl(position: Board):
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return inner + outer/4
+    return (inner + outer/4) / 10
+
+
+#def PawnStruct(position: Board):
+#    pawns = []
+#    for piece in position.piece_at()
 
 
 """
