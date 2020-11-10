@@ -84,12 +84,7 @@ vector<Move> Board::GetMoves(void) {return _moves;}
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
 
-    vector<Move> pawn;
-    vector<Move> knight;
-    vector<Move> bishop;
-    vector<Move> rook;
-    vector<Move> queen;
-    vector<Move> king;
+    vector<Move> currMoves;
 
     int piece;
 
@@ -97,6 +92,46 @@ vector<Move> Board::GetLegalMoves(void) {
         for (auto col = 0; col < _board[row].size(); col++) {
             piece = _board[row][col];
             switch (piece) {
+                case 1:
+                    currMoves = _GetPawnMoves({row, col}, false);
+                    break;
+                case 2:
+                    currMoves = _GetKnightMoves({row, col}, false);
+                    break;
+                case 3:
+                    currMoves = _GetBishopMoves({row, col}, false);
+                    break;
+                case 4:
+                    currMoves = _GetRookMoves({row, col}, false);
+                    break;
+                case 5:
+                    currMoves = _GetQueenMoves({row, col}, false);
+                    break;
+                case 6:
+                    currMoves = _GetKingMoves({row, col}, false);
+                    break;
+                case 7:
+                    currMoves = _GetPawnMoves({row, col}, true);
+                    break;
+                case 8:
+                    currMoves = _GetKnightMoves({row, col}, true);
+                    break;
+                case 9:
+                    currMoves = _GetBishopMoves({row, col}, true);
+                    break;
+                case 10:
+                    currMoves = _GetRookMoves({row, col}, true);
+                    break;
+                case 11:
+                    currMoves = _GetQueenMoves({row, col}, true);
+                    break;
+                case 12:
+                    currMoves = _GetKingMoves({row, col}, true);
+                    break;
+            }
+
+            for (auto i = 0; i < currMoves.size(); i++) {
+                moves.push_back(currMoves[i]);
             }
         }
     }
