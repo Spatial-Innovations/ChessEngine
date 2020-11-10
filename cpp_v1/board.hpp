@@ -31,7 +31,10 @@ class Board {
 
         void Print(void);
         void SetMoves(vector<Move>);
+        void SetDepth(int);
         void Push(Move);
+        void GenBranches(int);
+        void ResetBranches(void);
         vector<Move> GetMoves(void);
         vector<Move> GetLegalMoves(void);
         string GetFen(void);
@@ -47,6 +50,9 @@ class Board {
         vector<int> _epSquare;
         bool _turn;
         bool _ep;
+
+        int _depth;
+        vector<Board> _branches;
 
         string _GetSymbol(int);
         string _GetSquare(int, int);

@@ -72,6 +72,11 @@ void Board::SetMoves(vector<Move> moves) {
 }
 
 
+void Board::SetDepth(int depth) {
+    _depth = depth;
+}
+
+
 void Board::Push(Move move) {
     // todo edit board
     // todo update ep and castling
@@ -79,56 +84,57 @@ void Board::Push(Move move) {
 }
 
 
-vector<Move> Board::GetMoves(void) {return _moves;}
+void Board::GenBranches(int targetDepth) {
+    if (targetDepth == _depth + 1) {
+        vector<Move> legalMoves = GetLegalMoves();
+        vector<Move> currMoves = GetMoves();
+
+        for (auto i = 0; i < legalMoves.size(); i++) {
+            _branches.push_back(Board());
+            _branches[i].SetDepth(_depth + 1);
+            _branches[i].Push(legalMoves[i]);
+        }
+    }
+    else if (targetDepth > _depth+1) {
+        for (auto i = 0; i < _branches.size(); i++) {
+            _branches[i].GenBranches(targetDepth);
+        }
+    }
+}
+
+
+void Board::ResetBranches(void) {
+    // todo delete instead of set to none to save memory.
+    _branches.clear();  //todo bug this line
+}
+
+
+vector<Move> Board::GetMoves(void) {
+    return _moves;
+}
 
 
 vector<Move> Board::GetLegalMoves(void) {
     vector<Move> moves;
-
     vector<Move> currMoves;
-
     int piece;
 
     for (auto row = 0; row < _board.size(); row++) {
         for (auto col = 0; col < _board[row].size(); col++) {
             piece = _board[row][col];
             switch (piece) {
-                case 1:
-                    currMoves = _GetPawnMoves({row, col}, false);
-                    break;
-                case 2:
-                    currMoves = _GetKnightMoves({row, col}, false);
-                    break;
-                case 3:
-                    currMoves = _GetBishopMoves({row, col}, false);
-                    break;
-                case 4:
-                    currMoves = _GetRookMoves({row, col}, false);
-                    break;
-                case 5:
-                    currMoves = _GetQueenMoves({row, col}, false);
-                    break;
-                case 6:
-                    currMoves = _GetKingMoves({row, col}, false);
-                    break;
-                case 7:
-                    currMoves = _GetPawnMoves({row, col}, true);
-                    break;
-                case 8:
-                    currMoves = _GetKnightMoves({row, col}, true);
-                    break;
-                case 9:
-                    currMoves = _GetBishopMoves({row, col}, true);
-                    break;
-                case 10:
-                    currMoves = _GetRookMoves({row, col}, true);
-                    break;
-                case 11:
-                    currMoves = _GetQueenMoves({row, col}, true);
-                    break;
-                case 12:
-                    currMoves = _GetKingMoves({row, col}, true);
-                    break;
+                case 1: currMoves = _GetPawnMoves({row, col}, false); break;
+                case 2: currMoves = _GetKnightMoves({row, col}, false); break;
+                case 3: currMoves = _GetBishopMoves({row, col}, false); break;
+                case 4: currMoves = _GetRookMoves({row, col}, false); break;
+                case 5: currMoves = _GetQueenMoves({row, col}, false); break;
+                case 6: currMoves = _GetKingMoves({row, col}, false); break;
+                case 7: currMoves = _GetPawnMoves({row, col}, true); break;
+                case 8: currMoves = _GetKnightMoves({row, col}, true); break;
+                case 9: currMoves = _GetBishopMoves({row, col}, true); break;
+                case 10: currMoves = _GetRookMoves({row, col}, true); break;
+                case 11: currMoves = _GetQueenMoves({row, col}, true); break;
+                case 12: currMoves = _GetKingMoves({row, col}, true); break;
             }
 
             for (auto i = 0; i < currMoves.size(); i++) {
@@ -475,4 +481,6 @@ vector<Move> Board::_GetKingMoves(vector<int> pieceLoc, bool color) {
             }
         }
     }
+
+    return moves;
 }

@@ -19,7 +19,6 @@
 #include <vector>
 #include <string>
 #include <chrono>
-#include "node.hpp"
 #include "move.hpp"
 #include "tree.hpp"
 using namespace std;
@@ -31,7 +30,6 @@ Tree::Tree() {}
 
 void Tree::Set(vector<Move> moves) {
     _root.ResetBranches();
-    _root.SetNodeVar(_currNodes);
     _root.SetMoves(moves);
 
     _currDepth = 0;

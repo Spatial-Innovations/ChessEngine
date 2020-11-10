@@ -22,7 +22,6 @@ files = (
     "eval.cpp",
     "move.cpp",
     "board.cpp",
-    "node.cpp",
     "tree.cpp",
     "main.cpp"
 )
