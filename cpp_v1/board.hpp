@@ -15,6 +15,8 @@
 //
 //  ##### END GPL LICENSE BLOCK #####
 
+#pragma once
+
 #include <vector>
 #include <string>
 #include "move.hpp"

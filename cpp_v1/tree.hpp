@@ -15,6 +15,8 @@
 //
 //  ##### END GPL LICENSE BLOCK ######include <vector>
 
+#pragma once
+
 #include <vector>
 #include <string>
 #include "node.hpp"
