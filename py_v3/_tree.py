@@ -72,7 +72,7 @@ class Tree:
                 self.root.Branch(depth)
 
         self.processing = False
-        self.PrintStr()
+        self.PrintStr(final=True)
         print(f"bestmove {self.bestMove}")
         del self.root
 
@@ -89,12 +89,13 @@ class Tree:
             currExp += 1
             self.PrintStr()
 
-    def PrintStr(self):
+    def PrintStr(self, final=False):
         timeElapse = time.time() - self.timeStart
         try:
             evaluation = self.root.Minimax(self.board.turn)
-            self.bestMove = evaluation[1].uci()
-            self.score = evaluation[0]
+            if final:
+                self.bestMove = evaluation[1].uci()
+                self.score = evaluation[0]
         except:
             pass
 
