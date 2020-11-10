@@ -72,10 +72,34 @@ void Board::SetMoves(vector<Move> moves) {
 }
 
 
+void Board::SetDepth(int depth) {
+    _depth = depth;
+}
+
+
 void Board::Push(Move move) {
     // todo edit board
     // todo update ep and castling
     _moves.push_back(move);
+}
+
+
+void Board::GenBranches(int targetDepth) {
+    if (targetDepth == _depth + 1) {
+        vector<Move> legalMoves = GetLegalMoves();
+        vector<Move> currMoves = GetMoves();
+
+        for (auto i = 0; i < legalMoves.size(); i++) {
+            _branches.push_back(Board());
+            _branches[i].SetDepth(_depth + 1);
+            _branches[i].Push(legalMoves[i]);
+        }
+    }
+    else if (targetDepth > _depth+1) {
+        for (auto i = 0; i < _branches.size(); i++) {
+            _branches[i].GenBranches(targetDepth);
+        }
+    }
 }
 
 
