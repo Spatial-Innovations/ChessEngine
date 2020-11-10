@@ -167,6 +167,7 @@ string Board::_GetSquare(int row, int col) {
     return (strCol + strRow);
 }
 
+
 vector<Move> Board::_GetKnightMoves(vector<int> location, bool color) {
     vector<Move> moves;
     int row = location[0];
@@ -377,6 +378,7 @@ vector<Move> Board::_GetQueenMoves(vector<int> location, bool color) {
 
     return moves;
 }
+
 
 vector<Move> Board::_GetKingMoves(vector<int> pieceLoc, bool color) {
     int row, col, currSquare;

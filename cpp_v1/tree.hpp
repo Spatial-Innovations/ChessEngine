@@ -30,7 +30,7 @@ class Tree {
         void Set(vector<Move>);
         void GoDepth(int);
         void PrintInfo(void);
-    
+
     private:
         Node _root;
         bool _processing, _ready;
