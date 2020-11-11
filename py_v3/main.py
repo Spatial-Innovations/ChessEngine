@@ -54,7 +54,7 @@ def Main():
         elif msg.startswith("go"):
             msg = msg.replace("go", "").strip()
             tree = Tree()
-            
+
             if msg.startswith("depth"):
                 depth = int(msg.replace("depth", "").strip())
                 tree.Go(board=board, depth=depth)

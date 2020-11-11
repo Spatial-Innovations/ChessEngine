@@ -17,6 +17,7 @@
 
 import chess
 from chess import Board
+from _maps import *
 
 
 def Eval(position: Board):
@@ -36,6 +37,22 @@ def Eval(position: Board):
     evaluation = mat + center
 
     return int(evaluation * 30)
+
+
+def Map(position):
+    points = 0
+    fen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
+
+    for map, pieceType in zip((MAP_P, MAP_N, MAP_B, MAP_R, MAP_Q, MAP_K), ("p", "n", "b", "r", "q", "k")):
+        for i, piece in enumerate(fen):
+            row, col = i//8, i%8
+            if piece.lower() == pieceType:
+                if piece.isupper():
+                    points += map[row][col]
+                elif piece.islower():
+                    points -= map[row][col]
+
+    return points
 
 
 def Material(position: Board):
