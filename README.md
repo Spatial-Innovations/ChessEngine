@@ -1,2 +1,2 @@
 # ChessEngine
-UCI compatible chess engine.
+UCI compatible chess engines.
