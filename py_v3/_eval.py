@@ -20,6 +20,14 @@ from chess import Board
 from _maps import *
 from itertools import groupby
 
+# attacking, positional
+PERSONALITY = "positional"
+
+if PERSONALITY == "attacking":
+    WEIGHTS = {"mat": 1.9, "center": 0.6, "pawn": 0.1, "pieceMap": 0.07}
+elif PERSONALITY == "positional":
+    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.12, "pieceMap": 0.05}
+
 
 def Eval(position: Board):
     if position.is_game_over():
@@ -39,10 +47,10 @@ def Eval(position: Board):
     #pawn = PawnStruct(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
     #pieceMap = Map(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
 
-    mat = Material(position) * 2
-    center = CenterControl(position) * 0.7
-    pawn = PawnStruct(position) * 0.1
-    pieceMap = 0 if moveNum > 20 else Map(position) * 0.05
+    mat = Material(position) * WEIGHTS["mat"]
+    center = CenterControl(position) * WEIGHTS["center"]
+    pawn = PawnStruct(position) * WEIGHTS["pawn"]
+    pieceMap = 0 if moveNum > 20 else Map(position) * WEIGHTS["pieceMap"]
 
     evaluation = mat + center + pawn + pieceMap
     return int(evaluation * 30)
