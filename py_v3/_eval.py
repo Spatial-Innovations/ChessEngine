@@ -24,11 +24,11 @@ from itertools import groupby
 PERSONALITY = "normal"
 
 if PERSONALITY == "normal":
-    WEIGHTS = {"mat": 2, "center": 0.5, "pawn": 0.05, "pieceMap": 0.06}
+    WEIGHTS = {"mat": 2, "center": 0.5, "pawn": 0.05, "pieceMap": 0.1}
 elif PERSONALITY == "attacking":
-    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.04, "pieceMap": 0.07}
+    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.04, "pieceMap": 0.11}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.06, "pieceMap": 0.05}
+    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.06, "pieceMap": 0.09}
 
 
 def Eval(position: Board):
@@ -71,7 +71,7 @@ def Map(position):
                 elif piece.islower():
                     points -= map[row][col]
 
-    return points
+    return points / 10
 
 
 def Material(position: Board):
