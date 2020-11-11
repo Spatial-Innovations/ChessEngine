@@ -24,9 +24,9 @@ from itertools import groupby
 PERSONALITY = "positional"
 
 if PERSONALITY == "attacking":
-    WEIGHTS = {"mat": 1.9, "center": 0.6, "pawn": 0.1, "pieceMap": 0.07}
+    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.08, "pieceMap": 0.07}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.12, "pieceMap": 0.05}
+    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.1, "pieceMap": 0.05}
 
 
 def Eval(position: Board):
@@ -135,5 +135,27 @@ def PawnStruct(position: Board):
         if pawn[0] >= maxRow:
             blackPassed += 1
 
+    # Doubled / Tripled
+    whiteStackCount = [0, 0, 0, 0, 0, 0, 0]
+    whiteColCount = [0, 0, 0, 0, 0, 0, 0, 0]
+    for pawn in pawnsW:
+        whiteColCount[pawnsW[1]] += 1
+    for i in range(len(whiteStackCount)):
+        whiteStackCount[i] = whiteColCount.count(i+1)
+
+    blackStackCount = [0, 0, 0, 0, 0, 0, 0]
+    blackColCount = [0, 0, 0, 0, 0, 0, 0, 0]
+    for pawn in pawnsB:
+        blackColCount[pawnsB[1]] += 1
+    for i in range(len(blackStackCount)):
+        blackStackCount[i] = blackColCount.count(i+1)
+
+    whiteStackScore = 0
+    for i in range(len(whiteStackCount)):
+        whiteStackScore += i * whiteStackCount[i]
+    blackStackScore = 0
+    for i in range(len(blackStackCount)):
+        blackStackScore += i * blackStackCount[i]
+
     # Final
-    return ((4-whiteIslands) - (4-blackIslands)) + (whitePassed - blackPassed)
+    return ((4-whiteIslands) - (4-blackIslands)) + (whitePassed - blackPassed) - 0.2 * (whiteStackScore - blackStackScore)
