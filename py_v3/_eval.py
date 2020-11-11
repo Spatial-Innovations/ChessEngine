@@ -39,10 +39,10 @@ def Eval(position: Board):
     #pawn = PawnStruct(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
     #pieceMap = Map(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
 
-    mat = Material(position)
-    center = CenterControl(position)
-    pawn = PawnStruct(position)
-    pieceMap = Map(position)
+    mat = Material(position) * 2
+    center = CenterControl(position) * 0.7
+    pawn = PawnStruct(position) * 0.1
+    pieceMap = 0 if moveNum > 20 else Map(position) * 0.05
 
     evaluation = mat + center + pawn + pieceMap
     return int(evaluation * 30)
