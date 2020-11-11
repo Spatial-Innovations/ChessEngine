@@ -45,7 +45,7 @@ def Material(position: Board):
     points += 5 * (pieces.count("R") - pieces.count("r"))
     points += 9 * (pieces.count("Q") - pieces.count("q"))
 
-    return points / 50
+    return points
 
 
 def CenterControl(position: Board):
@@ -63,7 +63,7 @@ def CenterControl(position: Board):
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return (inner + outer/4) / 10
+    return (inner + outer/4) / 35
 
 
 #def PawnStruct(position: Board):
