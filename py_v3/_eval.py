@@ -31,16 +31,14 @@ def Eval(position: Board):
         elif result == "1/2-1/2":
             return 0
 
-    # todo dynamic weights
     moveNum = len(position.move_stack)
 
-    mat = 2 * Material(position)
-    center = 0.7 * CenterControl(position)
-    pawn = 0.1 * PawnStruct(position)
-    pieceMap = 0 if moveNum > 20 else 0.07 * Map(position)
+    mat = Material(position) * max(min(0.03*moveNum + 1.7, 3), 2)
+    center = CenterControl(position) * max(min(-0.015*moveNum + 0.9, 0.7), 0.3)
+    pawn = PawnStruct(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
+    pieceMap = Map(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
 
     evaluation = mat + center + pawn + pieceMap
-
     return int(evaluation * 30)
 
 
