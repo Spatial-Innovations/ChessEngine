@@ -139,14 +139,14 @@ def PawnStruct(position: Board):
     whiteStackCount = [0, 0, 0, 0, 0, 0, 0]
     whiteColCount = [0, 0, 0, 0, 0, 0, 0, 0]
     for pawn in pawnsW:
-        whiteColCount[pawnsW[1]] += 1
+        whiteColCount[pawn[1]] += 1
     for i in range(len(whiteStackCount)):
         whiteStackCount[i] = whiteColCount.count(i+1)
 
     blackStackCount = [0, 0, 0, 0, 0, 0, 0]
     blackColCount = [0, 0, 0, 0, 0, 0, 0, 0]
     for pawn in pawnsB:
-        blackColCount[pawnsB[1]] += 1
+        blackColCount[pawn[1]] += 1
     for i in range(len(blackStackCount)):
         blackStackCount[i] = blackColCount.count(i+1)
 
