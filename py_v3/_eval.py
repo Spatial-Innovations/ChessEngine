@@ -33,10 +33,16 @@ def Eval(position: Board):
 
     moveNum = len(position.move_stack)
 
-    mat = Material(position) * max(min(0.03*moveNum + 1.7, 3), 2)
-    center = CenterControl(position) * max(min(-0.015*moveNum + 0.9, 0.7), 0.3)
-    pawn = PawnStruct(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
-    pieceMap = Map(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
+    #todo fix bug in dynamic weights
+    #mat = Material(position) * max(min(0.03*moveNum + 1.7, 3), 2)
+    #center = CenterControl(position) * max(min(-0.015*moveNum + 0.9, 0.7), 0.3)
+    #pawn = PawnStruct(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
+    #pieceMap = Map(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
+
+    mat = Material(position)
+    center = CenterControl(position)
+    pawn = PawnStruct(position)
+    pieceMap = Map(position)
 
     evaluation = mat + center + pawn + pieceMap
     return int(evaluation * 30)
