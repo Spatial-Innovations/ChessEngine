@@ -37,7 +37,7 @@ def Eval(position: Board):
     mat = 2 * Material(position)
     center = 0.7 * CenterControl(position)
     pawn = 0.1 * PawnStruct(position)
-    pieceMap = 0 if moveNum > 20 else 0.1 * Map(position)
+    pieceMap = 0 if moveNum > 20 else 0.07 * Map(position)
 
     evaluation = mat + center + pawn + pieceMap
 
@@ -89,6 +89,7 @@ def CenterControl(position: Board):
 
 
 def PawnStruct(position: Board):
+    # todo doubled/triped
     pawnsW = [(p//8, p%8) for p in position.pieces(chess.PAWN, True)]
     pawnsB = [(p//8, p%8) for p in position.pieces(chess.PAWN, False)]
 
