@@ -18,6 +18,7 @@
 import chess
 from chess import Board
 from _maps import *
+from itertools import groupby
 
 
 def Eval(position: Board):
@@ -33,8 +34,9 @@ def Eval(position: Board):
     # todo dynamic weights
     mat = 2 * Material(position)
     center = 0.7 * CenterControl(position)
+    pawn = 0.1 * PawnStruct(position)
 
-    evaluation = mat + center
+    evaluation = mat + center + pawn
 
     return int(evaluation * 30)
 
@@ -80,12 +82,46 @@ def CenterControl(position: Board):
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return (inner + outer/4) / 35
+    return (inner + outer/4) / 20
 
 
-#def PawnStruct(position: Board):
-#    pawns = []
-#    for piece in position.piece_at()
+def PawnStruct(position: Board):
+    pawnsW = [(p//8, p%8) for p in position.pieces(chess.PAWN, True)]
+    pawnsB = [(p//8, p%8) for p in position.pieces(chess.PAWN, False)]
+
+    # Pawn islands
+    whiteCols = [False for _ in range(8)]
+    for pawn in pawnsW:
+        whiteCols[pawn[1]] = True
+    whiteIslands = [i[0] for i in groupby(whiteCols)].count(True)
+
+    blackCols = [False for _ in range(8)]
+    for pawn in pawnsB:
+        blackCols[pawn[1]] = True
+    blackIslands = [i[0] for i in groupby(blackCols)].count(True)
+
+    # Passed pawns
+    minRow = float("inf")
+    for pawn in pawnsB:
+        if (row := pawn[0]) < minRow:
+            minRow = row
+    whitePassed = 0
+    for pawn in pawnsW:
+        if pawn[0] <= minRow:
+            whitePassed += 1
+
+    maxRow = float("-inf")
+    for pawn in pawnsW:
+        if (row := pawn[0]) > maxRow:
+            maxRow = row
+    blackPassed = 0
+    for pawn in pawnsB:
+        if pawn[0] >= maxRow:
+            blackPassed += 1
+
+    # Final
+    return ((4-whiteIslands) - (4-blackIslands)) + (whitePassed - blackPassed)
+
 
 
 """
