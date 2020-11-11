@@ -21,12 +21,14 @@ from _maps import *
 from itertools import groupby
 
 # attacking, positional
-PERSONALITY = "positional"
+PERSONALITY = "normal"
 
-if PERSONALITY == "attacking":
-    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.05, "pieceMap": 0.07}
+if PERSONALITY == "normal":
+    WEIGHTS = {"mat": 2, "center": 0.5, "pawn": 0.05, "pieceMap": 0.06}
+elif PERSONALITY == "attacking":
+    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.04, "pieceMap": 0.07}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.08, "pieceMap": 0.05}
+    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.06, "pieceMap": 0.05}
 
 
 def Eval(position: Board):
@@ -157,4 +159,5 @@ def PawnStruct(position: Board):
         blackStackScore += i * blackStackCount[i]
 
     # Final
-    return 0.5 * ((4-whiteIslands) - (4-blackIslands)) + (whitePassed - blackPassed) - 0.1 * (whiteStackScore - blackStackScore)
+    score = 0.5 * ((4-whiteIslands) - (4-blackIslands)) + (whitePassed - blackPassed) - 0.1 * (whiteStackScore - blackStackScore)
+    return score / 10
