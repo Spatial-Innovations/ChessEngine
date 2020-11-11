@@ -17,6 +17,7 @@
 
 import time
 import threading
+from random import shuffle
 from copy import deepcopy
 from chess import Board
 from _eval import Eval
@@ -77,7 +78,7 @@ class Tree:
         del self.root
 
     def Printer(self):
-        expBase = 3500   #* Print every time self.nodes reaches the next multiple of this number.
+        expBase = 1000   #* Print every time self.nodes reaches the next multiple of this number.
         currExp = 0
         print()
         while True:
@@ -134,7 +135,9 @@ class Node:
     def Branch(self, targetDepth):
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
-            for move in self.board.generate_legal_moves():
+            moves = list(self.board.generate_legal_moves())
+            shuffle(moves)
+            for move in moves:
                 if not self.tree.processing:
                     return
                 newBoard = deepcopy(self.board)
