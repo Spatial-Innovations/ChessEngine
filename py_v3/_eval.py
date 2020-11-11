@@ -32,11 +32,14 @@ def Eval(position: Board):
             return 0
 
     # todo dynamic weights
+    moveNum = len(position.move_stack)
+
     mat = 2 * Material(position)
     center = 0.7 * CenterControl(position)
     pawn = 0.1 * PawnStruct(position)
+    pieceMap = 0 if moveNum > 20 else 0.1 * Map(position)
 
-    evaluation = mat + center + pawn
+    evaluation = mat + center + pawn + pieceMap
 
     return int(evaluation * 30)
 
