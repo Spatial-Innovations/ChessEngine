@@ -24,9 +24,9 @@ from itertools import groupby
 PERSONALITY = "positional"
 
 if PERSONALITY == "attacking":
-    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.08, "pieceMap": 0.07}
+    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.05, "pieceMap": 0.07}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.1, "pieceMap": 0.05}
+    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.08, "pieceMap": 0.05}
 
 
 def Eval(position: Board):
@@ -101,7 +101,6 @@ def CenterControl(position: Board):
 
 
 def PawnStruct(position: Board):
-    # todo doubled/triped
     pawnsW = [(p//8, p%8) for p in position.pieces(chess.PAWN, True)]
     pawnsB = [(p//8, p%8) for p in position.pieces(chess.PAWN, False)]
 
@@ -158,4 +157,4 @@ def PawnStruct(position: Board):
         blackStackScore += i * blackStackCount[i]
 
     # Final
-    return ((4-whiteIslands) - (4-blackIslands)) + (whitePassed - blackPassed) - 0.2 * (whiteStackScore - blackStackScore)
+    return 0.5 * ((4-whiteIslands) - (4-blackIslands)) + (whitePassed - blackPassed) - 0.1 * (whiteStackScore - blackStackScore)
