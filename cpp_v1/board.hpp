@@ -38,6 +38,8 @@ class Board {
         vector<Move> GetMoves(void);
         vector<Move> GetLegalMoves(void);
         string GetFen(void);
+        bool InCheck(void);
+        vector<int> KingPos(bool);
 
     private:
         string const _printLine = " +---+---+---+---+---+---+---+---+\n";

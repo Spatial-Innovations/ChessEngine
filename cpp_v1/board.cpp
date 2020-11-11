@@ -123,19 +123,27 @@ vector<Move> Board::GetLegalMoves(void) {
         for (auto col = 0; col < _board[row].size(); col++) {
             currMoves.clear();
             piece = _board[row][col];
-            switch (piece) {
-                //case 1: currMoves = _GetPawnMoves({row, col}, false); break;  // todo pawn moves
-                case 2: currMoves = _GetKnightMoves({row, col}, false); break;
-                //case 3: currMoves = _GetBishopMoves({row, col}, false); break;
-                //case 4: currMoves = _GetRookMoves({row, col}, false); break;
-                //case 5: currMoves = _GetQueenMoves({row, col}, false); break;
-                //case 6: currMoves = _GetKingMoves({row, col}, false); break;
-                //case 7: currMoves = _GetPawnMoves({row, col}, true); break;
-                case 8: currMoves = _GetKnightMoves({row, col}, true); break;
-                //case 9: currMoves = _GetBishopMoves({row, col}, true); break;
-                //case 10: currMoves = _GetRookMoves({row, col}, true); break;
-                //case 11: currMoves = _GetQueenMoves({row, col}, true); break;
-                //case 12: currMoves = _GetKingMoves({row, col}, true); break;
+            if (_turn) {
+                switch (piece) {
+                    // case 7: currMoves = _GetPawnMoves({row, col}, true); break;  // todo pawn moves
+                    case 8: currMoves = _GetKnightMoves({row, col}, true); break;
+                    case 9: currMoves = _GetBishopMoves({row, col}, true); break;
+                    case 10: currMoves = _GetRookMoves({row, col}, true); break;
+                    case 11: currMoves = _GetQueenMoves({row, col}, true); break;
+                    case 12: currMoves = _GetKingMoves({row, col}, true); break;
+                    default: currMoves = {};
+                }
+            }
+            else {
+                switch (piece) {
+                    //case 1: currMoves = _GetPawnMoves({row, col}, false); break;  // todo pawn moves
+                    case 2: currMoves = _GetKnightMoves({row, col}, false); break;
+                    case 3: currMoves = _GetBishopMoves({row, col}, false); break;
+                    case 4: currMoves = _GetRookMoves({row, col}, false); break;
+                    case 5: currMoves = _GetQueenMoves({row, col}, false); break;
+                    case 6: currMoves = _GetKingMoves({row, col}, false); break;
+                    default: currMoves = {};
+                }
             }
 
             for (auto i = 0; i < currMoves.size(); i++) {
@@ -145,6 +153,38 @@ vector<Move> Board::GetLegalMoves(void) {
     }
 
     return moves;
+}
+
+
+bool Board::InCheck(void) {
+    vector<Move> moves = GetLegalMoves();
+    vector<int> kingPos = KingPos(_turn);
+
+    for (auto i = 0; i < moves.size(); i++) {
+        if (moves[i].GetPos()[1] == kingPos) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+vector<int> Board::KingPos(bool color) {
+    for (auto row = 0; row < _board.size(); row++) {
+        for (auto col = 0; col < _board[row].size(); col++) {
+            if (color) {
+                if (_board[row][col] == 12) {
+                    return {row, col};
+                }
+            }
+            else {
+                if (_board[row][col] == 6) {
+                    return {row, col};
+                }
+            }
+        }
+    }
 }
 
 

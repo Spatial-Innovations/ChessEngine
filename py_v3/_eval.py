@@ -29,7 +29,7 @@ def Eval(position: Board):
             return float("-inf")
         elif result == "1/2-1/2":
             return 0
-            
+
     # todo dynamic weights
     mat = 2 * Material(position)
     center = 0.7 * CenterControl(position)
