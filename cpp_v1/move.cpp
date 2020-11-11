@@ -38,7 +38,7 @@ string Move::GetFirst(void) {return _GetSquare(_first[0], _first[1]);}
 string Move::GetSecond(void) {return _GetSquare(_second[0], _second[1]);}
 string Move::GetPromotion(void) {return _promotionPiece;}
 string Move::GetUci(void) {return GetFirst() + GetSecond() + GetPromotion();}
-
+vector<vector<int>> Move::GetPos(void) {return {_first, _second};}
 
 string Move::_GetSquare(int row, int col) {
     string strRow, strCol;

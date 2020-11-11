@@ -32,6 +32,7 @@ class Move {
         string GetSecond(void);
         string GetPromotion(void);
         string GetUci(void);
+        vector<vector<int>> GetPos(void);
 
     private:
         vector<int> _first;
