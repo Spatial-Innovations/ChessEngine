@@ -99,9 +99,12 @@ class Tree:
             pass
 
         if self.score == float("inf"):
-            self.score = "M+"
+            self.score = "10000"
         elif self.score == float("-inf"):
-            self.score = "M-"
+            self.score = "-10000"
+            
+        if not self.board.turn:
+            self.score *= -1
             
         string = self.infoStr.format(depth=self.depth+1, cp=self.score, nodes=self.nodes, nps=int(self.nodes/(timeElapse+1)), time=int(timeElapse*1000), moves=self.bestMove)
         print(string)
