@@ -81,8 +81,7 @@ def Map(position, moveNum):
                     if piece.isupper():
                         points += map[row][col]
                     elif piece.islower():
-                        row = 7 - row
-                        points -= map[row][col]
+                        points -= map[7-row][col]
 
     else:
         points = 0
