@@ -24,11 +24,11 @@ from itertools import groupby
 PERSONALITY = "normal"
 
 if PERSONALITY == "normal":
-    WEIGHTS = {"mat": 2, "center": 0.75, "pawn": 0.12, "pieceMap": 0.2}
+    WEIGHTS = {"mat": 3, "center": 0.75, "pawn": 0.12, "pieceMap": 0.2}
 elif PERSONALITY == "attacking":
-    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.1, "pieceMap": 0.21}
+    WEIGHTS = {"mat": 3, "center": 0.65, "pawn": 0.1, "pieceMap": 0.21}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 2.1, "center": 0.6, "pawn": 0.09, "pieceMap": 0.19}
+    WEIGHTS = {"mat": 3.2, "center": 0.6, "pawn": 0.09, "pieceMap": 0.19}
 
 
 def Eval(position: Board):
@@ -85,7 +85,7 @@ def Map(position, moveNum):
     else:
         points = 0
 
-    return points / 50
+    return points / 75
 
 
 def Material(position: Board):
@@ -113,7 +113,7 @@ def CenterControl(position: Board):
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return (inner + outer/4) / 50
+    return (inner + outer/4) / 75
 
 
 def PawnStruct(position: Board):
@@ -191,4 +191,4 @@ def PawnStruct(position: Board):
 
     # Final
     score = 0.5*((4-whiteIslands)-(4-blackIslands)) + (whitePassed - blackPassed) - 0.1*(whiteStackScore-blackStackScore) + 5*(whiteAvgRank-blackAvgRank)
-    return score / 10
+    return score / 15
