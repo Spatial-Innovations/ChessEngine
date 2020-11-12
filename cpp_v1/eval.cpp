@@ -27,11 +27,7 @@ int Eval(vector<vector<int>> board) {
     int material = Material(board);
     int materialWeight = 3;
 
-    int development = Development(board);
-    int developmentWeight = 1;
-
     points += material * materialWeight;
-    points += development * developmentWeight;
 
     return points*100;
 }
@@ -56,15 +52,6 @@ int Material(vector<vector<int>> board) {
             else if (piece == 11) {points += 9;}
         }
     }
-
-    return points;
-}
-
-int Development(vector<vector<int>> board) {
-    // todo finish development
-    int points = 0;
-
-
 
     return points;
 }
