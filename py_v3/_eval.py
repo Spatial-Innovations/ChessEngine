@@ -52,7 +52,7 @@ def Eval(position: Board):
     mat = Material(position) * WEIGHTS["mat"]
     center = CenterControl(position) * WEIGHTS["center"]
     pawn = PawnStruct(position) * WEIGHTS["pawn"]
-    pieceMap = 0 if moveNum > 20 else Map(position) * WEIGHTS["pieceMap"]
+    pieceMap = 0 if moveNum > 25 else Map(position, moveNum) * WEIGHTS["pieceMap"]
 
     evaluation = mat + center + pawn + pieceMap
     return int(evaluation * 30)
@@ -72,7 +72,7 @@ def Map(position, moveNum):
                     elif piece.islower():
                         points -= map[row][col]
     
-    elif 10 < moveNum < 25:
+    elif 10 < moveNum <= 25:
         for map, pieceType in zip((MAP_MID_P, MAP_MID_N, MAP_MID_B, MAP_MID_R, MAP_MID_Q, MAP_MID_K), ("p", "n", "b", "r", "q", "k")):
             for i, piece in enumerate(fen):
                 row, col = i//8, i%8
@@ -85,7 +85,7 @@ def Map(position, moveNum):
     else:
         points = 0
 
-    return points / 10
+    return points / 20
 
 
 def Material(position: Board):
