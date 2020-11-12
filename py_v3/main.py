@@ -22,7 +22,7 @@ from _tree import Tree
 
 
 def Main():
-    print("Spatial, by Spatial Innovations.")
+    print("Spatial Chess Engine, by Spatial Innovations.\n")
     board = Board()
 
     while True:
