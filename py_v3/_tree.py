@@ -98,8 +98,10 @@ class Tree:
         except:
             pass
 
-        if self.score == float("inf") or self.score == float("-inf"):
+        if self.score == float("inf"):
             self.score = "mate 1"
+        elif self.score == float("-inf"):
+            self.score = "mate -1"
             
         if not self.board.turn:
             self.score *= -1
