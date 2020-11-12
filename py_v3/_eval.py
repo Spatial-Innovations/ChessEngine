@@ -28,7 +28,7 @@ if PERSONALITY == "normal":
 elif PERSONALITY == "attacking":
     WEIGHTS = {"mat": 2, "center": 0.45, "pawn": 0.04, "pieceMap": 0.11}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 2.1, "center": 0.25, "pawn": 0.06, "pieceMap": 0.09}
+    WEIGHTS = {"mat": 2.1, "center": 0.3, "pawn": 0.06, "pieceMap": 0.09}
 
 
 def Eval(position: Board):
