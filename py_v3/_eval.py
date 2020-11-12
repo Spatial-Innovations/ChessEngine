@@ -24,11 +24,11 @@ from itertools import groupby
 PERSONALITY = "normal"
 
 if PERSONALITY == "normal":
-    WEIGHTS = {"mat": 2, "center": 0.75, "pawn": 0.09, "pieceMap": 0.2}
+    WEIGHTS = {"mat": 2, "center": 0.75, "pawn": 0.12, "pieceMap": 0.2}
 elif PERSONALITY == "attacking":
-    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.08, "pieceMap": 0.21}
+    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.1, "pieceMap": 0.21}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 2.1, "center": 0.6, "pawn": 0.1, "pieceMap": 0.19}
+    WEIGHTS = {"mat": 2.1, "center": 0.6, "pawn": 0.09, "pieceMap": 0.19}
 
 
 def Eval(position: Board):
@@ -191,5 +191,5 @@ def PawnStruct(position: Board):
         blackAvgRank /= len(pawnsB)
 
     # Final
-    score = 0.5*((4-whiteIslands)-(4-blackIslands)) + (whitePassed - blackPassed) - 0.1*(whiteStackScore-blackStackScore) + 3*(whiteAvgRank-blackAvgRank)
+    score = 0.5*((4-whiteIslands)-(4-blackIslands)) + (whitePassed - blackPassed) - 0.1*(whiteStackScore-blackStackScore) + 5*(whiteAvgRank-blackAvgRank)
     return score / 10
