@@ -24,11 +24,11 @@ from itertools import groupby
 PERSONALITY = "normal"
 
 if PERSONALITY == "normal":
-    WEIGHTS = {"mat": 2, "center": 0.35, "pawn": 0.05, "pieceMap": 0.1}
+    WEIGHTS = {"mat": 2, "center": 0.75, "pawn": 0.09, "pieceMap": 0.2}
 elif PERSONALITY == "attacking":
-    WEIGHTS = {"mat": 2, "center": 0.45, "pawn": 0.04, "pieceMap": 0.11}
+    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.08, "pieceMap": 0.21}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 2.1, "center": 0.25, "pawn": 0.06, "pieceMap": 0.09}
+    WEIGHTS = {"mat": 2.1, "center": 0.6, "pawn": 0.1, "pieceMap": 0.19}
 
 
 def Eval(position: Board):
@@ -87,7 +87,7 @@ def Map(position, moveNum):
     else:
         points = 0
 
-    return points / 20
+    return points / 50
 
 
 def Material(position: Board):
@@ -115,7 +115,7 @@ def CenterControl(position: Board):
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return (inner + outer/4) / 20
+    return (inner + outer/4) / 50
 
 
 def PawnStruct(position: Board):

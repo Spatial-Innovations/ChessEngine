@@ -99,9 +99,9 @@ class Tree:
             pass
 
         if self.score == float("inf"):
-            self.score = 10000
+            self.score = "mate 1"
         elif self.score == float("-inf"):
-            self.score = -10000
+            self.score = "mate -1"
             
         if not self.board.turn:
             self.score *= -1
