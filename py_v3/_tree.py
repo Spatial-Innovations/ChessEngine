@@ -53,16 +53,19 @@ class Tree:
                 self.depth = depth
                 self.root.Branch(depth)
         elif "wtime" in kwargs:
-            if self.board.turn:
-                moveTime = min(kwargs["wtime"]/4000, 10)
+            if len(moves:=list(self.root.board.generate_legal_moves())) == 1:
+                self.bestMove = moves[0]
             else:
-                moveTime = min(kwargs["btime"]/4000, 10)
-            threading.Thread(target=self.TimerTime, args=(moveTime,)).start()
-            for depth in range(10000):
-                if not self.processing:
-                    break
-                self.depth = depth
-                self.root.Branch(depth)
+                if self.board.turn:
+                    moveTime = min(kwargs["wtime"]/4000, 10)
+                else:
+                    moveTime = min(kwargs["btime"]/4000, 10)
+                threading.Thread(target=self.TimerTime, args=(moveTime,)).start()
+                for depth in range(10000):
+                    if not self.processing:
+                        break
+                    self.depth = depth
+                    self.root.Branch(depth)
         
         else:
             for depth in range(10000):
