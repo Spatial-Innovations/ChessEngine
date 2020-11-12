@@ -17,7 +17,6 @@
 
 import time
 import threading
-from random import shuffle
 from copy import deepcopy
 from chess import Board
 from _eval import Eval
@@ -135,9 +134,7 @@ class Node:
     def Branch(self, targetDepth):
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
-            moves = list(self.board.generate_legal_moves())
-            shuffle(moves)
-            for move in moves:
+            for move in self.board.generate_legal_moves():
                 if not self.tree.processing:
                     return
                 newBoard = deepcopy(self.board)
