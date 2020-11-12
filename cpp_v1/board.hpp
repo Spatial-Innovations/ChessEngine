@@ -19,6 +19,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 #include "move.hpp"
 using namespace std;
 
@@ -48,7 +49,7 @@ class Board {
 
         vector<vector<int>> _board;
         vector<Move> _moves;
-        vector<bool> _legalCastles;
+        map<string, bool> _legalCastles;
         vector<int> _epSquare;
         bool _turn;
         bool _ep;

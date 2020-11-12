@@ -39,7 +39,10 @@ Board::Board() {
     };
 
     _moves = {};
-    _legalCastles = {true, true, true, true};
+    _legalCastles["K"] = false;
+    _legalCastles["Q"] = false;
+    _legalCastles["k"] = false;
+    _legalCastles["q"] = false;
     _turn = true;
     _epSquare = {};
     _ep = false;
