@@ -49,7 +49,7 @@ class Board {
 
         vector<vector<int>> _board;
         vector<Move> _moves;
-        map<string, bool> _legalCastles;
+        vector<bool> _legalCastles;
         vector<int> _epSquare;
         bool _turn;
         bool _ep;

@@ -39,10 +39,7 @@ Board::Board() {
     };
 
     _moves = {};
-    _legalCastles["K"] = false;
-    _legalCastles["Q"] = false;
-    _legalCastles["k"] = false;
-    _legalCastles["q"] = false;
+    _legalCastles = {true, true, true, true};
     _turn = true;
     _epSquare = {};
     _ep = false;
@@ -81,7 +78,7 @@ void Board::SetDepth(int depth) {
 
 
 void Board::Push(Move move) {
-    // todo edit board
+    // todo edit board and switch turn
     // todo update ep and castling
     _moves.push_back(move);
 }
@@ -128,7 +125,7 @@ vector<Move> Board::GetLegalMoves(void) {
             piece = _board[row][col];
             if (_turn) {
                 switch (piece) {
-                    // case 7: currMoves = _GetPawnMoves({row, col}, true); break;  // todo pawn moves
+                    case 7: currMoves = _GetPawnMoves({row, col}, true); break;  // todo pawn moves
                     case 8: currMoves = _GetKnightMoves({row, col}, true); break;
                     case 9: currMoves = _GetBishopMoves({row, col}, true); break;
                     case 10: currMoves = _GetRookMoves({row, col}, true); break;
@@ -139,7 +136,7 @@ vector<Move> Board::GetLegalMoves(void) {
             }
             else {
                 switch (piece) {
-                    //case 1: currMoves = _GetPawnMoves({row, col}, false); break;  // todo pawn moves
+                    case 1: currMoves = _GetPawnMoves({row, col}, false); break;  // todo pawn moves
                     case 2: currMoves = _GetKnightMoves({row, col}, false); break;
                     case 3: currMoves = _GetBishopMoves({row, col}, false); break;
                     case 4: currMoves = _GetRookMoves({row, col}, false); break;
@@ -304,16 +301,17 @@ vector<Move> Board::_GetKnightMoves(vector<int> location, bool color) {
     for (auto i = 0; i < positions.size(); i++) {
         row = positions[i][0];
         col = positions[i][1];
-        piece = _board[row][col];
+
         if (row >= 0 && col >= 0 && row <= 7 && col <= 7) {
+            piece = _board[row][col];
             if (color) {
                 if (piece == 0 || (piece >= 1 && piece <= 6)) {
-                    moves.push_back(Move(location, {row-2, col-1}));
+                    moves.push_back(Move(location, {row, col}));
                 }
             }
             else {
                 if (piece == 0 || (piece >= 7 && piece <= 12)) {
-                    moves.push_back(Move(location, {row-2, col-1}));
+                    moves.push_back(Move(location, {row, col}));
                 }
             }
         }

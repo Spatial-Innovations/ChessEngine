@@ -23,7 +23,6 @@ using namespace std;
 
 int main() {
     string msg;
-    vector<Move> test;
     Board board;
 
     while (true) {
@@ -36,9 +35,9 @@ int main() {
         else if (msg == "l") {
             vector<Move> moves = board.GetLegalMoves();
             cout << moves.size() << endl;
-            //for (auto i = 0; i < moves.size(); i++) {
-            //    cout << moves[i].GetUci() << endl;
-            //}
+            for (auto i = 0; i < moves.size(); i++) {
+               cout << moves[i].GetUci() << endl;
+            }
         }
     }
 }
