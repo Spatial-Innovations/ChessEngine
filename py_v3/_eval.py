@@ -159,15 +159,21 @@ def PawnStruct(position: Board):
         blackStackScore += i * blackStackCount[i]
 
     # Pawn advancement
-    whiteAvgRank = 0
-    for pawn in pawnsW:
-        whiteAvgRank += pawn[0]
-    whiteAvgRank /= len(pawnsW)
+    if len(pawnsW) == 0:
+        whiteAvgRank = 0
+    else:
+        whiteAvgRank = 0
+        for pawn in pawnsW:
+            whiteAvgRank += pawn[0]
+        whiteAvgRank /= len(pawnsW)
 
-    blackAvgRank = 0
-    for pawn in pawnsW:
-        blackAvgRank += 8 - pawn[0]
-    blackAvgRank /= len(pawnsB)
+    if len(pawnsB) == 0:
+        blackAvgRank = 0
+    else:
+        blackAvgRank = 0
+        for pawn in pawnsW:
+            blackAvgRank += 8 - pawn[0]
+        blackAvgRank /= len(pawnsB)
 
     # Final
     score = 0.5*((4-whiteIslands)-(4-blackIslands)) + (whitePassed - blackPassed) - 0.1*(whiteStackScore-blackStackScore) + 3*(whiteAvgRank-blackAvgRank)
