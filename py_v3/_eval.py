@@ -70,8 +70,7 @@ def Map(position, moveNum):
                     if piece.isupper():
                         points += map[row][col]
                     elif piece.islower():
-                        row = 7 - row
-                        points -= map[row][col]
+                        points -= map[7 - row][col]
 
     elif 10 < moveNum <= 25:
         for map, pieceType in zip((MAP_MID_P, MAP_MID_N, MAP_MID_B, MAP_MID_R, MAP_MID_Q, MAP_MID_K), ("p", "n", "b", "r", "q", "k")):
