@@ -24,11 +24,11 @@ from itertools import groupby
 PERSONALITY = "normal"
 
 if PERSONALITY == "normal":
-    WEIGHTS = {"mat": 2, "center": 0.5, "pawn": 0.05, "pieceMap": 0.1}
+    WEIGHTS = {"mat": 2, "center": 0.35, "pawn": 0.05, "pieceMap": 0.1}
 elif PERSONALITY == "attacking":
-    WEIGHTS = {"mat": 2, "center": 0.65, "pawn": 0.04, "pieceMap": 0.11}
+    WEIGHTS = {"mat": 2, "center": 0.45, "pawn": 0.04, "pieceMap": 0.11}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 2.1, "center": 0.55, "pawn": 0.06, "pieceMap": 0.09}
+    WEIGHTS = {"mat": 2.1, "center": 0.25, "pawn": 0.06, "pieceMap": 0.09}
 
 
 def Eval(position: Board):
@@ -58,18 +58,32 @@ def Eval(position: Board):
     return int(evaluation * 30)
 
 
-def Map(position):
+def Map(position, moveNum):
     points = 0
     fen = position.fen().split(" ")[0].replace("/", "").replace("1", " ").replace("2", " "*2).replace("3", " "*3).replace("4", " "*4).replace("5", " "*5).replace("6", " "*6).replace("7", " "*7).replace("8", " "*8)
 
-    for map, pieceType in zip((MAP_P, MAP_N, MAP_B, MAP_R, MAP_Q, MAP_K), ("p", "n", "b", "r", "q", "k")):
-        for i, piece in enumerate(fen):
-            row, col = i//8, i%8
-            if piece.lower() == pieceType:
-                if piece.isupper():
-                    points += map[row][col]
-                elif piece.islower():
-                    points -= map[row][col]
+    if moveNum <= 10:
+        for map, pieceType in zip((MAP_BEG_P, MAP_BEG_N, MAP_BEG_B, MAP_BEG_R, MAP_BEG_Q, MAP_BEG_K), ("p", "n", "b", "r", "q", "k")):
+            for i, piece in enumerate(fen):
+                row, col = i//8, i%8
+                if piece.lower() == pieceType:
+                    if piece.isupper():
+                        points += map[row][col]
+                    elif piece.islower():
+                        points -= map[row][col]
+    
+    elif 10 < moveNum < 25:
+        for map, pieceType in zip((MAP_MID_P, MAP_MID_N, MAP_MID_B, MAP_MID_R, MAP_MID_Q, MAP_MID_K), ("p", "n", "b", "r", "q", "k")):
+            for i, piece in enumerate(fen):
+                row, col = i//8, i%8
+                if piece.lower() == pieceType:
+                    if piece.isupper():
+                        points += map[row][col]
+                    elif piece.islower():
+                        points -= map[row][col]
+
+    else:
+        points = 0
 
     return points / 10
 
