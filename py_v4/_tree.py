@@ -36,6 +36,8 @@ class Tree:
         self.score = 0
         self.board = kwargs["board"]
         self.root = Node(self, self.board, 0)
+        self.evalThres = Eval(self.board) - 5
+        self.pruned = 0
         self.timeStart = time.time()
 
         threading.Thread(target=self.Printer, args=()).start()
@@ -130,8 +132,16 @@ class Node:
 
         tree.nodes += 1
         self.eval = Eval(self.board)
+        if hasattr(self.tree, "evalThres") and self.eval < self.tree.evalThres:
+            self.active = False
+            self.tree.pruned += 1
+        else:
+            self.active = True
 
     def Branch(self, targetDepth):
+        if not self.active:
+            return
+
         if targetDepth == self.depth + 1:
             newDepth = self.depth + 1
             for move in self.board.generate_legal_moves():
