@@ -31,7 +31,6 @@ class Board {
         Board();
 
         void Print(void);
-        void SetNodeVar(int&);
         void SetMoves(vector<Move>);
         void SetDepth(int);
         void Push(Move);
@@ -56,7 +55,6 @@ class Board {
         bool _turn;
         bool _ep;
 
-        int& _totalNodes = 0;
         int _depth;
         vector<Board> _branches;
 

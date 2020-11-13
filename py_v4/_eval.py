@@ -17,7 +17,6 @@
 
 import chess
 from chess import Board
-from _maps import *
 from itertools import groupby
 
 
@@ -31,11 +30,7 @@ def Eval(position: Board):
         elif result == "1/2-1/2":
             return 0
 
-    material = Material(position)
-    center = CenterControl(position)
-    pawns = Pawns(position)
-
-    evaluation = material + pawns + center
+    evaluation = Material(position) + CenterControl(position) + Pawns(position)
     return int(evaluation * 20)
 
 
@@ -66,7 +61,7 @@ def CenterControl(position: Board):
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
     outer /= len(squares)
 
-    return (inner + outer/5) / 35
+    return (inner + outer/5) / 5
 
 
 def Rooks(position: Board):

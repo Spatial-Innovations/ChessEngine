@@ -66,11 +66,6 @@ void Board::Print(void) {
 }
 
 
-void Board::SetNodeVar(int& nodeVar) {
-    _totalNodes = nodeVar;
-}
-
-
 void Board::SetMoves(vector<Move> moves) {
     // todo edit board
     _moves = moves;
