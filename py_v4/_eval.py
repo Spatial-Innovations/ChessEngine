@@ -20,6 +20,8 @@ from chess import Board
 from _maps import *
 from itertools import groupby
 
+MODE = "SLOW"
+
 
 def Eval(position: Board):
     if position.is_game_over():
@@ -32,11 +34,17 @@ def Eval(position: Board):
             return 0
 
     material = Material(position)
-    center = CenterControl(position)
-    pawns = Pawns(position)
+    evaluation = material
+    
+    if MODE == "SLOW":
+        pawns = Pawns(position)
+        evaluation += pawns
+    else:
+        center = CenterControl(position)
+        evaluation += center
+        evaluation *= 20
 
-    evaluation = material + pawns + center
-    return int(evaluation * 20)
+    return int(evaluation)
 
 
 def Material(position: Board):
@@ -66,7 +74,7 @@ def CenterControl(position: Board):
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
     outer /= len(squares)
 
-    return (inner + outer/5) / 35
+    return (inner + outer/5) / 25
 
 
 def Pawns(position: Board):
