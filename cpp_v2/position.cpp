@@ -36,12 +36,19 @@ Position::Position() {
         {1,  1, 1, 1,  1,  1, 1, 1},
         {4,  2, 3, 5,  6,  3, 2, 4}
     };
+    _moves = {};
 }
 
 
 void Position::Push(vector<int> sq1, vector<int> sq2) {
     _position[sq2[0]][sq2[1]] = _position[sq1[0]][sq1[1]];
     _position[sq1[0]][sq1[1]] = 0;
+    _moves.push_back({sq1, sq2});
+}
+
+
+vector<vector<vector<int>>> Position::GetMoves() {
+    return _moves;
 }
 
 

@@ -29,9 +29,11 @@ class Position {
         Position();
 
         void Push(vector<int>, vector<int>);
+        vector<vector<vector<int>>> GetMoves();
 
     private:
         vector<vector<int>> _position;
+        vector<vector<vector<int>>> _moves;
 
         string _ToUci(int, int);
         vector<int> _ToCoords(string);
