@@ -64,6 +64,46 @@ def CenterControl(position: Board):
     return (inner + outer/5) / 5
 
 
+def Rooks(position: Board):
+    rooksW = [(p//8, p%8) for p in position.pieces(chess.ROOK, True)]
+    rooksB = [(p//8, p%8) for p in position.pieces(chess.ROOK, False)]
+    pawnsW = [(p//8, p%8) for p in position.pieces(chess.PAWN, True)]
+    pawnsB = [(p//8, p%8) for p in position.pieces(chess.PAWN, False)]
+
+    # Multiple rooks on single file
+    files = [0] * 8
+    for r in rooksW:
+        files[r[1]] += 1
+    for r in rooksB:
+        files[r[1]] -= 1
+
+    files = map(lambda x: min(0, x - 1), files)
+    fileSum = sum(files)
+
+    # Multiple rooks on single rank
+    ranks = [0] * 8
+    for r in rooksW:
+        ranks[r[0]] += 1
+    for r in rooksB:
+        ranks[r[0]] -= 1
+
+    ranks = map(lambda x: min(0, x - 1), ranks)
+    rankSum = sum(ranks)
+
+    openFiles = [True] * 8
+    openRooks = 0
+    for p in pawnsW + pawnsB:
+        openFiles[p[1]] = False
+    for r in rooksW:
+        if openFiles[r[1]]:
+            openRooks += 1
+    for r in rooksB:
+        if openFiles[r[1]]:
+            openRooks -= 1
+
+    return fileSum + rankSum + openRooks
+
+
 def Pawns(position: Board):
     pawnsW = [(p//8, p%8) for p in position.pieces(chess.PAWN, True)]
     pawnsB = [(p//8, p%8) for p in position.pieces(chess.PAWN, False)]
