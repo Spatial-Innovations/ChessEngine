@@ -31,5 +31,5 @@ class Position {
         vector<vector<int>> _position;
 
         string _ToUci(int, int);
-        vector<int> _ToSquare(string);
+        vector<int> _ToCoords(string);
 };

@@ -68,6 +68,27 @@ string Position::_ToUci(int row, int col) {
 }
 
 
-vector<int> Position::_ToSquare(string uci) {
-    
+vector<int> Position::_ToCoords(string uci) {
+    vector<int> coords;
+    string char1 = uci.substr(0, 1), char2 = uci.substr(1, 1);
+
+    if (char2 == "1") {coords.push_back(7);}
+    else if (char2 == "2") {coords.push_back(6);}
+    else if (char2 == "3") {coords.push_back(5);}
+    else if (char2 == "4") {coords.push_back(4);}
+    else if (char2 == "5") {coords.push_back(3);}
+    else if (char2 == "6") {coords.push_back(2);}
+    else if (char2 == "7") {coords.push_back(1);}
+    else if (char2 == "8") {coords.push_back(0);}
+
+    if (char1 == "a") {coords.push_back(0);}
+    else if (char1 == "b") {coords.push_back(1);}
+    else if (char1 == "c") {coords.push_back(2);}
+    else if (char1 == "d") {coords.push_back(3);}
+    else if (char1 == "e") {coords.push_back(4);}
+    else if (char1 == "f") {coords.push_back(5);}
+    else if (char1 == "g") {coords.push_back(6);}
+    else if (char1 == "h") {coords.push_back(7);}
+
+    return coords;
 }
