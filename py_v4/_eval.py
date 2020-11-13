@@ -90,6 +90,7 @@ def Rooks(position: Board):
     ranks = map(lambda x: min(0, x - 1), ranks)
     rankSum = sum(ranks)
 
+    # Open files
     openFiles = [True] * 8
     openRooks = 0
     for p in pawnsW + pawnsB:
