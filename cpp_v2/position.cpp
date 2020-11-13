@@ -39,6 +39,12 @@ Position::Position() {
 }
 
 
+void Position::Push(vector<int> sq1, vector<int> sq2) {
+    _position[sq2[0]][sq2[1]] = _position[sq1[0]][sq1[1]];
+    _position[sq1[0]][sq1[1]] = 0;
+}
+
+
 string Position::_ToUci(int row, int col) {
     string uci = "";
     
@@ -69,6 +75,7 @@ string Position::_ToUci(int row, int col) {
 
 
 vector<int> Position::_ToCoords(string uci) {
+    // returns {row, col}
     vector<int> coords;
     string char1 = uci.substr(0, 1), char2 = uci.substr(1, 1);
 

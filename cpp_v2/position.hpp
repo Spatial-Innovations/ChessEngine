@@ -27,6 +27,9 @@ class Position {
     public:
         ~Position();
         Position();
+
+        void Push(vector<int>, vector<int>);
+
     private:
         vector<vector<int>> _position;
 
