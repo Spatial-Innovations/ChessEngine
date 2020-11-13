@@ -85,7 +85,7 @@ def Map(position, moveNum):
     else:
         points = 0
 
-    return points / 75
+    return points / 100
 
 
 def Material(position: Board):
@@ -113,7 +113,7 @@ def CenterControl(position: Board):
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return (inner + outer/4) / 75
+    return (inner + outer/4) / 100
 
 
 def PawnStruct(position: Board):
@@ -191,4 +191,4 @@ def PawnStruct(position: Board):
 
     # Final
     score = 0.5*((4-whiteIslands)-(4-blackIslands)) + (whitePassed - blackPassed) - 0.1*(whiteStackScore-blackStackScore) + 5*(whiteAvgRank-blackAvgRank)
-    return score / 15
+    return score / 30
