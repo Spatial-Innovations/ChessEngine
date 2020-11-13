@@ -21,14 +21,14 @@ from _maps import *
 from itertools import groupby
 
 # attacking, positional
-PERSONALITY = "dynamic"
+PERSONALITY = "normal"
 
 if PERSONALITY == "normal":
-    WEIGHTS = {"mat": 3, "center": 0.75, "pawn": 0.12, "pieceMap": 0.2}
+    WEIGHTS = {"mat": 3, "center": 0.75, "pawn": 0.8, "pieceMap": 0.6}
 elif PERSONALITY == "attacking":
-    WEIGHTS = {"mat": 3, "center": 0.65, "pawn": 0.1, "pieceMap": 0.21}
+    WEIGHTS = {"mat": 3, "center": 0.65, "pawn": 0.77, "pieceMap": 0.63}
 elif PERSONALITY == "positional":
-    WEIGHTS = {"mat": 3.2, "center": 0.6, "pawn": 0.09, "pieceMap": 0.19}
+    WEIGHTS = {"mat": 3.2, "center": 0.6, "pawn": 0.82, "pieceMap": 0.57}
 
 
 def Eval(position: Board):
@@ -55,7 +55,7 @@ def Eval(position: Board):
         pieceMap = 0 if moveNum > 25 else Map(position, moveNum) * WEIGHTS["pieceMap"]
 
     evaluation = mat + center + pawn + pieceMap
-    return int(evaluation * 30)
+    return int(evaluation * 20)
 
 
 def Map(position, moveNum):
@@ -85,6 +85,7 @@ def Map(position, moveNum):
     else:
         points = 0
 
+    # Value around 1 pawn
     return points / 100
 
 
@@ -106,14 +107,15 @@ def CenterControl(position: Board):
         inner += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         inner -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    # Outer center, weighted 0.25
+    # Outer center, weighted 0.2
     outer = 0
     squares = ("C3", "D3", "E3", "F3", "F4", "F5", "F6", "E6", "D6", "C6", "C5", "C4")
     for sq in squares:
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return (inner + outer/5) / 100
+    # Value around 1.5 pawns
+    return (inner + outer/5) / 30
 
 
 def PawnStruct(position: Board):
@@ -190,5 +192,6 @@ def PawnStruct(position: Board):
         blackAvgRank /= len(pawnsB)
 
     # Final
-    score = 0.5*((4-whiteIslands)-(4-blackIslands)) + (whitePassed - blackPassed) - 0.1*(whiteStackScore-blackStackScore) + 5*(whiteAvgRank-blackAvgRank)
-    return score / 30
+    score = 0.5*((4-whiteIslands)-(4-blackIslands)) + (whitePassed - blackPassed) - 0.1*(whiteStackScore-blackStackScore) + 0.5*(whiteAvgRank-blackAvgRank)
+    # Value around 0.8 pawns
+    return score / 20
