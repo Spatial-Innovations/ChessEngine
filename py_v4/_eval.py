@@ -66,7 +66,7 @@ def CenterControl(position: Board):
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
     outer /= len(squares)
 
-    return (inner + outer/5) / 3
+    return (inner + outer/5) / 35
 
 
 def Pawns(position: Board):
@@ -144,4 +144,4 @@ def Pawns(position: Board):
 
     # Final
     score = 0.1*((4-whiteIslands)-(4-blackIslands)) + 0.3*(whitePassed - blackPassed) - 0.1*(whiteStackScore-blackStackScore) + 0.2*(whiteAvgRank-blackAvgRank)
-    return score
+    return score / 2
