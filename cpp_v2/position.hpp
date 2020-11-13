@@ -35,6 +35,6 @@ class Position {
         vector<vector<int>> _position;
         vector<vector<vector<int>>> _moves;
 
-        string _ToUci(int, int);
-        vector<int> _ToCoords(string);
+        string _CoordsToUci(vector<int>);
+        vector<int> _UciToCoords(string);
 };

@@ -52,8 +52,12 @@ vector<vector<vector<int>>> Position::GetMoves() {
 }
 
 
-string Position::_ToUci(int row, int col) {
+string Position::_CoordsToUci(vector<int> coords) {
+    // takes {row, col}
     string uci = "";
+    int col, row;
+    col = coords[1];
+    row = coords[0];
     
     switch (col) {
         case 0: uci += "a"; break;
@@ -81,7 +85,7 @@ string Position::_ToUci(int row, int col) {
 }
 
 
-vector<int> Position::_ToCoords(string uci) {
+vector<int> Position::_UciToCoords(string uci) {
     // returns {row, col}
     vector<int> coords;
     string char1 = uci.substr(0, 1), char2 = uci.substr(1, 1);
