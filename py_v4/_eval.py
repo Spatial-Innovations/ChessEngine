@@ -17,7 +17,6 @@
 
 import chess
 from chess import Board
-from _maps import *
 from itertools import groupby
 
 
