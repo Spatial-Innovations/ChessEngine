@@ -21,7 +21,7 @@ from _maps import *
 from itertools import groupby
 
 # attacking, positional
-PERSONALITY = "normal"
+PERSONALITY = "dynamic"
 
 if PERSONALITY == "normal":
     WEIGHTS = {"mat": 3, "center": 0.75, "pawn": 0.12, "pieceMap": 0.2}
@@ -43,16 +43,16 @@ def Eval(position: Board):
 
     moveNum = len(position.move_stack)
 
-    #todo fix bug in dynamic weights
-    #mat = Material(position) * max(min(0.03*moveNum + 1.7, 3), 2)
-    #center = CenterControl(position) * max(min(-0.015*moveNum + 0.9, 0.7), 0.3)
-    #pawn = PawnStruct(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
-    #pieceMap = Map(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
-
-    mat = Material(position) * WEIGHTS["mat"]
-    center = CenterControl(position) * WEIGHTS["center"]
-    pawn = PawnStruct(position) * WEIGHTS["pawn"]
-    pieceMap = 0 if moveNum > 25 else Map(position, moveNum) * WEIGHTS["pieceMap"]
+    if PERSONALITY == "dynamic":
+        mat = Material(position) * max(min(0.03*moveNum + 1.7, 3), 2)
+        center = CenterControl(position) * max(min(-0.015*moveNum + 0.9, 0.7), 0.3)
+        pawn = PawnStruct(position) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
+        pieceMap = Map(position, moveNum) * max(min(-0.002*moveNum + 0.1, 0.1), 0.02)
+    else:
+        mat = Material(position) * WEIGHTS["mat"]
+        center = CenterControl(position) * WEIGHTS["center"]
+        pawn = PawnStruct(position) * WEIGHTS["pawn"]
+        pieceMap = 0 if moveNum > 25 else Map(position, moveNum) * WEIGHTS["pieceMap"]
 
     evaluation = mat + center + pawn + pieceMap
     return int(evaluation * 30)
@@ -113,7 +113,7 @@ def CenterControl(position: Board):
         outer += len(position.attackers(chess.WHITE, getattr(chess, sq)))
         outer -= len(position.attackers(chess.BLACK, getattr(chess, sq)))
 
-    return (inner + outer/4) / 100
+    return (inner + outer/5) / 100
 
 
 def PawnStruct(position: Board):
