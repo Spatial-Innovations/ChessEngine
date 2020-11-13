@@ -37,6 +37,7 @@ Position::Position() {
         {4,  2, 3, 5,  6,  3, 2, 4}
     };
     _moves = {};
+    _branches.clear();
 }
 
 
@@ -47,8 +48,13 @@ void Position::Push(vector<int> sq1, vector<int> sq2) {
 }
 
 
-vector<vector<vector<int>>> Position::GetMoves() {
+vector<vector<vector<int>>> Position::GetMoves(void) {
     return _moves;
+}
+
+
+int Position::GetNumNodes(void) {
+    return 1 + _branches.size();
 }
 
 

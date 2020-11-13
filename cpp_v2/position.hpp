@@ -29,11 +29,13 @@ class Position {
         Position();
 
         void Push(vector<int>, vector<int>);
-        vector<vector<vector<int>>> GetMoves();
+        vector<vector<vector<int>>> GetMoves(void);
+        int GetNumNodes(void);
 
     private:
         vector<vector<int>> _position;
         vector<vector<vector<int>>> _moves;
+        vector<Position> _branches;
 
         string _CoordsToUci(vector<int>);
         vector<int> _UciToCoords(string);
