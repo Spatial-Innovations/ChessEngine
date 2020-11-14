@@ -41,6 +41,27 @@ Position::Position() {
 }
 
 
+void Position::Print(void) {
+    string printStr = "";
+    string const lineSep = " +---+---+---+---+---+---+---+---+\n";
+    string const colSep = " | ";
+    printStr += lineSep;
+
+    for (auto row = 0; row < _position.size(); row++) {
+        printStr += colSep;
+        for (auto col = 0; col < _position[0].size(); col++) {
+            printStr += _IntToPiece(_position[row][col]);
+            printStr += colSep;
+        }
+        printStr += to_string(8-row) + "\n";
+        printStr += lineSep;
+    }
+    printStr += "   a   b   c   d   e   f   g   h";
+
+    cout << printStr << endl;
+}
+
+
 void Position::Push(vector<int> sq1, vector<int> sq2) {
     _position[sq2[0]][sq2[1]] = _position[sq1[0]][sq1[1]];
     _position[sq1[0]][sq1[1]] = 0;
@@ -58,24 +79,28 @@ int Position::GetNumNodes(void) {
 }
 
 
-int Position::PieceToInt(string piece) {
-    if (piece == " ") {return 0;}
-    else if (piece == "P") {return 1;}
-    else if (piece == "N") {return 2;}
-    else if (piece == "B") {return 3;}
-    else if (piece == "R") {return 4;}
-    else if (piece == "Q") {return 5;}
-    else if (piece == "K") {return 6;}
-    else if (piece == "p") {return 7;}
-    else if (piece == "n") {return 8;}
-    else if (piece == "b") {return 9;}
-    else if (piece == "r") {return 10;}
-    else if (piece == "q") {return 11;}
-    else if (piece == "k") {return 12;}
+int Position::_PieceToInt(string piece) {
+    int num;
+    
+    if (piece == " ") {num = 0;}
+    else if (piece == "P") {num = 1;}
+    else if (piece == "N") {num = 2;}
+    else if (piece == "B") {num = 3;}
+    else if (piece == "R") {num = 4;}
+    else if (piece == "Q") {num = 5;}
+    else if (piece == "K") {num = 6;}
+    else if (piece == "p") {num = 7;}
+    else if (piece == "n") {num = 8;}
+    else if (piece == "b") {num = 9;}
+    else if (piece == "r") {num = 0;}
+    else if (piece == "q") {num = 1;}
+    else if (piece == "k") {num = 2;}
+    
+    return num;
 }
 
 
-string Position::IntToPiece(int piece) {
+string Position::_IntToPiece(int piece) {
     switch (piece) {
         case 0: return " ";
         case 1: return "P";
@@ -156,17 +181,21 @@ vector<int> Position::_UciToCoords(string uci) {
 
 
 vector<int> Position::_GetKingPos(bool color) {
+    vector<int> coords;
+
     if (color) {
         for (auto row = 0; row < _position.size(); row++) {
             for (auto col = 0; col < _position[0].size(); col++) {
-                if (_position[row][col] == 6) {return {row, col};}
+                if (_position[row][col] == 6) {coords = {row, col};}
             }
         }
     } else {
         for (auto row = 0; row < _position.size(); row++) {
             for (auto col = 0; col < _position[0].size(); col++) {
-                if (_position[row][col] == 12) {return {row, col};}
+                if (_position[row][col] == 12) {coords = {row, col};}
             }
         }
     }
+
+    return coords;
 }

@@ -28,6 +28,7 @@ class Position {
         ~Position();
         Position();
 
+        void Print(void);
         void Push(vector<int>, vector<int>);
 
         int GetNumNodes(void);
@@ -38,8 +39,8 @@ class Position {
         vector<vector<vector<int>>> _moveStack;
         vector<Position> _branches;
 
-        int PieceToInt(string);
-        string IntToPiece(int);
+        int _PieceToInt(string);
+        string _IntToPiece(int);
         string _CoordsToUci(vector<int>);
         vector<int> _UciToCoords(string);
 
