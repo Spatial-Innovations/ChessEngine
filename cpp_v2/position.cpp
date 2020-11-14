@@ -136,7 +136,7 @@ string Position::GetFen(void) {
 
 int Position::_PieceToInt(string piece) {
     int num;
-    
+
     if (piece == " ") {num = 0;}
     else if (piece == "P") {num = 1;}
     else if (piece == "N") {num = 2;}
@@ -150,7 +150,7 @@ int Position::_PieceToInt(string piece) {
     else if (piece == "r") {num = 0;}
     else if (piece == "q") {num = 1;}
     else if (piece == "k") {num = 2;}
-    
+
     return num;
 }
 

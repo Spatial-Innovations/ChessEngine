@@ -23,14 +23,12 @@ using namespace std;
 
 
 bool Startswith(string str, string start) {
-    if (str.substr(0, start.size()) == start) {return true;}
-    else {return false;}
+    return (str.substr(0, start.size()) == start);
 }
 
 
 bool Endswith(string str, string end) {
-    if (str.substr(str.size()-end.size(), end.size()) == end) {return true;}
-    else {return false;}
+    return (str.substr(str.size()-end.size(), end.size()) == end);
 }
 
 
@@ -78,7 +76,7 @@ vector<string> Split(string str, string split) {
             startInd = i + split.size();
         }
     }
-    
+
     parts.push_back(str.substr(startInd, split.size()-startInd));
     return parts;
 }
