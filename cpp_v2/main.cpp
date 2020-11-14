@@ -17,11 +17,13 @@
 
 #include <iostream>
 #include <string>
+#include "position.hpp"
 using namespace std;
 
 
 int main() {
     string msg;
+    Position position;
 
     while (true) {
         cin >> msg;
@@ -29,5 +31,6 @@ int main() {
         if (msg == "quit") {return 0;}
         else if (msg == "isready") {cout << "readyok" << endl;}
         else if (msg == "uci") {cout << "uciok" << endl;}
+        else if (msg == "d") {position.Print();}
     }
 }
