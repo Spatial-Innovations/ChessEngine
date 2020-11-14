@@ -79,6 +79,14 @@ void Position::Push(vector<int> sq1, vector<int> sq2) {
 }
 
 
+void Position::PushUci(string uci) {
+    // todo pawn promotion
+    string sq1 = uci.substr(0, 2), sq2 = uci.substr(2, 2);
+    vector<int> coord1 = _UciToCoords(sq1), coord2 = _UciToCoords(sq2);
+    Push(coord1, coord2);
+}
+
+
 vector<vector<vector<int>>> Position::GetMoveStack(void) {
     return _moveStack;
 }
