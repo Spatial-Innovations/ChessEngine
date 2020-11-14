@@ -16,24 +16,24 @@
 //  ##### END GPL LICENSE BLOCK #####
 
 #include <iostream>
+#include <vector>
 #include <string>
 #include "funcs.hpp"
-#include "position.hpp"
 using namespace std;
 
 
-int main() {
-    string msg;
-    Position position;
+string Strip(string str) {
+    string newStr = str;
+    int begInd = 0, endInd = newStr.size() + 1;
 
-    while (true) {
-        cin >> msg;
-
-        if (msg == "quit") {return 0;}
-        else if (msg == "isready") {cout << "readyok" << endl;}
-        else if (msg == "uci") {cout << "uciok" << endl;}
-        else if (msg == "d") {position.Print();}
-
-        else if (msg == "ucinewgame") {position.Reset();}
+    for (auto i = 0; i < str.size(); i++) {
+        begInd = i;
+        if (newStr.substr(i, 1) != " " && newStr.substr(i, 1) != "\n") {break;}
     }
+    for (auto i = newStr.size()-1; i >= 0; i--) {
+        if (newStr.substr(i, 1) != " " && newStr.substr(i, 1) != "\n") {break;}
+        endInd = i;
+    }
+
+    return newStr.substr(begInd, endInd-begInd);
 }

@@ -15,25 +15,10 @@
 //
 //  ##### END GPL LICENSE BLOCK #####
 
+#pragma once
 #include <iostream>
+#include <vector>
 #include <string>
-#include "funcs.hpp"
-#include "position.hpp"
 using namespace std;
 
-
-int main() {
-    string msg;
-    Position position;
-
-    while (true) {
-        cin >> msg;
-
-        if (msg == "quit") {return 0;}
-        else if (msg == "isready") {cout << "readyok" << endl;}
-        else if (msg == "uci") {cout << "uciok" << endl;}
-        else if (msg == "d") {position.Print();}
-
-        else if (msg == "ucinewgame") {position.Reset();}
-    }
-}
+string Strip(string);
