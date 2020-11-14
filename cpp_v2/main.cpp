@@ -23,7 +23,7 @@ using namespace std;
 
 
 int main() {
-    string msg;
+    string msg, fen;
     vector<string> moves;
     Position position;
 
@@ -50,6 +50,9 @@ int main() {
                         position.PushUci(moves[i]);
                     }
                 }
+            } else if (Startswith(msg, "fen")) {
+                fen = Strip(msg.substr(4, msg.size()));
+                position.SetFen(fen);
             }
         }
     }
