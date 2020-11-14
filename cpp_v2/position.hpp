@@ -32,10 +32,16 @@ class Position {
         void Push(vector<int>, vector<int>);
 
         int GetNumNodes(void);
+        string GetFen(void);
         vector<vector<vector<int>>> GetMoveStack(void);
 
     private:
         vector<vector<int>> _position;
+        bool _turn;
+        vector<bool> _castleRights;
+        bool _epLegal;
+        vector<int> _epSquare;
+
         vector<vector<vector<int>>> _moveStack;
         vector<Position> _branches;
 

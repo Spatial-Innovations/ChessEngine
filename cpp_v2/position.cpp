@@ -38,6 +38,10 @@ Position::Position() {
     };
     _moveStack.clear();
     _branches.clear();
+    _turn = true;
+    _castleRights = {true, true, true, true};
+    _epLegal = false;
+    _epSquare.clear();
 }
 
 
@@ -56,7 +60,8 @@ void Position::Print(void) {
         printStr += to_string(8-row) + "\n";
         printStr += lineSep;
     }
-    printStr += "   a   b   c   d   e   f   g   h";
+    printStr += "   a   b   c   d   e   f   g   h\n\nFen: ";
+    printStr += GetFen();
 
     cout << printStr << endl;
 }
@@ -76,6 +81,51 @@ vector<vector<vector<int>>> Position::GetMoveStack(void) {
 
 int Position::GetNumNodes(void) {
     return 1 + _branches.size();
+}
+
+
+string Position::GetFen(void) {
+    string fen = "";
+    int piece, spaceCount = 0;
+
+    for (auto row = 0; row < _position.size(); row++) {
+        if (row != 0) {fen += "/";}
+        for (auto col = 0; col < _position[0].size(); col++) {
+            piece = _position[row][col];
+            if (piece >= 1 && piece <= 12) {
+                if (spaceCount > 0) {
+                    fen += to_string(spaceCount);
+                    spaceCount = 0;
+                }
+                fen += _IntToPiece(piece);
+            } else if (piece == 0) {
+                spaceCount += 1;
+            }
+        }
+        if (spaceCount > 0) {
+            fen += to_string(spaceCount);
+            spaceCount = 0;
+        }
+    }
+
+    if (_turn) {fen += " w ";}
+    else {fen += " b ";}
+
+    if (_castleRights[0] || _castleRights[1] || _castleRights[2] || _castleRights[3]) {
+        if (_castleRights[0]) {fen += "K";}
+        if (_castleRights[1]) {fen += "Q";}
+        if (_castleRights[2]) {fen += "k";}
+        if (_castleRights[3]) {fen += "q";}
+    } else {
+        fen += "-";
+    }
+    fen += " ";
+
+    if (_epLegal) {fen += _CoordsToUci(_epSquare);}
+    else {fen += "-";}
+    fen += " 0 1";
+
+    return fen;
 }
 
 
