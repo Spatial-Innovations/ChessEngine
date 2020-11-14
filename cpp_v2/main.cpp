@@ -24,10 +24,11 @@ using namespace std;
 
 int main() {
     string msg;
+    vector<string> moves;
     Position position;
 
     while (true) {
-        cin >> msg;
+        getline(cin, msg);
         msg = Strip(msg);
 
         if (msg == "quit") {return 0;}
@@ -36,5 +37,23 @@ int main() {
         else if (msg == "d") {position.Print();}
 
         else if (msg == "ucinewgame") {position.Reset();}
+        else if (Startswith(msg, "position")) {
+            cout << "Position" << endl;
+            msg = Strip(msg.substr(8, msg.size()));
+
+            if (Startswith(msg, "startpos")) {
+                cout << "tartpos" << endl;
+                msg = Strip(msg.substr(8, msg.size()));
+                position.Reset();
+
+                if (Startswith(msg, "moves")) {
+                    cout << "moves" << endl;
+                    moves = Split(Strip(msg.substr(6, msg.size())));
+                    for (auto i = 0; i < moves.size(); i++) {
+                        position.PushUci(moves[i]);
+                    }
+                }
+            }
+        }
     }
 }
