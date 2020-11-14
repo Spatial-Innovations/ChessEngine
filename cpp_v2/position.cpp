@@ -18,6 +18,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "funcs.hpp"
 #include "position.hpp"
 #include "move.hpp"
 using namespace std;
@@ -93,11 +94,6 @@ void Position::PushUci(string uci) {
 }
 
 
-vector<Move> Position::GetMoveStack(void) {
-    return _moveStack;
-}
-
-
 int Position::GetNumNodes(void) {
     return 1 + _branches.size();
 }
@@ -148,6 +144,54 @@ string Position::GetFen(void) {
 }
 
 
+vector<Move> Position::GetMoveStack(void) {
+    return _moveStack;
+}
+
+
+void Position::SetFen(string fen) {
+    vector<string> parts;
+    string currChar;
+
+    parts = Split(Strip(fen));
+
+    _position.clear();
+    _position.push_back({});
+    for (auto i = 0; i < parts[0].size(); i++) {
+        currChar = parts[0].substr(i, 1);
+
+        if (currChar == "/") {
+            _position.push_back({});
+        } else if (currChar == "1" || currChar == "2" || currChar == "3" || currChar == "4" || currChar == "5" || currChar == "6" || currChar == "7" || currChar == "8") {
+            for (auto j = 0; j < stoi(currChar); j++) {_position[_position.size()-1].push_back(0);}
+        } else {
+            _position[_position.size()-1].push_back(_PieceToInt(currChar));
+        }
+    }
+
+    if (parts[1] == "w") {_turn = true;}
+    else {_turn = false;}
+
+    if (parts[2] == "-") {_castleRights = {false, false, false, false};}
+    else {
+        for (auto i = 0; i < parts[2].size(); i++) {
+            if (parts[2].substr(i, 1) == "K") {_castleRights[0] = true;}
+            else if (parts[2].substr(i, 1) == "Q") {_castleRights[0] = true;}
+            else if (parts[2].substr(i, 1) == "k") {_castleRights[0] = true;}
+            else if (parts[2].substr(i, 1) == "q") {_castleRights[0] = true;}
+        }
+    }
+
+    if (parts[3] == "-") {
+        _epLegal = false;
+        _epSquare.clear();
+    } else {
+        _epLegal = true;
+        _epSquare = _SquareToCoords(parts[3]);
+    }
+}
+
+
 int Position::_PieceToInt(string piece) {
     int num;
 
@@ -161,9 +205,9 @@ int Position::_PieceToInt(string piece) {
     else if (piece == "p") {num = 7;}
     else if (piece == "n") {num = 8;}
     else if (piece == "b") {num = 9;}
-    else if (piece == "r") {num = 0;}
-    else if (piece == "q") {num = 1;}
-    else if (piece == "k") {num = 2;}
+    else if (piece == "r") {num = 10;}
+    else if (piece == "q") {num = 11;}
+    else if (piece == "k") {num = 12;}
 
     return num;
 }

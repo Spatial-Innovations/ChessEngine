@@ -38,11 +38,13 @@ class Position {
         string GetFen(void);
         vector<Move> GetMoveStack(void);
 
+        void SetFen(string);
+
     private:
         vector<vector<int>> _position;
         bool _turn;
-        vector<bool> _castleRights;
         bool _epLegal;
+        vector<bool> _castleRights;
         vector<int> _epSquare;
 
         vector<Move> _moveStack;
