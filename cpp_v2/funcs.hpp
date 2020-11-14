@@ -22,3 +22,4 @@
 using namespace std;
 
 string Strip(string);
+vector<string> Split(string, string);

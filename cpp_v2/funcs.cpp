@@ -37,3 +37,19 @@ string Strip(string str) {
 
     return newStr.substr(begInd, endInd-begInd);
 }
+
+
+vector<string> Split(string str, string split) {
+    vector<string> parts;
+    int startInd = 0;
+
+    for (auto i = 0; i < str.size()-split.size()+1; i++) {
+        if (str.substr(i, split.size()) == split) {
+            parts.push_back(str.substr(startInd, i-startInd));
+            startInd = i + split.size();
+        }
+    }
+    
+    parts.push_back(str.substr(startInd, split.size()-startInd));
+    return parts;
+}
