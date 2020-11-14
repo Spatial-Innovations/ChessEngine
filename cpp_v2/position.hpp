@@ -28,6 +28,7 @@ class Position {
         ~Position();
         Position();
 
+        void Reset(void);
         void Print(void);
         void Push(vector<int>, vector<int>);
 

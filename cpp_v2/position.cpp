@@ -26,6 +26,11 @@ Position::~Position() {}
 
 
 Position::Position() {
+    Reset();
+}
+
+
+void Position::Reset(void) {
     _position = {
         {10, 8, 9, 11, 12, 9, 8, 10},
         {7 , 7, 7, 7 , 7 , 7, 7, 7 },
