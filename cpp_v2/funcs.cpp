@@ -22,6 +22,18 @@
 using namespace std;
 
 
+bool Startswith(string str, string start) {
+    if (str.substr(0, start.size()) == start) {return true;}
+    else {return false;}
+}
+
+
+bool Endswith(string str, string end) {
+    if (str.substr(str.size()-end.size(), end.size()) == end) {return true;}
+    else {return false;}
+}
+
+
 string Strip(string str) {
     string newStr = str;
     int begInd = 0, endInd = newStr.size() + 1;

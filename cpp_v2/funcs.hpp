@@ -21,5 +21,8 @@
 #include <string>
 using namespace std;
 
+
+bool Startswith(string, string);
+bool Endswith(string, string);
 string Strip(string);
 vector<string> Split(string, string);
