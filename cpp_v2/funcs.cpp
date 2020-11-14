@@ -34,6 +34,23 @@ bool Endswith(string str, string end) {
 }
 
 
+string Replace(string str, string substr, string replaceStr) {
+    string final = "";
+    int index;
+
+    while (true) {
+        index = str.find(substr);
+        if (index == -1) {break;}
+
+        final += str.substr(0, index);
+        final += replaceStr;
+        str = str.substr(index+substr.size(), str.size());
+    }
+
+    return final;
+}
+
+
 string Strip(string str) {
     string newStr = str;
     int begInd = 0, endInd = newStr.size() + 1;
