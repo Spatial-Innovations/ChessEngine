@@ -37,6 +37,7 @@ class Position {
         int GetNumNodes(void);
         string GetFen(void);
         vector<Move> GetMoveStack(void);
+        vector<Move> GetLegalMoves(void);
 
         void SetFen(string);
 
@@ -58,4 +59,5 @@ class Position {
         string _MoveToUci(Move);
 
         vector<int> _GetKingPos(bool);
+        vector<Move> _GetKingMoves(vector<int>, bool);
 };

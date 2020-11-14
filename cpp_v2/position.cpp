@@ -149,6 +149,30 @@ vector<Move> Position::GetMoveStack(void) {
 }
 
 
+vector<Move> Position::GetLegalMoves(void) {
+    vector<Move> moves, currMoves;
+    int piece;
+
+    for (auto row = 0; row < _position.size(); row++) {
+        for (auto col = 0; col < _position[0].size(); col++) {
+            piece = _position[row][col];
+            currMoves.clear();
+            switch (piece) {
+                case 6: currMoves = _GetKingMoves({row, col}, true); break;
+                case 12: currMoves = _GetKingMoves({row, col}, false); break;
+                default: break;
+            }
+
+            for (auto move: currMoves) {
+                moves.push_back(move);
+            }
+        }
+    }
+
+    return moves;
+}
+
+
 void Position::SetFen(string fen) {
     vector<string> parts;
     string currChar;
@@ -332,4 +356,32 @@ vector<int> Position::_GetKingPos(bool color) {
     }
 
     return {-1, -1};
+}
+
+
+vector<Move> Position::_GetKingMoves(vector<int> coords, bool color) {
+    vector<vector<int>> squares;
+    vector<Move> moves;
+    int row, col, piece;
+
+    row = coords[0];
+    col = coords[1];
+    squares = {
+        {row-1, col-1}, {row, col-1}, {row+1, col-1},
+        {row-1, col}, {row+1, col},
+        {row-1, col+1}, {row, col+1}, {row+1, col+1}
+    };
+
+    for (auto square: squares) {
+        row = square[0];
+        col = square[1];
+
+        if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
+            piece = _position[row][col];
+            if (color && (piece == 0 || (piece >= 7 && piece <= 11))) {moves.push_back(Move(coords, square));}
+            else if (!color && (piece == 0 || (piece >= 1 && piece <= 6))) {moves.push_back(Move(coords, square));}
+        }
+    }
+
+    return moves;
 }
