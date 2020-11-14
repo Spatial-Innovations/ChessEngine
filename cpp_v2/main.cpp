@@ -38,16 +38,13 @@ int main() {
 
         else if (msg == "ucinewgame") {position.Reset();}
         else if (Startswith(msg, "position")) {
-            cout << "Position" << endl;
             msg = Strip(msg.substr(8, msg.size()));
 
             if (Startswith(msg, "startpos")) {
-                cout << "tartpos" << endl;
                 msg = Strip(msg.substr(8, msg.size()));
                 position.Reset();
 
                 if (Startswith(msg, "moves")) {
-                    cout << "moves" << endl;
                     moves = Split(Strip(msg.substr(6, msg.size())));
                     for (auto i = 0; i < moves.size(); i++) {
                         position.PushUci(moves[i]);
