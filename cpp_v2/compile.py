@@ -20,6 +20,7 @@ import os
 PARENT = os.path.realpath(os.path.dirname(__file__))
 files = (
     "funcs.cpp",
+    "move.cpp",
     "position.cpp",
     "main.cpp",
 )
