@@ -52,33 +52,26 @@ string Replace(string str, string substr, string replaceStr) {
 
 
 string Strip(string str) {
-    string newStr = str;
-    int begInd = 0, endInd = newStr.size() + 1;
+    int begInd, endInd;
+    begInd = str.find_first_not_of(" ");
+    endInd = str.find_last_not_of(" ");
 
-    for (auto i = 0; i < str.size(); i++) {
-        begInd = i;
-        if (newStr.substr(i, 1) != " " && newStr.substr(i, 1) != "\n") {break;}
-    }
-    for (auto i = newStr.size()-1; i >= 0; i--) {
-        if (newStr.substr(i, 1) != " " && newStr.substr(i, 1) != "\n") {break;}
-        endInd = i;
-    }
-
-    return newStr.substr(begInd, endInd-begInd);
+    return str.substr(begInd, endInd-begInd);
 }
 
 
-vector<string> Split(string str, string split) {
-    vector<string> parts;
-    int startInd = 0;
+vector<string> Split(string str) {
+    vector<string> parts = {};
+    string currString = "";
 
-    for (auto i = 0; i < str.size()-split.size()+1; i++) {
-        if (str.substr(i, split.size()) == split) {
-            parts.push_back(str.substr(startInd, i-startInd));
-            startInd = i + split.size();
+    for (auto i = 0; i < str.size(); i++) {
+        if (str.substr(i, 1) == " ") {
+            parts.push_back(currString);
+            currString = "";
+        } else {
+            currString += str[i];
         }
     }
-    
-    parts.push_back(str.substr(startInd, split.size()-startInd));
+
     return parts;
 }

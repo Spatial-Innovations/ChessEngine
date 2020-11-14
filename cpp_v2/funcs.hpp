@@ -26,4 +26,4 @@ bool Startswith(string, string);
 bool Endswith(string, string);
 string Replace(string, string, string);
 string Strip(string);
-vector<string> Split(string, string);
+vector<string> Split(string);
