@@ -116,3 +116,20 @@ vector<int> Position::_UciToCoords(string uci) {
 
     return coords;
 }
+
+
+vector<int> Position::_GetKingPos(bool color) {
+    if (color) {
+        for (auto row = 0; row < _position.size(); row++) {
+            for (auto col = 0; col < _position[0].size(); col++) {
+                if (_position[row][col] == 6) {return {row, col};}
+            }
+        }
+    } else {
+        for (auto row = 0; row < _position.size(); row++) {
+            for (auto col = 0; col < _position[0].size(); col++) {
+                if (_position[row][col] == 12) {return {row, col};}
+            }
+        }
+    }
+}

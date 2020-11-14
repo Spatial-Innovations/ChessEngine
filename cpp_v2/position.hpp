@@ -29,8 +29,9 @@ class Position {
         Position();
 
         void Push(vector<int>, vector<int>);
-        vector<vector<vector<int>>> GetMoveStack(void);
+        
         int GetNumNodes(void);
+        vector<vector<vector<int>>> GetMoveStack(void);
 
     private:
         vector<vector<int>> _position;
@@ -39,4 +40,6 @@ class Position {
 
         string _CoordsToUci(vector<int>);
         vector<int> _UciToCoords(string);
+
+        vector<int> _GetKingPos(bool);
 };
