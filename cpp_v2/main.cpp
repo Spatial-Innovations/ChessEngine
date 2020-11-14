@@ -28,6 +28,7 @@ int main() {
 
     while (true) {
         cin >> msg;
+        msg = Strip(msg);
 
         if (msg == "quit") {return 0;}
         else if (msg == "isready") {cout << "readyok" << endl;}
