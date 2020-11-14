@@ -55,5 +55,11 @@ int main() {
                 position.SetFen(fen);
             }
         }
+
+        else if (msg == "test") {
+            for (auto move: position.GetLegalMoves()) {
+                cout << move.GetUci() << endl;
+            }
+        }
     }
 }
