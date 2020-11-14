@@ -317,21 +317,19 @@ string Position::_MoveToUci(Move move) {
 
 
 vector<int> Position::_GetKingPos(bool color) {
-    vector<int> coords;
-
     if (color) {
         for (auto row = 0; row < _position.size(); row++) {
             for (auto col = 0; col < _position[0].size(); col++) {
-                if (_position[row][col] == 6) {coords = {row, col};}
+                if (_position[row][col] == 6) {return {row, col};}
             }
         }
     } else {
         for (auto row = 0; row < _position.size(); row++) {
             for (auto col = 0; col < _position[0].size(); col++) {
-                if (_position[row][col] == 12) {coords = {row, col};}
+                if (_position[row][col] == 12) {return {row, col};}
             }
         }
     }
 
-    return coords;
+    return {-1, -1};
 }
