@@ -14,3 +14,33 @@
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 //  ##### END GPL LICENSE BLOCK #####
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include "move.hpp"
+using namespace std;
+
+
+Move::~Move() {}
+Move::Move() {}
+Move::Move(vector<int> sq1, vector<int> sq2, string promo) {
+    _square1 = sq1;
+    _square2 = sq2;
+    _promoPiece = promo;
+    _promo = (promo != "");
+}
+
+
+void Move::SetSq1(vector<int> square) {_square1 = square;}
+void Move::SetSq2(vector<int> square) {_square2 = square;}
+void Move::SetPromotion(string promo) {
+    _promoPiece = promo;
+    _promo = (promo != "");
+}
+
+
+vector<int> Move::GetSq1(void) {return _square1;}
+vector<int> Move::GetSq2(void) {return _square2;}
+string Move::GetPromoPiece(void) {return _promoPiece;}
+bool Move::GetPromo(void) {return _promo;}
