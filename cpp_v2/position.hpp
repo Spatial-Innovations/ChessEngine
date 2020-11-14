@@ -31,7 +31,7 @@ class Position {
 
         void Reset(void);
         void Print(void);
-        void Push(vector<int>, vector<int>, string="");
+        void Push(Move);
         void PushUci(string);
 
         int GetNumNodes(void);

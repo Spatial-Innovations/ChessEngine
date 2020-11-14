@@ -73,6 +73,26 @@ void Position::Print(void) {
 }
 
 
+void Position::Push(Move move) {
+    vector<int> square1, square2;
+    string promo;
+
+    square1 = move.GetSq1();
+    square2 = move.GetSq2();
+    promo = move.GetPromoPiece();
+
+    if (move.GetPromo()) {_position[square2[0]][square2[1]] = _PieceToInt(promo);}
+    else {_position[square2[0]][square2[1]] = _position[square1[0]][square2[0]];}
+    _position[square1[0]][square2[0]] = 0;
+}
+
+
+void Position::PushUci(string uci) {
+    Move move = _UciToMove(uci);
+    Push(move);
+}
+
+
 vector<Move> Position::GetMoveStack(void) {
     return _moveStack;
 }
