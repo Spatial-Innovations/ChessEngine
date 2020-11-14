@@ -58,6 +58,43 @@ int Position::GetNumNodes(void) {
 }
 
 
+int Position::PieceToInt(string piece) {
+    if (piece == " ") {return 0;}
+    else if (piece == "P") {return 1;}
+    else if (piece == "N") {return 2;}
+    else if (piece == "B") {return 3;}
+    else if (piece == "R") {return 4;}
+    else if (piece == "Q") {return 5;}
+    else if (piece == "K") {return 6;}
+    else if (piece == "p") {return 7;}
+    else if (piece == "n") {return 8;}
+    else if (piece == "b") {return 9;}
+    else if (piece == "r") {return 10;}
+    else if (piece == "q") {return 11;}
+    else if (piece == "k") {return 12;}
+}
+
+
+string Position::IntToPiece(int piece) {
+    switch (piece) {
+        case 0: return " ";
+        case 1: return "P";
+        case 2: return "N";
+        case 3: return "B";
+        case 4: return "R";
+        case 5: return "Q";
+        case 6: return "K";
+        case 7: return "p";
+        case 8: return "n";
+        case 9: return "b";
+        case 10: return "r";
+        case 11: return "q";
+        case 12: return "k";
+        default: return "";
+    }
+}
+
+
 string Position::_CoordsToUci(vector<int> coords) {
     // takes {row, col}
     string uci = "";
