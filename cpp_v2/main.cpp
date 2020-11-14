@@ -21,9 +21,30 @@
 using namespace std;
 
 
+string Strip(string str) {
+    string newStr = str;
+    int begInd = 0, endInd = newStr.size() + 1;
+
+    for (auto i = 0; i < str.size(); i++) {
+        begInd = i;
+        if (newStr.substr(i, 1) != " " && newStr.substr(i, 1) != "\n") {break;}
+    }
+    for (auto i = newStr.size()-1; i >= 0; i--) {
+        if (newStr.substr(i, 1) != " " && newStr.substr(i, 1) != "\n") {break;}
+        endInd = i;
+    }
+
+    return newStr.substr(begInd, endInd-begInd);
+}
+
 int main() {
     string msg;
     Position position;
+    cout << Strip("asdf") << "e" << endl;
+    cout << Strip("asdf ") << "e" << endl;
+    cout << Strip(" asdf") << "e" << endl;
+    cout << Strip("  asdf   ") << "e" << endl;
+    cout << Strip(" \n  asdf\n  \n") << "e" << endl;
 
     while (true) {
         cin >> msg;
@@ -32,5 +53,7 @@ int main() {
         else if (msg == "isready") {cout << "readyok" << endl;}
         else if (msg == "uci") {cout << "uciok" << endl;}
         else if (msg == "d") {position.Print();}
+
+        else if (msg == "ucinewgame") {position.Reset();}
     }
 }
