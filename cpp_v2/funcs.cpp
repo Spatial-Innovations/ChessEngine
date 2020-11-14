@@ -55,8 +55,10 @@ string Strip(string str) {
     int begInd, endInd;
     begInd = str.find_first_not_of(" ");
     endInd = str.find_last_not_of(" ");
+    if (begInd == -1) {begInd = 0;}
+    if (endInd == -1) {endInd = str.size();}
 
-    return str.substr(begInd, endInd-begInd);
+    return str.substr(begInd, endInd-begInd+1);
 }
 
 
@@ -69,9 +71,10 @@ vector<string> Split(string str) {
             parts.push_back(currString);
             currString = "";
         } else {
-            currString += str[i];
+            currString += str.substr(i, 1);
         }
     }
+    if (currString.size() > 0) {parts.push_back(currString);}
 
     return parts;
 }
