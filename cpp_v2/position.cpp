@@ -19,6 +19,7 @@
 #include <vector>
 #include <string>
 #include "position.hpp"
+#include "move.hpp"
 using namespace std;
 
 
@@ -72,22 +73,7 @@ void Position::Print(void) {
 }
 
 
-void Position::Push(vector<int> sq1, vector<int> sq2) {
-    _position[sq2[0]][sq2[1]] = _position[sq1[0]][sq1[1]];
-    _position[sq1[0]][sq1[1]] = 0;
-    _moveStack.push_back({sq1, sq2});
-}
-
-
-void Position::PushUci(string uci) {
-    // todo pawn promotion
-    string sq1 = uci.substr(0, 2), sq2 = uci.substr(2, 2);
-    vector<int> coord1 = _UciToCoords(sq1), coord2 = _UciToCoords(sq2);
-    Push(coord1, coord2);
-}
-
-
-vector<vector<vector<int>>> Position::GetMoveStack(void) {
+vector<Move> Position::GetMoveStack(void) {
     return _moveStack;
 }
 
@@ -134,7 +120,7 @@ string Position::GetFen(void) {
     }
     fen += " ";
 
-    if (_epLegal) {fen += _CoordsToUci(_epSquare);}
+    if (_epLegal) {fen += _CoordsToSquare(_epSquare);}
     else {fen += "-";}
     fen += " 0 1";
 
@@ -183,7 +169,7 @@ string Position::_IntToPiece(int piece) {
 }
 
 
-string Position::_CoordsToUci(vector<int> coords) {
+string Position::_CoordsToSquare(vector<int> coords) {
     // takes {row, col}
     string uci = "";
     int col, row;
@@ -216,7 +202,7 @@ string Position::_CoordsToUci(vector<int> coords) {
 }
 
 
-vector<int> Position::_UciToCoords(string uci) {
+vector<int> Position::_SquareToCoords(string uci) {
     // returns {row, col}
     vector<int> coords;
     string char1 = uci.substr(0, 1), char2 = uci.substr(1, 1);
@@ -240,6 +226,29 @@ vector<int> Position::_UciToCoords(string uci) {
     else if (char1 == "h") {coords.push_back(7);}
 
     return coords;
+}
+
+
+Move Position::_UciToMove(string uci) {
+    vector<int> square1, square2;
+    string promo;
+    
+    square1 = _SquareToCoords(uci.substr(0, 2));
+    square2 = _SquareToCoords(uci.substr(2, 2));
+    promo = uci.substr(4, 1);
+
+    return Move(square1, square2, promo);
+}
+
+
+string Position::_MoveToUci(Move move) {
+    string square1, square2, promo;
+
+    square1 = _CoordsToSquare(move.GetSq1());
+    square2 = _CoordsToSquare(move.GetSq2());
+    promo = move.GetPromoPiece();
+
+    return square1 + square2 + promo;
 }
 
 

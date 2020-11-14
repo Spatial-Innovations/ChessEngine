@@ -19,6 +19,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "move.hpp"
 using namespace std;
 
 
@@ -30,12 +31,12 @@ class Position {
 
         void Reset(void);
         void Print(void);
-        void Push(vector<int>, vector<int>);
+        void Push(vector<int>, vector<int>, string="");
         void PushUci(string);
 
         int GetNumNodes(void);
         string GetFen(void);
-        vector<vector<vector<int>>> GetMoveStack(void);
+        vector<Move> GetMoveStack(void);
 
     private:
         vector<vector<int>> _position;
@@ -44,13 +45,15 @@ class Position {
         bool _epLegal;
         vector<int> _epSquare;
 
-        vector<vector<vector<int>>> _moveStack;
+        vector<Move> _moveStack;
         vector<Position> _branches;
 
         int _PieceToInt(string);
         string _IntToPiece(int);
-        string _CoordsToUci(vector<int>);
-        vector<int> _UciToCoords(string);
+        string _CoordsToSquare(vector<int>);
+        vector<int> _SquareToCoords(string);
+        Move _UciToMove(string);
+        string _MoveToUci(Move);
 
         vector<int> _GetKingPos(bool);
 };
