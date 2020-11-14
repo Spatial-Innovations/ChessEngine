@@ -44,3 +44,43 @@ vector<int> Move::GetSq1(void) {return _square1;}
 vector<int> Move::GetSq2(void) {return _square2;}
 string Move::GetPromoPiece(void) {return _promoPiece;}
 bool Move::GetPromo(void) {return _promo;}
+string Move::GetUci(void) {
+    string uci;
+    uci += _CoordsToSquare(_square1);
+    uci += _CoordsToSquare(_square2);
+    if (_promo) {uci += _promoPiece;}
+    return uci;
+}
+
+
+string Move::_CoordsToSquare(vector<int> coords) {
+    // takes {row, col}
+    string uci = "";
+    int col, row;
+    col = coords[1];
+    row = coords[0];
+
+    switch (col) {
+        case 0: uci += "a"; break;
+        case 1: uci += "b"; break;
+        case 2: uci += "c"; break;
+        case 3: uci += "d"; break;
+        case 4: uci += "e"; break;
+        case 5: uci += "f"; break;
+        case 6: uci += "g"; break;
+        case 7: uci += "h"; break;
+        default: break;
+    } switch (row) {
+        case 0: uci += "8"; break;
+        case 1: uci += "7"; break;
+        case 2: uci += "6"; break;
+        case 3: uci += "5"; break;
+        case 4: uci += "4"; break;
+        case 5: uci += "3"; break;
+        case 6: uci += "2"; break;
+        case 7: uci += "1"; break;
+        default: break;
+    }
+
+    return uci;
+}

@@ -36,9 +36,12 @@ class Move {
         vector<int> GetSq2(void);
         string GetPromoPiece(void);
         bool GetPromo(void);
+        string GetUci(void);
 
     private:
         vector<int> _square1, _square2;
         bool _promo;
         string _promoPiece;
+
+        string _CoordsToSquare(vector<int>);
 };
