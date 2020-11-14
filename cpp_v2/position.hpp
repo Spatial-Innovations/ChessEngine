@@ -60,4 +60,5 @@ class Position {
 
         vector<int> _GetKingPos(bool);
         vector<Move> _GetKingMoves(vector<int>, bool);
+        vector<Move> _GetKnightMoves(vector<int>, bool);
 };

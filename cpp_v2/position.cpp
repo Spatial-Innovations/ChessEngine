@@ -158,7 +158,9 @@ vector<Move> Position::GetLegalMoves(void) {
             piece = _position[row][col];
             currMoves.clear();
             switch (piece) {
+                case 2: currMoves = _GetKnightMoves({row, col}, true); break;
                 case 6: currMoves = _GetKingMoves({row, col}, true); break;
+                case 8: currMoves = _GetKnightMoves({row, col}, false); break;
                 case 12: currMoves = _GetKingMoves({row, col}, false); break;
                 default: break;
             }
@@ -370,6 +372,35 @@ vector<Move> Position::_GetKingMoves(vector<int> coords, bool color) {
         {row-1, col-1}, {row, col-1}, {row+1, col-1},
         {row-1, col}, {row+1, col},
         {row-1, col+1}, {row, col+1}, {row+1, col+1}
+    };
+
+    for (auto square: squares) {
+        row = square[0];
+        col = square[1];
+
+        if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
+            piece = _position[row][col];
+            if (color && (piece == 0 || (piece >= 7 && piece <= 11))) {moves.push_back(Move(coords, square));}
+            else if (!color && (piece == 0 || (piece >= 1 && piece <= 6))) {moves.push_back(Move(coords, square));}
+        }
+    }
+
+    return moves;
+}
+
+
+vector<Move> Position::_GetKnightMoves(vector<int> coords, bool color) {
+    vector<vector<int>> squares;
+    vector<Move> moves;
+    int row, col, piece;
+
+    row = coords[0];
+    col = coords[1];
+    squares = {
+        {row-2, col-1}, {row-2, col+1},
+        {row-1, col-2}, {row-1, col+2},
+        {row+1, col-2}, {row+1, col+2},
+        {row+2, col-1}, {row+2, col+1},
     };
 
     for (auto square: squares) {
