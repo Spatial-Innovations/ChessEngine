@@ -100,6 +100,19 @@ int Position::GetNumNodes(void) {
 }
 
 
+int Position::NumPiecesAttacking(vector<int> square) {
+    int attackers = 0;
+
+    for (auto move: GetLegalMoves()) {
+        if (move.GetSq2() == square) {
+            attackers++;
+        }
+    }
+
+    return attackers;
+}
+
+
 string Position::GetFen(void) {
     string fen = "";
     int piece, spaceCount = 0;
