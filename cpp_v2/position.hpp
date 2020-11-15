@@ -38,6 +38,7 @@ class Position {
         string GetFen(void);
         vector<Move> GetMoveStack(void);
         vector<Move> GetLegalMoves(void);
+        int NumPiecesAttacking(vector<int>);
 
         void SetFen(string);
 
