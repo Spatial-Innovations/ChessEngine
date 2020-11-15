@@ -158,8 +158,10 @@ vector<Move> Position::GetLegalMoves(void) {
             piece = _position[row][col];
             currMoves.clear();
             switch (piece) {
+                case 1: currMoves = _GetPawnMoves({row, col}, true); break;
                 case 2: currMoves = _GetKnightMoves({row, col}, true); break;
                 case 6: currMoves = _GetKingMoves({row, col}, true); break;
+                case 7: currMoves = _GetPawnMoves({row, col}, false); break;
                 case 8: currMoves = _GetKnightMoves({row, col}, false); break;
                 case 12: currMoves = _GetKingMoves({row, col}, false); break;
                 default: break;
@@ -411,6 +413,40 @@ vector<Move> Position::_GetKnightMoves(vector<int> coords, bool color) {
             piece = _position[row][col];
             if (color && (piece == 0 || (piece >= 7 && piece <= 11))) {moves.push_back(Move(coords, square));}
             else if (!color && (piece == 0 || (piece >= 1 && piece <= 6))) {moves.push_back(Move(coords, square));}
+        }
+    }
+
+    return moves;
+}
+
+
+vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
+    vector<Move> moves;
+    int row, col;
+
+    row = coords[0];
+    col = coords[1];
+
+    // todo captures
+    if (color) {
+        // Forward moves
+        if (row == 6) {
+            if (_position[row-1][col] == 0) {moves.push_back(Move(coords, {row-1, col}));}
+            if (_position[row-2][col] == 0) {moves.push_back(Move(coords, {row-2, col}));}
+        } else if (row <= 5 && row >= 2) {
+            if (_position[row-1][col] == 0) {moves.push_back(Move(coords, {row-1, col}));}
+        } else if (row == 1) {
+            for (auto promo: {"N", "B", "R", "Q"}) {moves.push_back(Move(coords, {row-1, col}, promo));}
+        }
+    } else {
+        // Forward moves
+        if (row == 1) {
+            if (_position[row+1][col] == 0) {moves.push_back(Move(coords, {row+1, col}));}
+            if (_position[row+2][col] == 0) {moves.push_back(Move(coords, {row+2, col}));}
+        } else if (row <= 5 && row >= 2) {
+            if (_position[row+1][col] == 0) {moves.push_back(Move(coords, {row+1, col}));}
+        } else if (row == 6) {
+            for (auto promo: {"N", "B", "R", "Q"}) {moves.push_back(Move(coords, {row+1, col}, promo));}
         }
     }
 
