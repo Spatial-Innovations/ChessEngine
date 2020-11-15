@@ -83,8 +83,8 @@ void Position::Push(Move move) {
     promo = move.GetPromoPiece();
 
     if (move.GetPromo()) {_position[square2[0]][square2[1]] = _PieceToInt(promo);}
-    else {_position[square2[0]][square2[1]] = _position[square1[0]][square2[0]];}
-    _position[square1[0]][square2[0]] = 0;
+    else {_position[square2[0]][square2[1]] = _position[square1[0]][square2[1]];}
+    _position[square1[0]][square2[1]] = 0;
     _turn = !_turn;
 }
 
