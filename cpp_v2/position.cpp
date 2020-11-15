@@ -157,11 +157,11 @@ vector<Move> Position::GetLegalMoves(void) {
     for (auto row = 0; row < _position.size(); row++) {
         for (auto col = 0; col < _position[0].size(); col++) {
             piece = _position[row][col];
-            
+
             if (piece == 0) {continue;}
             if (_turn && piece >= 7 && piece <= 12) {continue;}
             if (!_turn && piece >= 1 && piece <= 6) {continue;}
-            
+
             currMoves.clear();
             switch (piece) {
                 //case 1: currMoves = _GetPawnMoves({row, col}, true); break;
@@ -334,7 +334,7 @@ vector<int> Position::_SquareToCoords(string uci) {
 Move Position::_UciToMove(string uci) {
     vector<int> square1, square2;
     string promo;
-    
+
     square1 = _SquareToCoords(uci.substr(0, 2));
     square2 = _SquareToCoords(uci.substr(2, 2));
     promo = uci.substr(4, 1);
@@ -474,6 +474,24 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
             }
         }
 
+        // En passant
+        vector<int> epLeft = {row - 1, col - 1};
+        vector<int> epRight = {row - 1, col + 1};
+        if (_epLegal) {
+            if (row > 0) {
+                if (col > 0) {
+                    if (_epSquare == epLeft) {
+                        moves.push_back(Move(coords, _epSquare));
+                    }
+                }
+                if (col < 7) {
+                    if (_epSquare == epRight) {
+                        moves.push_back(Move(coords, _epSquare));
+                    }
+                }
+            }
+        }
+
     } else {
         // Forward moves
         if (row == 1) {
@@ -505,6 +523,24 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
                     for (auto promo: promoPieces) {moves.push_back(Move(coords, captureR, promo));}
                 } else {
                     moves.push_back(Move(coords, captureR));
+                }
+            }
+        }
+
+        // En passant
+        vector<int> epLeft = {row + 1, col - 1};
+        vector<int> epRight = {row + 1, col + 1};
+        if (_epLegal) {
+            if (row < 7) {
+                if (col > 0) {
+                    if (_epSquare == epLeft) {
+                        moves.push_back(Move(coords, _epSquare));
+                    }
+                }
+                if (col < 7) {
+                    if (_epSquare == epRight) {
+                        moves.push_back(Move(coords, _epSquare));
+                    }
                 }
             }
         }
