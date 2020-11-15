@@ -473,15 +473,17 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
         }
 
         // En passant
+        vector<int> epLeft = {row - 1, col - 1};
+        vector<int> epRight = {row - 1, col + 1};
         if (_epLegal) {
             if (row > 0) {
                 if (col > 0) {
-                    if (_epSquare == {row - 1, col - 1}) {
+                    if (_epSquare == epLeft) {
                         moves.push_back(Move(coords, _epSquare));
                     }
                 }
                 if (col < 7) {
-                    if (_epSquare == {row - 1, col + 1}) {
+                    if (_epSquare == epRight) {
                         moves.push_back(Move(coords, _epSquare));
                     }
                 }
@@ -524,15 +526,17 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
         }
 
         // En passant
+        vector<int> epLeft = {row + 1, col - 1};
+        vector<int> epRight = {row + 1, col + 1};
         if (_epLegal) {
             if (row < 7) {
                 if (col > 0) {
-                    if (_epSquare == {row + 1, col - 1}) {
+                    if (_epSquare == epLeft) {
                         moves.push_back(Move(coords, _epSquare));
                     }
                 }
                 if (col < 7) {
-                    if (_epSquare == {row + 1, col + 1}) {
+                    if (_epSquare == epRight) {
                         moves.push_back(Move(coords, _epSquare));
                     }
                 }
