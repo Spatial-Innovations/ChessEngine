@@ -14,3 +14,13 @@
 //  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 //  ##### END GPL LICENSE BLOCK #####
+
+#pragma once
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+
+int Eval(vector<vector<int>>);
+int Material(vector<vector<int>>);
