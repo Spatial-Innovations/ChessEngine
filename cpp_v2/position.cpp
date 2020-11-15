@@ -74,6 +74,11 @@ void Position::Print(void) {
 }
 
 
+void Position::ClearBranches(void) {
+    _branches.clear();
+}
+
+
 void Position::Push(Move move) {
     vector<int> square1, square2;
     string promo;
@@ -96,7 +101,27 @@ void Position::PushUci(string uci) {
 
 
 int Position::GetNumNodes(void) {
-    return 1 + _branches.size();
+    int nodes = 1;
+    for (auto pos: _branches) {
+        nodes += pos.GetNumNodes();
+    }
+    return nodes;
+}
+
+
+void Position::Branch(int targetDepth) {
+    if (targetDepth == _depth + 1) {
+        for (auto move: GetLegalMoves()) {
+            _branches.push_back(Position());
+            _branches[_branches.size()-1].SetMoves(_moveStack);
+            _branches[_branches.size()-1].SetDepth(_depth+1);
+            _branches[_branches.size()-1].Push(move);
+        }
+    } else if (targetDepth > _depth + 1) {
+        for (auto i = 0; i < _branches.size(); i++) {
+            _branches[i].Branch(targetDepth);
+        }
+    }
 }
 
 
@@ -177,18 +202,18 @@ vector<Move> Position::GetLegalMoves(void) {
 
             currMoves.clear();
             switch (piece) {
-                //case 1: currMoves = _GetPawnMoves({row, col}, true); break;
-                //case 2: currMoves = _GetKnightMoves({row, col}, true); break;
-                //case 3: currMoves = _GetBishopMoves({row, col}, true); break;
-                //case 4: currMoves = _GetRookMoves({row, col}, true); break;
+                case 1: currMoves = _GetPawnMoves({row, col}, true); break;
+                case 2: currMoves = _GetKnightMoves({row, col}, true); break;
+                case 3: currMoves = _GetBishopMoves({row, col}, true); break;
+                case 4: currMoves = _GetRookMoves({row, col}, true); break;
                 case 5: currMoves = _GetQueenMoves({row, col}, true); break;
-                //case 6: currMoves = _GetKingMoves({row, col}, true); break;
-                //case 7: currMoves = _GetPawnMoves({row, col}, false); break;
-                //case 8: currMoves = _GetKnightMoves({row, col}, false); break;
-                //case 9: currMoves = _GetBishopMoves({row, col}, false); break;
-                //case 10: currMoves = _GetRookMoves({row, col}, false); break;
+                case 6: currMoves = _GetKingMoves({row, col}, true); break;
+                case 7: currMoves = _GetPawnMoves({row, col}, false); break;
+                case 8: currMoves = _GetKnightMoves({row, col}, false); break;
+                case 9: currMoves = _GetBishopMoves({row, col}, false); break;
+                case 10: currMoves = _GetRookMoves({row, col}, false); break;
                 case 11: currMoves = _GetQueenMoves({row, col}, false); break;
-                //case 12: currMoves = _GetKingMoves({row, col}, false); break;
+                case 12: currMoves = _GetKingMoves({row, col}, false); break;
                 default: break;
             }
 
@@ -199,6 +224,16 @@ vector<Move> Position::GetLegalMoves(void) {
     }
 
     return moves;
+}
+
+
+void Position::SetDepth(int depth) {
+    _depth = depth;
+}
+
+
+void Position::SetMoves(vector<Move> moves) {
+    _moveStack = moves;
 }
 
 

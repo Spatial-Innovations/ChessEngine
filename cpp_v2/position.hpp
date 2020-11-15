@@ -31,6 +31,7 @@ class Position {
 
         void Reset(void);
         void Print(void);
+        void ClearBranches(void);
         void Push(Move);
         void PushUci(string);
 
@@ -38,8 +39,12 @@ class Position {
         string GetFen(void);
         vector<Move> GetMoveStack(void);
         vector<Move> GetLegalMoves(void);
+
+        void Branch(int);
         int NumPiecesAttacking(vector<int>);
 
+        void SetDepth(int);
+        void SetMoves(vector<Move>);
         void SetFen(string);
 
     private:
@@ -49,6 +54,7 @@ class Position {
         vector<bool> _castleRights;
         vector<int> _epSquare;
 
+        int _depth;
         vector<Move> _moveStack;
         vector<Position> _branches;
 

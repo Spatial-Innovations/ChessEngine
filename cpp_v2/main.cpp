@@ -56,10 +56,12 @@ int main() {
             }
         }
 
-        else if (msg == "test") {
-            for (auto move: position.GetLegalMoves()) {
-                cout << move.GetUci() << endl;
+        else if (Startswith(msg, "go")) {
+            for (auto i = 0; i < 5; i++) {
+                position.Branch(i);
             }
+            cout << position.GetNumNodes() << endl;
+            position.ClearBranches();
         }
     }
 }
