@@ -475,21 +475,8 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
         }
 
         // En passant
-        vector<int> epLeft = {row - 1, col - 1};
-        vector<int> epRight = {row - 1, col + 1};
-        if (_epLegal) {
-            if (row > 0) {
-                if (col > 0) {
-                    if (_epSquare == epLeft) {
-                        moves.push_back(Move(coords, _epSquare));
-                    }
-                }
-                if (col < 7) {
-                    if (_epSquare == epRight) {
-                        moves.push_back(Move(coords, _epSquare));
-                    }
-                }
-            }
+        if (_epLegal && row == 3 && (col-1 == _epSquare[1] || col+1 == _epSquare[1])) {
+            moves.push_back(Move(coords, _epSquare));
         }
 
     } else {
@@ -528,21 +515,8 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
         }
 
         // En passant
-        vector<int> epLeft = {row + 1, col - 1};
-        vector<int> epRight = {row + 1, col + 1};
-        if (_epLegal) {
-            if (row < 7) {
-                if (col > 0) {
-                    if (_epSquare == epLeft) {
-                        moves.push_back(Move(coords, _epSquare));
-                    }
-                }
-                if (col < 7) {
-                    if (_epSquare == epRight) {
-                        moves.push_back(Move(coords, _epSquare));
-                    }
-                }
-            }
+        if (_epLegal && row == 5 && (col-1 == _epSquare[1] || col+1 == _epSquare[1])) {
+            moves.push_back(Move(coords, _epSquare));
         }
     }
 
