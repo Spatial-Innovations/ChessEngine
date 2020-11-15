@@ -164,14 +164,14 @@ vector<Move> Position::GetLegalMoves(void) {
 
             currMoves.clear();
             switch (piece) {
-                //case 1: currMoves = _GetPawnMoves({row, col}, true); break;
+                case 1: currMoves = _GetPawnMoves({row, col}, true); break;
                 //case 2: currMoves = _GetKnightMoves({row, col}, true); break;
-                case 3: currMoves = _GetBishopMoves({row, col}, true); break;
+                //case 3: currMoves = _GetBishopMoves({row, col}, true); break;
                 //case 4: currMoves = _GetRookMoves({row, col}, true); break;
                 //case 6: currMoves = _GetKingMoves({row, col}, true); break;
-                //case 7: currMoves = _GetPawnMoves({row, col}, false); break;
+                case 7: currMoves = _GetPawnMoves({row, col}, false); break;
                 //case 8: currMoves = _GetKnightMoves({row, col}, false); break;
-                case 9: currMoves = _GetBishopMoves({row, col}, false); break;
+                //case 9: currMoves = _GetBishopMoves({row, col}, false); break;
                 //case 10: currMoves = _GetRookMoves({row, col}, false); break;
                 //case 12: currMoves = _GetKingMoves({row, col}, false); break;
                 default: break;
@@ -515,7 +515,7 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
         }
 
         // En passant
-        if (_epLegal && row == 5 && (col-1 == _epSquare[1] || col+1 == _epSquare[1])) {
+        if (_epLegal && row == 4 && (col-1 == _epSquare[1] || col+1 == _epSquare[1])) {
             moves.push_back(Move(coords, _epSquare));
         }
     }
