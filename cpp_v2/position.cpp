@@ -621,7 +621,7 @@ vector<Move> Position::_GetBishopMoves(vector<int> coords, bool color) {
     while (true) {
         currRow = row - i;
         currCol = col + i;
-        if (currRow < 0 || currCol < 0) {break;}
+        if (currRow < 0 || currCol > 7) {break;}
         currPiece = _position[currRow][currCol];
 
         if (currPiece == 0) {
@@ -643,7 +643,7 @@ vector<Move> Position::_GetBishopMoves(vector<int> coords, bool color) {
     while (true) {
         currRow = row + i;
         currCol = col - i;
-        if (currRow < 0 || currCol < 0) {break;}
+        if (currRow > 7 || currCol < 0) {break;}
         currPiece = _position[currRow][currCol];
 
         if (currPiece == 0) {
@@ -665,7 +665,7 @@ vector<Move> Position::_GetBishopMoves(vector<int> coords, bool color) {
     while (true) {
         currRow = row + i;
         currCol = col + i;
-        if (currRow < 0 || currCol < 0) {break;}
+        if (currRow > 7 || currCol > 7) {break;}
         currPiece = _position[currRow][currCol];
 
         if (currPiece == 0) {
