@@ -704,3 +704,10 @@ vector<Move> Position::_GetQueenMoves(vector<int> coords, bool color) {
     for (auto move: _GetBishopMoves(coords, color)) {moves.push_back(move);}
     return moves;
 }
+
+
+bool Position::_IsPinHoriz(vector<int> kingPos, vector<int> pinLoc) {
+    bool kingColor;
+    if (_position[kingPos[0]][kingPos[1]] == 6) {kingColor = true;}
+    else {kingColor = false;}
+}

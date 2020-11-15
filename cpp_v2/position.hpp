@@ -65,4 +65,6 @@ class Position {
         vector<Move> _GetRookMoves(vector<int>, bool);
         vector<Move> _GetBishopMoves(vector<int>, bool);
         vector<Move> _GetQueenMoves(vector<int>, bool);
+
+        bool _IsPinHoriz(vector<int>, vector<int>);
 };
