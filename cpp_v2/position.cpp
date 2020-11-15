@@ -166,11 +166,13 @@ vector<Move> Position::GetLegalMoves(void) {
             switch (piece) {
                 //case 1: currMoves = _GetPawnMoves({row, col}, true); break;
                 //case 2: currMoves = _GetKnightMoves({row, col}, true); break;
-                case 4: currMoves = _GetRookMoves({row, col}, true); break;
+                case 3: currMoves = _GetBishopMoves({row, col}, true); break;
+                //case 4: currMoves = _GetRookMoves({row, col}, true); break;
                 //case 6: currMoves = _GetKingMoves({row, col}, true); break;
                 //case 7: currMoves = _GetPawnMoves({row, col}, false); break;
                 //case 8: currMoves = _GetKnightMoves({row, col}, false); break;
-                case 10: currMoves = _GetRookMoves({row, col}, false); break;
+                case 9: currMoves = _GetBishopMoves({row, col}, false); break;
+                //case 10: currMoves = _GetRookMoves({row, col}, false); break;
                 //case 12: currMoves = _GetKingMoves({row, col}, false); break;
                 default: break;
             }
@@ -580,6 +582,104 @@ vector<Move> Position::_GetRookMoves(vector<int> coords, bool color) {
         } else if (((currPiece >= 1 && currPiece <= 6) && color) || ((currPiece >= 7 && currPiece <= 12) && !color)) {
             break;
         }
+    }
+
+    return moves;
+}
+
+
+vector<Move> Position::_GetBishopMoves(vector<int> coords, bool color) {
+    vector<Move> moves;
+    int row, col, currRow, currCol, currPiece, i;
+    row = coords[0];
+    col = coords[1];
+
+    // Top left
+    i = 1;
+    while (true) {
+        currRow = row - i;
+        currCol = col - i;
+        if (currRow < 0 || currCol < 0) {break;}
+        currPiece = _position[currRow][currCol];
+
+        if (currPiece == 0) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+        } else if ((currPiece >= 1 && currPiece <= 6) && !color) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+            break;
+        } else if ((currPiece >= 7 && currPiece <= 12) && color) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+            break;
+        } else if (((currPiece >= 1 && currPiece <= 6) && color) || ((currPiece >= 7 && currPiece <= 12) && !color)) {
+            break;
+        }
+        i++;
+    }
+
+    // Top right
+    i = 1;
+    while (true) {
+        currRow = row - i;
+        currCol = col + i;
+        if (currRow < 0 || currCol < 0) {break;}
+        currPiece = _position[currRow][currCol];
+
+        if (currPiece == 0) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+        } else if ((currPiece >= 1 && currPiece <= 6) && !color) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+            break;
+        } else if ((currPiece >= 7 && currPiece <= 12) && color) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+            break;
+        } else if (((currPiece >= 1 && currPiece <= 6) && color) || ((currPiece >= 7 && currPiece <= 12) && !color)) {
+            break;
+        }
+        i++;
+    }
+
+    // Bottom left
+    i = 1;
+    while (true) {
+        currRow = row + i;
+        currCol = col - i;
+        if (currRow < 0 || currCol < 0) {break;}
+        currPiece = _position[currRow][currCol];
+
+        if (currPiece == 0) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+        } else if ((currPiece >= 1 && currPiece <= 6) && !color) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+            break;
+        } else if ((currPiece >= 7 && currPiece <= 12) && color) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+            break;
+        } else if (((currPiece >= 1 && currPiece <= 6) && color) || ((currPiece >= 7 && currPiece <= 12) && !color)) {
+            break;
+        }
+        i++;
+    }
+
+    // Bottom right
+    i = 1;
+    while (true) {
+        currRow = row + i;
+        currCol = col + i;
+        if (currRow < 0 || currCol < 0) {break;}
+        currPiece = _position[currRow][currCol];
+
+        if (currPiece == 0) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+        } else if ((currPiece >= 1 && currPiece <= 6) && !color) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+            break;
+        } else if ((currPiece >= 7 && currPiece <= 12) && color) {
+            moves.push_back(Move(coords, {currRow, currCol}));
+            break;
+        } else if (((currPiece >= 1 && currPiece <= 6) && color) || ((currPiece >= 7 && currPiece <= 12) && !color)) {
+            break;
+        }
+        i++;
     }
 
     return moves;
