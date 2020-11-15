@@ -85,6 +85,7 @@ void Position::Push(Move move) {
     if (move.GetPromo()) {_position[square2[0]][square2[1]] = _PieceToInt(promo);}
     else {_position[square2[0]][square2[1]] = _position[square1[0]][square2[0]];}
     _position[square1[0]][square2[0]] = 0;
+    _turn = !_turn;
 }
 
 
@@ -156,6 +157,11 @@ vector<Move> Position::GetLegalMoves(void) {
     for (auto row = 0; row < _position.size(); row++) {
         for (auto col = 0; col < _position[0].size(); col++) {
             piece = _position[row][col];
+            
+            if (piece == 0) {continue;}
+            if (_turn && piece >= 7 && piece <= 12) {continue;}
+            if (!_turn && piece >= 1 && piece <= 6) {continue;}
+            
             currMoves.clear();
             switch (piece) {
                 case 1: currMoves = _GetPawnMoves({row, col}, true); break;
