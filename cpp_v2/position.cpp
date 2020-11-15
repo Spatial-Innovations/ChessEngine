@@ -165,11 +165,11 @@ vector<Move> Position::GetLegalMoves(void) {
             currMoves.clear();
             switch (piece) {
                 case 1: currMoves = _GetPawnMoves({row, col}, true); break;
-                case 2: currMoves = _GetKnightMoves({row, col}, true); break;
-                case 6: currMoves = _GetKingMoves({row, col}, true); break;
+                //case 2: currMoves = _GetKnightMoves({row, col}, true); break;
+                //case 6: currMoves = _GetKingMoves({row, col}, true); break;
                 case 7: currMoves = _GetPawnMoves({row, col}, false); break;
-                case 8: currMoves = _GetKnightMoves({row, col}, false); break;
-                case 12: currMoves = _GetKingMoves({row, col}, false); break;
+                //case 8: currMoves = _GetKnightMoves({row, col}, false); break;
+                //case 12: currMoves = _GetKingMoves({row, col}, false); break;
                 default: break;
             }
 
@@ -428,12 +428,13 @@ vector<Move> Position::_GetKnightMoves(vector<int> coords, bool color) {
 
 vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
     vector<Move> moves;
-    int row, col;
+    vector<int> captureL, captureR;
+    const vector<string> promoPieces = {"N", "B", "R", "Q"};
+    int row, col, captureLPiece, captureRPiece;
 
     row = coords[0];
     col = coords[1];
 
-    // todo captures
     if (color) {
         // Forward moves
         if (row == 6) {
@@ -442,8 +443,33 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
         } else if (row <= 5 && row >= 2) {
             if (_position[row-1][col] == 0) {moves.push_back(Move(coords, {row-1, col}));}
         } else if (row == 1) {
-            for (auto promo: {"N", "B", "R", "Q"}) {moves.push_back(Move(coords, {row-1, col}, promo));}
+            for (auto promo: promoPieces) {moves.push_back(Move(coords, {row-1, col}, promo));}
         }
+
+        // Captures
+        captureL = {row-1, col-1};
+        captureR = {row-1, col+1};
+        if (captureL[0] >= 0 && captureL[0] <= 7 && captureL[1] >= 0 && captureL[1] <= 7) {
+            captureLPiece = _position[captureL[0]][captureL[1]];
+            if (captureLPiece >= 7 && captureLPiece <= 12) {
+                if (row == 1) {
+                    for (auto promo: promoPieces) {moves.push_back(Move(coords, captureL, promo));}
+                } else {
+                    moves.push_back(Move(coords, captureL));
+                }
+            }
+        }
+        if (captureR[0] >= 0 && captureR[0] <= 7 && captureR[1] >= 0 && captureR[1] <= 7) {
+            captureRPiece = _position[captureR[0]][captureR[1]];
+            if (captureRPiece >= 7 && captureRPiece <= 12) {
+                if (row == 1) {
+                    for (auto promo: promoPieces) {moves.push_back(Move(coords, captureR, promo));}
+                } else {
+                    moves.push_back(Move(coords, captureR));
+                }
+            }
+        }
+
     } else {
         // Forward moves
         if (row == 1) {
@@ -452,7 +478,31 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
         } else if (row <= 5 && row >= 2) {
             if (_position[row+1][col] == 0) {moves.push_back(Move(coords, {row+1, col}));}
         } else if (row == 6) {
-            for (auto promo: {"N", "B", "R", "Q"}) {moves.push_back(Move(coords, {row+1, col}, promo));}
+            for (auto promo: promoPieces) {moves.push_back(Move(coords, {row+1, col}, promo));}
+        }
+
+        // Captures
+        captureL = {row+1, col-1};
+        captureR = {row+1, col+1};
+        if (captureL[0] >= 0 && captureL[0] <= 7 && captureL[1] >= 0 && captureL[1] <= 7) {
+            captureLPiece = _position[captureL[0]][captureL[1]];
+            if (captureLPiece >= 1 && captureLPiece <= 6) {
+                if (row == 6) {
+                    for (auto promo: promoPieces) {moves.push_back(Move(coords, captureL, promo));}
+                } else {
+                    moves.push_back(Move(coords, captureL));
+                }
+            }
+        }
+        if (captureR[0] >= 0 && captureR[0] <= 7 && captureR[1] >= 0 && captureR[1] <= 7) {
+            captureRPiece = _position[captureR[0]][captureR[1]];
+            if (captureRPiece >= 1 && captureRPiece <= 6) {
+                if (row == 6) {
+                    for (auto promo: promoPieces) {moves.push_back(Move(coords, captureR, promo));}
+                } else {
+                    moves.push_back(Move(coords, captureR));
+                }
+            }
         }
     }
 
