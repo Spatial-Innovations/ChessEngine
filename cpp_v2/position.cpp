@@ -19,6 +19,7 @@
 #include <vector>
 #include <string>
 #include "funcs.hpp"
+#include "eval.hpp"
 #include "position.hpp"
 #include "move.hpp"
 using namespace std;
@@ -121,6 +122,33 @@ void Position::Branch(int targetDepth) {
         for (auto i = 0; i < _branches.size(); i++) {
             _branches[i].Branch(targetDepth);
         }
+    }
+}
+
+
+int Position::MinimaxEval() {
+    if (_branches.size() == 0) {
+        return Eval(_position);
+    }
+    
+    if (_turn) {
+        int maxEval, currEval;
+        maxEval = -1000000;
+
+        for (auto branch: _branches) {
+            currEval = branch.MinimaxEval();
+            if (currEval > maxEval) {maxEval = currEval;}
+        }
+        return maxEval;
+    } else {
+        int minEval, currEval;
+        minEval = 1000000;
+
+        for (auto branch: _branches) {
+            currEval = branch.MinimaxEval();
+            if (currEval < minEval) {minEval = currEval;}
+        }
+        return minEval;
     }
 }
 

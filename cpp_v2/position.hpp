@@ -41,6 +41,9 @@ class Position {
         vector<Move> GetLegalMoves(void);
 
         void Branch(int);
+        int MinimaxEval();
+        Move MinimaxMove();
+
         int NumPiecesAttacking(vector<int>);
 
         void SetDepth(int);
