@@ -37,6 +37,7 @@ class Position {
 
         int GetNumNodes(void);
         string GetFen(void);
+        Move GetLastMove(void);
         vector<Move> GetMoveStack(void);
         vector<Move> GetLegalMoves(void);
 

@@ -130,7 +130,7 @@ int Position::MinimaxEval() {
     if (_branches.size() == 0) {
         return Eval(_position);
     }
-    
+
     if (_turn) {
         int maxEval, currEval;
         maxEval = -1000000;
@@ -149,6 +149,41 @@ int Position::MinimaxEval() {
             if (currEval < minEval) {minEval = currEval;}
         }
         return minEval;
+    }
+}
+
+
+Move Position::MinimaxMove() {
+    if (_branches.size() == 0) {
+        return GetLastMove();
+    }
+
+    if (_turn) {
+        int maxEval, currEval;
+        Move bestMove;
+        maxEval = -1000000;
+
+        for (auto branch: _branches) {
+            currEval = branch.MinimaxEval();
+            if (currEval > maxEval) {
+                maxEval = currEval;
+                bestMove = branch.GetLastMove();
+            }
+        }
+        return bestMove;
+    } else {
+        int minEval, currEval;
+        Move bestMove;
+        minEval = 1000000;
+
+        for (auto branch: _branches) {
+            currEval = branch.MinimaxEval();
+            if (currEval > minEval) {
+                minEval = currEval;
+                bestMove = branch.GetLastMove();
+            }
+        }
+        return bestMove;
     }
 }
 
@@ -208,6 +243,11 @@ string Position::GetFen(void) {
     fen += " 0 1";
 
     return fen;
+}
+
+
+Move Position::GetLastMove(void) {
+    return _moveStack[_moveStack.size()-1];
 }
 
 
