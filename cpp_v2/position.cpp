@@ -88,8 +88,8 @@ void Position::Push(Move move) {
     square2 = move.GetSq2();
     promo = move.GetPromoPiece();
 
-    if (move.GetPromo()) {_position[square2[0]][square2[1]] = _PieceToInt(promo);}
-    else {_position[square2[0]][square2[1]] = _position[square1[0]][square2[1]];}
+    if (move.GetPromo()) _position[square2[0]][square2[1]] = _PieceToInt(promo);
+    else _position[square2[0]][square2[1]] = _position[square1[0]][square2[1]];
     _position[square1[0]][square2[1]] = 0;
     _turn = !_turn;
 }
@@ -137,7 +137,7 @@ int Position::MinimaxEval() {
 
         for (auto branch: _branches) {
             currEval = branch.MinimaxEval();
-            if (currEval > maxEval) {maxEval = currEval;}
+            if (currEval > maxEval) maxEval = currEval;
         }
         return maxEval;
     } else {
@@ -146,7 +146,7 @@ int Position::MinimaxEval() {
 
         for (auto branch: _branches) {
             currEval = branch.MinimaxEval();
-            if (currEval < minEval) {minEval = currEval;}
+            if (currEval < minEval) minEval = currEval;
         }
         return minEval;
     }
@@ -238,8 +238,8 @@ string Position::GetFen(void) {
     }
     fen += " ";
 
-    if (_epLegal) {fen += _CoordsToSquare(_epSquare);}
-    else {fen += "-";}
+    if (_epLegal) fen += _CoordsToSquare(_epSquare);
+    else fen += "-";
     fen += " 0 1";
 
     return fen;
@@ -265,8 +265,8 @@ vector<Move> Position::GetLegalMoves(void) {
             piece = _position[row][col];
 
             if (piece == 0) {continue;}
-            if (_turn && piece >= 7 && piece <= 12) {continue;}
-            if (!_turn && piece >= 1 && piece <= 6) {continue;}
+            if (_turn && piece >= 7 && piece <= 12) continue;
+            if (!_turn && piece >= 1 && piece <= 6) continue;
 
             currMoves.clear();
             switch (piece) {
@@ -325,16 +325,16 @@ void Position::SetFen(string fen) {
         }
     }
 
-    if (parts[1] == "w") {_turn = true;}
-    else {_turn = false;}
+    if (parts[1] == "w") _turn = true;
+    else _turn = false;
 
-    if (parts[2] == "-") {_castleRights = {false, false, false, false};}
+    if (parts[2] == "-") _castleRights = {false, false, false, false};
     else {
         for (auto i = 0; i < parts[2].size(); i++) {
-            if (parts[2].substr(i, 1) == "K") {_castleRights[0] = true;}
-            else if (parts[2].substr(i, 1) == "Q") {_castleRights[0] = true;}
-            else if (parts[2].substr(i, 1) == "k") {_castleRights[0] = true;}
-            else if (parts[2].substr(i, 1) == "q") {_castleRights[0] = true;}
+            if (parts[2].substr(i, 1) == "K") _castleRights[0] = true;
+            else if (parts[2].substr(i, 1) == "Q") _castleRights[1] = true;
+            else if (parts[2].substr(i, 1) == "k") _castleRights[2] = true;
+            else if (parts[2].substr(i, 1) == "q") _castleRights[3] = true;
         }
     }
 
@@ -351,19 +351,19 @@ void Position::SetFen(string fen) {
 int Position::_PieceToInt(string piece) {
     int num;
 
-    if (piece == " ") {num = 0;}
-    else if (piece == "P") {num = 1;}
-    else if (piece == "N") {num = 2;}
-    else if (piece == "B") {num = 3;}
-    else if (piece == "R") {num = 4;}
-    else if (piece == "Q") {num = 5;}
-    else if (piece == "K") {num = 6;}
-    else if (piece == "p") {num = 7;}
-    else if (piece == "n") {num = 8;}
-    else if (piece == "b") {num = 9;}
-    else if (piece == "r") {num = 10;}
-    else if (piece == "q") {num = 11;}
-    else if (piece == "k") {num = 12;}
+    if (piece == " ") num = 0;
+    else if (piece == "P") num = 1;
+    else if (piece == "N") num = 2;
+    else if (piece == "B") num = 3;
+    else if (piece == "R") num = 4;
+    else if (piece == "Q") num = 5;
+    else if (piece == "K") num = 6;
+    else if (piece == "p") num = 7;
+    else if (piece == "n") num = 8;
+    else if (piece == "b") num = 9;
+    else if (piece == "r") num = 10;
+    else if (piece == "q") num = 11;
+    else if (piece == "k") num = 12;
 
     return num;
 }
@@ -427,23 +427,23 @@ vector<int> Position::_SquareToCoords(string uci) {
     vector<int> coords;
     string char1 = uci.substr(0, 1), char2 = uci.substr(1, 1);
 
-    if (char2 == "1") {coords.push_back(7);}
-    else if (char2 == "2") {coords.push_back(6);}
-    else if (char2 == "3") {coords.push_back(5);}
-    else if (char2 == "4") {coords.push_back(4);}
-    else if (char2 == "5") {coords.push_back(3);}
-    else if (char2 == "6") {coords.push_back(2);}
-    else if (char2 == "7") {coords.push_back(1);}
-    else if (char2 == "8") {coords.push_back(0);}
+    if (char2 == "1") coords.push_back(7);
+    else if (char2 == "2") coords.push_back(6);
+    else if (char2 == "3") coords.push_back(5);
+    else if (char2 == "4") coords.push_back(4);
+    else if (char2 == "5") coords.push_back(3);
+    else if (char2 == "6") coords.push_back(2);
+    else if (char2 == "7") coords.push_back(1);
+    else if (char2 == "8") coords.push_back(0);
 
-    if (char1 == "a") {coords.push_back(0);}
-    else if (char1 == "b") {coords.push_back(1);}
-    else if (char1 == "c") {coords.push_back(2);}
-    else if (char1 == "d") {coords.push_back(3);}
-    else if (char1 == "e") {coords.push_back(4);}
-    else if (char1 == "f") {coords.push_back(5);}
-    else if (char1 == "g") {coords.push_back(6);}
-    else if (char1 == "h") {coords.push_back(7);}
+    if (char1 == "a") coords.push_back(0);
+    else if (char1 == "b") coords.push_back(1);
+    else if (char1 == "c") coords.push_back(2);
+    else if (char1 == "d") coords.push_back(3);
+    else if (char1 == "e") coords.push_back(4);
+    else if (char1 == "f") coords.push_back(5);
+    else if (char1 == "g") coords.push_back(6);
+    else if (char1 == "h") coords.push_back(7);
 
     return coords;
 }
@@ -476,13 +476,13 @@ vector<int> Position::_GetKingPos(bool color) {
     if (color) {
         for (auto row = 0; row < _position.size(); row++) {
             for (auto col = 0; col < _position[0].size(); col++) {
-                if (_position[row][col] == 6) {return {row, col};}
+                if (_position[row][col] == 6) return {row, col};
             }
         }
     } else {
         for (auto row = 0; row < _position.size(); row++) {
             for (auto col = 0; col < _position[0].size(); col++) {
-                if (_position[row][col] == 12) {return {row, col};}
+                if (_position[row][col] == 12) return {row, col};
             }
         }
     }
@@ -510,8 +510,8 @@ vector<Move> Position::_GetKingMoves(vector<int> coords, bool color) {
 
         if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
             piece = _position[row][col];
-            if (color && (piece == 0 || (piece >= 7 && piece <= 11))) {moves.push_back(Move(coords, square));}
-            else if (!color && (piece == 0 || (piece >= 1 && piece <= 6))) {moves.push_back(Move(coords, square));}
+            if (color && (piece == 0 || (piece >= 7 && piece <= 11))) moves.push_back(Move(coords, square));
+            else if (!color && (piece == 0 || (piece >= 1 && piece <= 6))) moves.push_back(Move(coords, square));
         }
     }
 
@@ -539,8 +539,8 @@ vector<Move> Position::_GetKnightMoves(vector<int> coords, bool color) {
 
         if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
             piece = _position[row][col];
-            if (color && (piece == 0 || (piece >= 7 && piece <= 11))) {moves.push_back(Move(coords, square));}
-            else if (!color && (piece == 0 || (piece >= 1 && piece <= 6))) {moves.push_back(Move(coords, square));}
+            if (color && (piece == 0 || (piece >= 7 && piece <= 11))) moves.push_back(Move(coords, square));
+            else if (!color && (piece == 0 || (piece >= 1 && piece <= 6))) moves.push_back(Move(coords, square));
         }
     }
 
@@ -560,12 +560,12 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
     if (color) {
         // Forward moves
         if (row == 6) {
-            if (_position[row-1][col] == 0) {moves.push_back(Move(coords, {row-1, col}));}
-            if (_position[row-2][col] == 0) {moves.push_back(Move(coords, {row-2, col}));}
+            if (_position[row-1][col] == 0) moves.push_back(Move(coords, {row-1, col}));
+            if (_position[row-2][col] == 0) moves.push_back(Move(coords, {row-2, col}));
         } else if (row <= 5 && row >= 2) {
-            if (_position[row-1][col] == 0) {moves.push_back(Move(coords, {row-1, col}));}
+            if (_position[row-1][col] == 0) moves.push_back(Move(coords, {row-1, col}));
         } else if (row == 1) {
-            for (auto promo: promoPieces) {moves.push_back(Move(coords, {row-1, col}, promo));}
+            for (auto promo: promoPieces) moves.push_back(Move(coords, {row-1, col}, promo));
         }
 
         // Captures
@@ -575,7 +575,7 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
             captureLPiece = _position[captureL[0]][captureL[1]];
             if (captureLPiece >= 7 && captureLPiece <= 12) {
                 if (row == 1) {
-                    for (auto promo: promoPieces) {moves.push_back(Move(coords, captureL, promo));}
+                    for (auto promo: promoPieces) moves.push_back(Move(coords, captureL, promo));
                 } else {
                     moves.push_back(Move(coords, captureL));
                 }
@@ -585,7 +585,7 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
             captureRPiece = _position[captureR[0]][captureR[1]];
             if (captureRPiece >= 7 && captureRPiece <= 12) {
                 if (row == 1) {
-                    for (auto promo: promoPieces) {moves.push_back(Move(coords, captureR, promo));}
+                    for (auto promo: promoPieces) moves.push_back(Move(coords, captureR, promo));
                 } else {
                     moves.push_back(Move(coords, captureR));
                 }
@@ -600,12 +600,12 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
     } else {
         // Forward moves
         if (row == 1) {
-            if (_position[row+1][col] == 0) {moves.push_back(Move(coords, {row+1, col}));}
-            if (_position[row+2][col] == 0) {moves.push_back(Move(coords, {row+2, col}));}
+            if (_position[row+1][col] == 0) moves.push_back(Move(coords, {row+1, col}));
+            if (_position[row+2][col] == 0) moves.push_back(Move(coords, {row+2, col}));
         } else if (row <= 5 && row >= 2) {
-            if (_position[row+1][col] == 0) {moves.push_back(Move(coords, {row+1, col}));}
+            if (_position[row+1][col] == 0) moves.push_back(Move(coords, {row+1, col}));
         } else if (row == 6) {
-            for (auto promo: promoPieces) {moves.push_back(Move(coords, {row+1, col}, promo));}
+            for (auto promo: promoPieces) moves.push_back(Move(coords, {row+1, col}, promo));
         }
 
         // Captures
@@ -615,7 +615,7 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
             captureLPiece = _position[captureL[0]][captureL[1]];
             if (captureLPiece >= 1 && captureLPiece <= 6) {
                 if (row == 6) {
-                    for (auto promo: promoPieces) {moves.push_back(Move(coords, captureL, promo));}
+                    for (auto promo: promoPieces) moves.push_back(Move(coords, captureL, promo));
                 } else {
                     moves.push_back(Move(coords, captureL));
                 }
@@ -625,7 +625,7 @@ vector<Move> Position::_GetPawnMoves(vector<int> coords, bool color) {
             captureRPiece = _position[captureR[0]][captureR[1]];
             if (captureRPiece >= 1 && captureRPiece <= 6) {
                 if (row == 6) {
-                    for (auto promo: promoPieces) {moves.push_back(Move(coords, captureR, promo));}
+                    for (auto promo: promoPieces) moves.push_back(Move(coords, captureR, promo));
                 } else {
                     moves.push_back(Move(coords, captureR));
                 }
@@ -816,14 +816,14 @@ vector<Move> Position::_GetBishopMoves(vector<int> coords, bool color) {
 
 vector<Move> Position::_GetQueenMoves(vector<int> coords, bool color) {
     vector<Move> moves;
-    for (auto move: _GetRookMoves(coords, color)) {moves.push_back(move);}
-    for (auto move: _GetBishopMoves(coords, color)) {moves.push_back(move);}
+    for (auto move: _GetRookMoves(coords, color)) moves.push_back(move);
+    for (auto move: _GetBishopMoves(coords, color)) moves.push_back(move);
     return moves;
 }
 
 
 bool Position::_IsPinHoriz(vector<int> kingPos, vector<int> pinLoc) {
     bool kingColor;
-    if (_position[kingPos[0]][kingPos[1]] == 6) {kingColor = true;}
-    else {kingColor = false;}
+    if (_position[kingPos[0]][kingPos[1]] == 6) kingColor = true;
+    else kingColor = false;
 }

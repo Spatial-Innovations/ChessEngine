@@ -38,7 +38,7 @@ string Replace(string str, string substr, string replaceStr) {
 
     while (true) {
         index = str.find(substr);
-        if (index == -1) {break;}
+        if (index == -1) break;
 
         final += str.substr(0, index);
         final += replaceStr;
@@ -53,8 +53,8 @@ string Strip(string str) {
     int begInd, endInd;
     begInd = str.find_first_not_of(" ");
     endInd = str.find_last_not_of(" ");
-    if (begInd == -1) {begInd = 0;}
-    if (endInd == -1) {endInd = str.size();}
+    if (begInd == -1) begInd = 0;
+    if (endInd == -1) endInd = str.size();
 
     return str.substr(begInd, endInd-begInd+1);
 }

@@ -48,7 +48,7 @@ string Move::GetUci(void) {
     string uci;
     uci += _CoordsToSquare(_square1);
     uci += _CoordsToSquare(_square2);
-    if (_promo) {uci += _promoPiece;}
+    if (_promo) uci += _promoPiece;
     return uci;
 }
 

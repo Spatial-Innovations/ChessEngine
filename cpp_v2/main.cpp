@@ -31,12 +31,12 @@ int main() {
         getline(cin, msg);
         msg = Strip(msg);
 
-        if (msg == "quit") {return 0;}
-        else if (msg == "isready") {cout << "readyok" << endl;}
-        else if (msg == "uci") {cout << "uciok" << endl;}
-        else if (msg == "d") {position.Print();}
+        if (msg == "quit") return 0;
+        else if (msg == "isready") cout << "readyok" << endl;
+        else if (msg == "uci") cout << "uciok" << endl;
+        else if (msg == "d") position.Print();
 
-        else if (msg == "ucinewgame") {position.Reset();}
+        else if (msg == "ucinewgame") position.Reset();
         else if (Startswith(msg, "position")) {
             msg = Strip(msg.substr(8, msg.size()));
 
